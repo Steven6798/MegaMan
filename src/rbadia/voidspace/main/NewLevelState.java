@@ -5,7 +5,7 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
 import rbadia.voidspace.graphics.NewGraphicsManager;
-import rbadia.voidspace.sounds.SoundManager;
+import rbadia.voidspace.sounds.NewSoundManager;
 
 public abstract class NewLevelState extends JPanel {
 
@@ -28,7 +28,7 @@ public abstract class NewLevelState extends JPanel {
 	private NewInputHandler newInputHandler;
 	private NewMainFrame newMainFrame;
 	private GameStatus status;
-	private SoundManager soundManager;
+	private NewSoundManager newSoundManager;
 	private int level;
 	private Graphics2D g2d;
 
@@ -38,7 +38,7 @@ public abstract class NewLevelState extends JPanel {
 	public NewInputHandler getNewInputHandler() { return newInputHandler; }
 	public NewMainFrame getNewMainFrame() { return newMainFrame; }
 	public GameStatus getGameStatus() { return status; }
-	public SoundManager getSoundManager() { return soundManager; }
+	public NewSoundManager getNewSoundManager() { return newSoundManager; }
 	public int getLevel() { return level; }
 	public Graphics2D getGraphics2D() { return g2d; }
 	public int getCurrentState() { return currentState; }
@@ -50,7 +50,7 @@ public abstract class NewLevelState extends JPanel {
 	protected void setNewInputHandler(NewInputHandler newInputHandler) { this.newInputHandler = newInputHandler; }
 	public void setNewMainFrame (NewMainFrame newMainFrame) { this.newMainFrame = newMainFrame; }
 	public void setGameStatus(GameStatus status) { this.status = status; }
-	public void setSoundManager(SoundManager soundManager) { this.soundManager = soundManager; }
+	public void setNewSoundManager(NewSoundManager newSoundManager) { this.newSoundManager = newSoundManager; }
 	public void setLevel(int level) { this.level = level; }
 	public void setGraphics2D(Graphics2D g2d) { this.g2d = g2d; }
 	public void setCurrentState(int nextState) { this.currentState = nextState; }

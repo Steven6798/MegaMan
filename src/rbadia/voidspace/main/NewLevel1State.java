@@ -25,7 +25,7 @@ import rbadia.voidspace.model.Bullet;
 import rbadia.voidspace.model.Floor;
 import rbadia.voidspace.model.MegaMan;
 import rbadia.voidspace.model.Platform;
-import rbadia.voidspace.sounds.SoundManager;
+import rbadia.voidspace.sounds.NewSoundManager;
 
 /**
  * Level very similar to LevelState2.  
@@ -65,7 +65,7 @@ public class NewLevel1State extends NewLevelState {
 	// Constructors
 	public NewLevel1State(int level, NewMainFrame frame, GameStatus status, 
 			NewLevelLogic newGameLogic, NewInputHandler newInputHandler,
-			NewGraphicsManager newGraphicsMan, SoundManager soundMan) {
+			NewGraphicsManager newGraphicsMan, NewSoundManager newSoundMan) {
 		super();
 		this.setSize(new Dimension(500, 400));
 		this.setPreferredSize(new Dimension(500, 400));
@@ -75,7 +75,7 @@ public class NewLevel1State extends NewLevelState {
 		this.setGameStatus(status);
 		this.setNewGameLogic(newGameLogic);
 		this.setNewInputHandler(newInputHandler);
-		this.setSoundManager(soundMan);
+		this.setNewSoundManager(newSoundMan);
 		this.setNewGraphicsManager(newGraphicsMan);
 		backBuffer = new BufferedImage(500, 400, BufferedImage.TYPE_INT_RGB);
 		this.setGraphics2D(backBuffer.createGraphics());
@@ -469,7 +469,7 @@ public class NewLevel1State extends NewLevelState {
 		this.getGameStatus().setNewAsteroid(true);
 		lastAsteroidTime = System.currentTimeMillis();
 		// play asteroid explosion sound
-		this.getSoundManager().playAsteroidExplosionSound();
+		this.getNewSoundManager().playAsteroidExplosionSound();
 	}
 
 	/**
@@ -479,7 +479,7 @@ public class NewLevel1State extends NewLevelState {
 		Bullet bullet = new Bullet(megaMan.x + megaMan.width - Bullet.WIDTH/2,
 				megaMan.y + megaMan.width/2 - Bullet.HEIGHT +2);
 		bullets.add(bullet);
-		this.getSoundManager().playBulletSound();
+		this.getNewSoundManager().playBulletSound();
 	}
 
 	/**
@@ -491,7 +491,7 @@ public class NewLevel1State extends NewLevelState {
 		int yPos = megaMan.y + megaMan.width/2 - BigBullet.HEIGHT + 4;
 		BigBullet  bigBullet = new BigBullet(xPos, yPos);
 		bigBullets.add(bigBullet);
-		this.getSoundManager().playBulletSound();
+		this.getNewSoundManager().playBulletSound();
 	}
 
 	/**

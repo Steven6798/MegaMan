@@ -14,7 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import rbadia.voidspace.graphics.NewGraphicsManager;
-import rbadia.voidspace.sounds.SoundManager;
+import rbadia.voidspace.sounds.NewSoundManager;
 
 /**
  * Main game class. Starts the game.
@@ -38,7 +38,7 @@ public class NewMegaManMain {
 		NewLevelLogic gameLogic = new NewLevelLogic();        		// Coordinates among various levels
 		NewInputHandler inputHandler = new NewInputHandler(); 		// Keyboard listener
 		NewGraphicsManager graphicsMan = new NewGraphicsManager(); // Draws all graphics for game objects
-		SoundManager soundMan = new SoundManager();			// Loads and plays all sounds during the game
+		NewSoundManager soundMan = new NewSoundManager();			// Loads and plays all sounds during the game
 
 		audioFile = new File("audio/menuScreen.wav");
 		try {

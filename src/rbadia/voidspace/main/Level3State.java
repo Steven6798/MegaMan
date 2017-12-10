@@ -4,7 +4,7 @@ import java.awt.Graphics2D;
 
 import rbadia.voidspace.graphics.NewGraphicsManager;
 import rbadia.voidspace.model.Platform;
-import rbadia.voidspace.sounds.SoundManager;
+import rbadia.voidspace.sounds.NewSoundManager;
 
 /**
  * Level very similar to LevelState1.  
@@ -18,7 +18,7 @@ public class Level3State extends NewLevel2State {
 	// Constructors
 	public Level3State(int level, NewMainFrame frame, GameStatus status, 
 			NewLevelLogic newGameLogic, NewInputHandler newInputHandler,
-			NewGraphicsManager newGraphicsMan, SoundManager soundMan) {
+			NewGraphicsManager newGraphicsMan, NewSoundManager soundMan) {
 		super(level, frame, status, newGameLogic, newInputHandler, newGraphicsMan, soundMan);
 	}
 
