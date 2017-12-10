@@ -13,8 +13,8 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import rbadia.voidspace.graphics.GraphicsManager;
-import rbadia.voidspace.sounds.SoundManager;
+import rbadia.voidspace.graphics.NewGraphicsManager;
+import rbadia.voidspace.sounds.NewSoundManager;
 
 /**
  * Main game class. Starts the game.
@@ -33,12 +33,11 @@ public class MegaManMain {
 	public static void main(String[] args) throws InterruptedException, IOException  {
 
 
-		MainFrame frame = new MainFrame();              		// Main Game Window
-		GameStatus gameStatus = new GameStatus();       		// Records overall status of game across all levels
-		LevelLogic gameLogic = new LevelLogic();        		// Coordinates among various levels
+		NewMainFrame frame = new NewMainFrame();              		// Main Game Window
+		NewLevelLogic gameLogic = new NewLevelLogic();        		// Coordinates among various levels
 		InputHandler inputHandler = new InputHandler(); 		// Keyboard listener
-		GraphicsManager graphicsMan = new GraphicsManager(); // Draws all graphics for game objects
-		SoundManager soundMan = new SoundManager();			// Loads and plays all sounds during the game
+		NewGraphicsManager graphicsMan = new NewGraphicsManager(); // Draws all graphics for game objects
+		NewSoundManager soundMan = new NewSoundManager();			// Loads and plays all sounds during the game
 
 		audioFile = new File("audio/menuScreen.wav");
 		try {
@@ -49,30 +48,31 @@ public class MegaManMain {
 		
 		frame.addKeyListener(inputHandler);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		gameStatus.setAsteroidsDestroyed(0);
-		gameStatus.setLivesLeft(3);
 
 		int playAgain = 2;
 		while(playAgain != 1) {
 
-			LevelState level1State = new Level1State(1, frame, gameStatus, gameLogic, inputHandler, graphicsMan, soundMan);
-			LevelState level2State = new Level2State(2, frame, gameStatus, gameLogic, inputHandler, graphicsMan, soundMan);
-			LevelState levels[] = { level1State, level2State };
+			GameStatus gameStatus = new GameStatus();
+			gameStatus.setLivesLeft(3);
+			NewLevelState level1State = new NewLevel1State(1, frame, gameStatus, gameLogic, inputHandler, graphicsMan, soundMan);
+			NewLevelState level2State = new NewLevel2State(2, frame, gameStatus, gameLogic, inputHandler, graphicsMan, soundMan);
+			NewLevelState level3State = new Level3State(3, frame, gameStatus, gameLogic, inputHandler, graphicsMan, soundMan);
+			NewLevelState levels[] = { level1State, level2State, level3State };
 
 			String outcome = "CONGRATS!! YOU WON!!";
-			for (LevelState nextLevel : levels) {
+			for (NewLevelState nextLevel : levels) {
 
 				System.out.println("Next Level Started");
-				frame.setLevelState(nextLevel);
-				gameLogic.setLevelState(nextLevel);
-				inputHandler.setLevelState(nextLevel);
+				frame.setNewLevelState(nextLevel);
+				gameLogic.setNewLevelState(nextLevel);
+				inputHandler.setNewLevelState(nextLevel);
 				gameStatus.setLevel(nextLevel.getLevel());
 				
 				frame.setVisible(true);  // TODO verify whether this is necessary
 				startInitialMusic();
 
 				// init main game loop
-				Thread nextLevelLoop = new Thread(new LevelLoop(nextLevel));
+				Thread nextLevelLoop = new Thread(new NewLevelLoop(nextLevel));
 				nextLevelLoop.start();
 				nextLevelLoop.join();
 

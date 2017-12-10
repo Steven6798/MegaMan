@@ -17,9 +17,9 @@ public class Level3State extends NewLevel2State {
 
 	// Constructors
 	public Level3State(int level, NewMainFrame frame, GameStatus status, 
-			NewLevelLogic newGameLogic, NewInputHandler newInputHandler,
+			NewLevelLogic newGameLogic, InputHandler inputHandler,
 			NewGraphicsManager newGraphicsMan, NewSoundManager soundMan) {
-		super(level, frame, status, newGameLogic, newInputHandler, newGraphicsMan, soundMan);
+		super(level, frame, status, newGameLogic, inputHandler, newGraphicsMan, soundMan);
 	}
 
 	@Override
@@ -53,16 +53,55 @@ public class Level3State extends NewLevel2State {
 	@Override
 	public Platform[] newPlatforms(int n){
 		platforms = new Platform[n];
-		for(int i=0; i<n; i++){
-			this.platforms[i] = new Platform(0,0);
-			if(i<4)	platforms[i].setLocation(50+ i*50, getHeight()/2 + 140 - i*40);
-			if(i==4) platforms[i].setLocation(50 +i*50, getHeight()/2 + 140 - 3*40);
-			if(i>4){	
-				int k=4;
-				platforms[i].setLocation(50 + i*50, getHeight()/2 + 20 + (i-k)*40 );
-				k=k+2;
+		for(int i = 0; i < n; i++){
+			if(i % 2 == 0) {
+				this.platforms[i] = new Platform(0 , getHeight() / 2 + 140 - i * 40);
+			}
+			else {
+				this.platforms[i] = new Platform(getWidth() - 44, getHeight() / 2 + 140 - i * 40);
 			}
 		}
 		return platforms;
+	}
+	
+	/**
+	 * Move the platform to the right.
+	 * @param platform the platform to move
+	 */
+	public void movePlatformRight(Platform platform) {
+		if(platform.getMaxX() + 2 < getWidth()) {
+			platform.translate(2, 0);
+		}
+		else {
+			platform.translate(-getWidth() + 44, 0);
+		}
+	}
+	
+	/**
+	 * Move the platform to the left.
+	 * @param platform the platform to move
+	 */
+	public void movePlatformLeft(Platform platform) {
+		if(platform.getX() -2 > 0) {
+			platform.translate(-2, 0);
+		}
+		else {
+			platform.translate(getWidth() - 44, 0);
+		}
+	}
+	
+	@Override
+	protected void drawPlatforms() {
+		//draw platforms
+		Graphics2D g2d = getGraphics2D();
+		for(int i = 0; i < getNumPlatforms(); i++) {
+			getNewGraphicsManager().drawPlatform(platforms[i], g2d, this, i);
+			if(i % 2 == 0) {
+				movePlatformRight(platforms[i]);
+			}
+			else {
+				movePlatformLeft(platforms[i]);
+			}
+		}
 	}
 }

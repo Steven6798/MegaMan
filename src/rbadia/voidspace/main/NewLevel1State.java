@@ -28,9 +28,7 @@ import rbadia.voidspace.model.Platform;
 import rbadia.voidspace.sounds.NewSoundManager;
 
 /**
- * Level very similar to LevelState2.  
- * Platforms arranged in triangular form. 
- * Asteroids travel at 225 degree angle
+ * Main game screen. Handles all game graphics updates and some of the game logic.
  */
 public class NewLevel1State extends NewLevelState {
 
@@ -64,7 +62,7 @@ public class NewLevel1State extends NewLevelState {
 
 	// Constructors
 	public NewLevel1State(int level, NewMainFrame frame, GameStatus status, 
-			NewLevelLogic newGameLogic, NewInputHandler newInputHandler,
+			NewLevelLogic newGameLogic, InputHandler inputHandler,
 			NewGraphicsManager newGraphicsMan, NewSoundManager newSoundMan) {
 		super();
 		this.setSize(new Dimension(500, 400));
@@ -74,7 +72,7 @@ public class NewLevel1State extends NewLevelState {
 		this.setNewMainFrame(frame);
 		this.setGameStatus(status);
 		this.setNewGameLogic(newGameLogic);
-		this.setNewInputHandler(newInputHandler);
+		this.setInputHandler(inputHandler);
 		this.setNewSoundManager(newSoundMan);
 		this.setNewGraphicsManager(newGraphicsMan);
 		backBuffer = new BufferedImage(500, 400, BufferedImage.TYPE_INT_RGB);
@@ -146,13 +144,13 @@ public class NewLevel1State extends NewLevelState {
 		repaint();
 		NewLevelLogic.delay(2000);
 		//Changes music from "menu music" to "ingame music"
-		NewMegaManMain.audioClip.close();
-		NewMegaManMain.audioFile = new File("audio/mainGame.wav");
+		MegaManMain.audioClip.close();
+		MegaManMain.audioFile = new File("audio/mainGame.wav");
 		try {
-			NewMegaManMain.audioStream = AudioSystem.getAudioInputStream(NewMegaManMain.audioFile);
-			NewMegaManMain.audioClip.open(NewMegaManMain.audioStream);
-			NewMegaManMain.audioClip.start();
-			NewMegaManMain.audioClip.loop(Clip.LOOP_CONTINUOUSLY);
+			MegaManMain.audioStream = AudioSystem.getAudioInputStream(MegaManMain.audioFile);
+			MegaManMain.audioClip.open(MegaManMain.audioStream);
+			MegaManMain.audioClip.start();
+			MegaManMain.audioClip.loop(Clip.LOOP_CONTINUOUSLY);
 		} catch (UnsupportedAudioFileException e1) {
 			e1.printStackTrace();
 		} catch (IOException e1) {
@@ -304,8 +302,7 @@ public class NewLevel1State extends NewLevelState {
 		for(int i=0; i<bullets.size(); i++){
 			Bullet bullet = bullets.get(i);
 			getNewGraphicsManager().drawBullet(bullet, g2d, this);
-
-			boolean remove =   this.moveBullet(bullet);
+			boolean remove = this.moveBullet(bullet);
 			if(remove){
 				bullets.remove(i);
 				i--;

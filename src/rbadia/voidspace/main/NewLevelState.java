@@ -25,7 +25,7 @@ public abstract class NewLevelState extends JPanel {
 
 	private NewGraphicsManager newGraphicsManager;
 	private NewLevelLogic newGameLogic;
-	private NewInputHandler newInputHandler;
+	private InputHandler inputHandler;
 	private NewMainFrame newMainFrame;
 	private GameStatus status;
 	private NewSoundManager newSoundManager;
@@ -35,7 +35,7 @@ public abstract class NewLevelState extends JPanel {
 	// Getters
 	public NewGraphicsManager getNewGraphicsManager() { return newGraphicsManager; }
 	public NewLevelLogic getGameLogic() { return newGameLogic; }
-	public NewInputHandler getNewInputHandler() { return newInputHandler; }
+	public InputHandler getInputHandler() { return inputHandler; }
 	public NewMainFrame getNewMainFrame() { return newMainFrame; }
 	public GameStatus getGameStatus() { return status; }
 	public NewSoundManager getNewSoundManager() { return newSoundManager; }
@@ -47,7 +47,7 @@ public abstract class NewLevelState extends JPanel {
 	// Setters
 	protected void setNewGraphicsManager(NewGraphicsManager newGraphicsManager) { this.newGraphicsManager = newGraphicsManager; }
 	protected void setNewGameLogic(NewLevelLogic newGameLogic) { this.newGameLogic = newGameLogic; }
-	protected void setNewInputHandler(NewInputHandler newInputHandler) { this.newInputHandler = newInputHandler; }
+	protected void setInputHandler(InputHandler inputHandler) { this.inputHandler = inputHandler; }
 	public void setNewMainFrame (NewMainFrame newMainFrame) { this.newMainFrame = newMainFrame; }
 	public void setGameStatus(GameStatus status) { this.status = status; }
 	public void setNewSoundManager(NewSoundManager newSoundManager) { this.newSoundManager = newSoundManager; }

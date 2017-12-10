@@ -17,9 +17,9 @@ public class NewLevel2State extends NewLevel1State {
 
 	// Constructors
 	public NewLevel2State(int level, NewMainFrame frame, GameStatus status, 
-			NewLevelLogic newGameLogic, NewInputHandler newInputHandler,
+			NewLevelLogic newGameLogic, InputHandler inputHandler,
 			NewGraphicsManager newGraphicsMan, NewSoundManager soundMan) {
-		super(level, frame, status, newGameLogic, newInputHandler, newGraphicsMan, soundMan);
+		super(level, frame, status, newGameLogic, inputHandler, newGraphicsMan, soundMan);
 	}
 
 	@Override

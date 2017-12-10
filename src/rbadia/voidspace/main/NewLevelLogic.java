@@ -257,7 +257,7 @@ public class NewLevelLogic extends LevelLogic {
 		g2d.drawString(readyStr, strX, strY);
 	}
 
-	public void stateTransition(NewInputHandler ih, NewLevelState newLevelState){
+	public void stateTransition(InputHandler ih, NewLevelState newLevelState){
 		GameStatus status = getNewLevelState().getGameStatus();
 		switch (newLevelState.getCurrentState()) {
 		case NewLevelState.START_STATE:
@@ -305,7 +305,7 @@ public class NewLevelLogic extends LevelLogic {
 	}
 
 
-	public void handleKeysDuringInitialScreen(NewInputHandler ih, NewLevelState newLevelState) {
+	public void handleKeysDuringInitialScreen(InputHandler ih, NewLevelState newLevelState) {
 		if(ih.isSpacePressed()) {
 			ih.reset();
 			newLevelState.setCurrentState(NewLevelState.GETTING_READY);	
@@ -332,7 +332,7 @@ public class NewLevelLogic extends LevelLogic {
 		}
 	}
 
-	public void handleKeysDuringPlay(NewInputHandler ih, NewLevelState newLevelState) {
+	public void handleKeysDuringPlay(InputHandler ih, NewLevelState newLevelState) {
 
 		GameStatus status = getNewLevelState().getGameStatus();
 

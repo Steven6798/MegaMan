@@ -6,7 +6,7 @@ package rbadia.voidspace.main;
 public class NewLevelLoop implements Runnable {
 	private NewLevelState newLlevelState;
 	private NewLevelLogic newGameLogic;
-	private NewInputHandler newInputHandler;
+	private InputHandler inputHandler;
 
 	/**
 	 * Creates a new game loop.
@@ -17,7 +17,7 @@ public class NewLevelLoop implements Runnable {
 	public NewLevelLoop(NewLevelState levelState){
 		this.newLlevelState = levelState;
 		this.newGameLogic = levelState.getGameLogic();
-		this.newInputHandler = levelState.getNewInputHandler();
+		this.inputHandler = levelState.getInputHandler();
 	}
 
 	/**
@@ -31,12 +31,12 @@ public class NewLevelLoop implements Runnable {
 			
 			// update the game graphics and repaint screen
 
-			newGameLogic.stateTransition(newInputHandler, newLlevelState);
+			newGameLogic.stateTransition(inputHandler, newLlevelState);
 			newLlevelState.repaint();
 			
 			NewLevelLogic.delay(1000/60);
 			
-			if(newInputHandler.isNPressed()) {
+			if(inputHandler.isNPressed()) {
 				break;
 			}
 			
@@ -49,7 +49,7 @@ public class NewLevelLoop implements Runnable {
 //				e.printStackTrace();
 //			}
 		}
-		if (newInputHandler.isNPressed()) {
+		if (inputHandler.isNPressed()) {
 			newLlevelState.doLevelWon();
 		}
 		else {
