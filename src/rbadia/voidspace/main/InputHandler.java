@@ -7,17 +7,17 @@ import java.awt.event.KeyListener;
  * Handles user input events.
  */
 public class InputHandler implements KeyListener{
-	private boolean leftIsPressed;
-	private boolean rightIsPressed;
-	private boolean downIsPressed;
-	private boolean upIsPressed;
-	private boolean spaceIsPressed = false;
-	private boolean shiftIsPressed;
-	private boolean eIsPressed;
-	private boolean qIsPressed;
-	private boolean mIsPressed;
-	private boolean sIsPressed;
-	private boolean iIsPressed;
+	protected boolean leftIsPressed;
+	protected boolean rightIsPressed;
+	protected boolean downIsPressed;
+	protected boolean upIsPressed;
+	protected boolean spaceIsPressed = false;
+	protected boolean shiftIsPressed;
+	protected boolean eIsPressed;
+	protected boolean qIsPressed;
+	protected boolean mIsPressed;
+	protected boolean sIsPressed;
+	protected boolean iIsPressed;
 
 	private LevelState levelState;
 	//private GameScreen gScreen;

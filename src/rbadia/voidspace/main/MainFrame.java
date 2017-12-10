@@ -16,18 +16,18 @@ import javax.swing.JPanel;
 public class MainFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 
-	private JPanel jContentPane = null;
+	protected JPanel jContentPane = null;
 
 	private LevelState levelState = null;
 	
-	private JLabel destroyedLabel;
-	private JLabel destroyedValueLabel;
+	protected JLabel destroyedLabel;
+	protected JLabel destroyedValueLabel;
 	
-	private JLabel levelLabel;
-	private JLabel levelValueLabel;
+	protected JLabel levelLabel;
+	protected JLabel levelValueLabel;
 
-	private JLabel livesLabel;
-	private JLabel livesValueLabel;
+	protected JLabel livesLabel;
+	protected JLabel livesValueLabel;
 	
 	public MainFrame() {
 		super();
@@ -84,7 +84,7 @@ public class MainFrame extends JFrame {
 		this.setContentPane(getJContentPane());
 	}
 
-	private void initialize() {
+	protected void initialize() {
 		this.setSize(530, 480);
 		this.setTitle("Mega Man");
 		Dimension dim = this.getToolkit().getScreenSize();
@@ -99,7 +99,7 @@ public class MainFrame extends JFrame {
 	 * 
 	 * @return javax.swing.JPanel
 	 */
-	private JPanel getJContentPane() {
+	protected JPanel getJContentPane() {
 		if (jContentPane == null) {
 			GridBagConstraints gridBagConstraints6 = new GridBagConstraints();
 			gridBagConstraints6.insets = new Insets(0, 0, 0, 0);
