@@ -288,7 +288,6 @@ public class NewLevel1State extends NewLevelState {
 		for(int i=0; i<bigBullets.size(); i++){
 			BigBullet bigBullet = bigBullets.get(i);
 			getNewGraphicsManager().drawBigBullet(bigBullet, g2d, this);
-
 			boolean remove = this.moveBigBullet(bigBullet);
 			if(remove){
 				bigBullets.remove(i);
@@ -299,7 +298,7 @@ public class NewLevel1State extends NewLevelState {
 
 	protected void drawBullets() {
 		Graphics2D g2d = getGraphics2D();
-		for(int i=0; i<bullets.size(); i++){
+		for(int i = 0; i < bullets.size(); i++){
 			Bullet bullet = bullets.get(i);
 			getNewGraphicsManager().drawBullet(bullet, g2d, this);
 			boolean remove = this.moveBullet(bullet);
@@ -338,17 +337,17 @@ public class NewLevel1State extends NewLevelState {
 		//draw one of three possible MegaMan poses according to situation
 		Graphics2D g2d = getGraphics2D();
 		GameStatus status = getGameStatus();
-		if(!status.isNewMegaMan()){
-			if((Gravity() == true) || ((Gravity() == true) && (Fire() == true || Fire2() == true))){
+		if(!status.isNewMegaMan()) {
+			if((Gravity() == true) || ((Gravity() == true) && (Fire() == true || Fire2() == true))) {
 				getNewGraphicsManager().drawMegaFallR(megaMan, g2d, this);
 			}
 		}
 
-		if((Fire() == true || Fire2()== true) && (Gravity()==false)){
+		if((Fire() == true || Fire2() == true) && (Gravity() == false)) {
 			getNewGraphicsManager().drawMegaFireR(megaMan, g2d, this);
 		}
 
-		if((Gravity()==false) && (Fire()==false) && (Fire2()==false)){
+		if((Gravity() == false) && (Fire() == false) && (Fire2() == false)) {
 			getNewGraphicsManager().drawMegaMan(megaMan, g2d, this);
 		}
 	}
@@ -412,13 +411,13 @@ public class NewLevel1State extends NewLevelState {
 	}
 
 	//Bullet fire pose
-	protected boolean Fire(){
+	protected boolean Fire() {
 		MegaMan megaMan = this.getMegaMan();
 		List<Bullet> bullets = this.getBullets();
-		for(int i=0; i<bullets.size(); i++){
+		for(int i = 0; i < bullets.size(); i++){
 			Bullet bullet = bullets.get(i);
 			if((bullet.getX() > megaMan.getX() + megaMan.getWidth()) && 
-					(bullet.getX() <= megaMan.getX() + megaMan.getWidth() + 60)){
+			   (bullet.getX() <= megaMan.getX() + megaMan.getWidth() + 60)) {
 				return true;
 			}
 		}
@@ -426,13 +425,13 @@ public class NewLevel1State extends NewLevelState {
 	}
 
 	//BigBullet fire pose
-	protected boolean Fire2(){
+	protected boolean Fire2() {
 		MegaMan megaMan = this.getMegaMan();
 		List<BigBullet> bigBullets = this.getBigBullets();
-		for(int i=0; i<bigBullets.size(); i++){
+		for(int i = 0; i < bigBullets.size(); i++){
 			BigBullet bigBullet = bigBullets.get(i);
 			if((bigBullet.getX() > megaMan.getX() + megaMan.getWidth()) && 
-					(bigBullet.getX() <= megaMan.getX() + megaMan.getWidth() + 60)){
+			   (bigBullet.getX() <= megaMan.getX() + megaMan.getWidth() + 60)) {
 				return true;
 			}
 		}
@@ -472,9 +471,10 @@ public class NewLevel1State extends NewLevelState {
 	/**
 	 * Fire a bullet from life.
 	 */
-	public void fireBullet(){
-		Bullet bullet = new Bullet(megaMan.x + megaMan.width - Bullet.WIDTH/2,
-				megaMan.y + megaMan.width/2 - Bullet.HEIGHT +2);
+	public void fireBullet() {
+		Bullet bullet;
+		bullet = new Bullet(megaMan.x + megaMan.width - Bullet.WIDTH/2,
+							megaMan.y + megaMan.width/2 - Bullet.HEIGHT +2);
 		bullets.add(bullet);
 		this.getNewSoundManager().playBulletSound();
 	}
@@ -496,14 +496,12 @@ public class NewLevel1State extends NewLevelState {
 	 * @param bullet the bullet to move
 	 * @return if the bullet should be removed from screen
 	 */
-	public boolean moveBullet(Bullet bullet){
-		if(bullet.getY() - bullet.getSpeed() >= 0){
+	public boolean moveBullet(Bullet bullet) {
+		if(bullet.getX() + bullet.getPixelsWide() + bullet.getSpeed() < getWidth()) {
 			bullet.translate(bullet.getSpeed(), 0);
 			return false;
 		}
-		else{
-			return true;
-		}
+		return true;
 	}
 
 	/** Move a "Power Shot" bullet once fired.
@@ -511,13 +509,11 @@ public class NewLevel1State extends NewLevelState {
 	 * @return if the bullet should be removed from screen
 	 */
 	public boolean moveBigBullet(BigBullet bigBullet){
-		if(bigBullet.getY() - bigBullet.getSpeed() >= 0){
+		if(bigBullet.getX() + bigBullet.getPixelsWide() + bigBullet.getSpeed() < getWidth()) {
 			bigBullet.translate(bigBullet.getSpeed(), 0);
 			return false;
 		}
-		else{
-			return true;
-		}
+		return true;
 	}
 
 	/**
@@ -599,7 +595,7 @@ public class NewLevel1State extends NewLevelState {
 	}
 
 	public void speedUpMegaMan() {
-		megaMan.setSpeed(megaMan.getDefaultSpeed() * 2 +1);
+		megaMan.setSpeed(megaMan.getDefaultSpeed() * 2 + 1);
 	}
 
 	public void slowDownMegaMan() {

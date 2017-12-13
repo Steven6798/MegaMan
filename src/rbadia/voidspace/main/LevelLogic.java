@@ -412,9 +412,9 @@ public class LevelLogic {
 			}
 		}
 
-		if(ih.isShiftPressed()){
-			getLevelState().speedUpMegaMan();
-		}
+//		if(ih.isShiftPressed()){
+//			getLevelState().speedUpMegaMan();
+//		}
 
 		if(ih.isUpPressed()){
 			long currentTime = System.currentTimeMillis();

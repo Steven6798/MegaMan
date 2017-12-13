@@ -339,7 +339,7 @@ public class NewLevelLogic extends LevelLogic {
 		// fire bullet if space is pressed
 		if(ih.isSpacePressed()){
 			// fire only up to 5 bullets per second
-			stack=0;
+			stack = 0;
 			long currentTime = System.currentTimeMillis();
 			if((currentTime - lastBulletTime) > 1000/5){
 				lastBulletTime = currentTime;
@@ -348,7 +348,7 @@ public class NewLevelLogic extends LevelLogic {
 		}
 
 		if(ih.isEPressed()){
-			if(status.getAsteroidsDestroyed()>= 1500){
+			if(status.getAsteroidsDestroyed() >= 1500){
 				long currentTime = System.currentTimeMillis();
 				if((currentTime - lastExchangeTime > 1000)){
 					lastExchangeTime = currentTime;
@@ -359,11 +359,11 @@ public class NewLevelLogic extends LevelLogic {
 		}
 
 		if(ih.isQPressed()){
-			if(stack==0 && status.getAsteroidsDestroyed()>= 0){
+			if(stack == 0 && status.getAsteroidsDestroyed() >= 1000){
 				stack++;
-				status.setAsteroidsDestroyed(status.getAsteroidsDestroyed()-0);
+				status.setAsteroidsDestroyed(status.getAsteroidsDestroyed() - 1000);
 			}
-			else if(stack>= 1){
+			else if(stack >= 1){
 				long currentTime = System.currentTimeMillis();
 				if((currentTime - lastBigBulletTime) > 1000){
 					lastBigBulletTime = currentTime;
@@ -373,7 +373,15 @@ public class NewLevelLogic extends LevelLogic {
 			}
 		}
 
-		if(ih.isShiftPressed()){
+//		if(ih.isShiftPressed()){
+//			getNewLevelState().speedUpMegaMan();
+//		}
+		
+		if(ih.isZPressed()){
+			getNewLevelState().slowDownMegaMan();
+		}
+		
+		if(ih.isXPressed()){
 			getNewLevelState().speedUpMegaMan();
 		}
 
@@ -381,7 +389,7 @@ public class NewLevelLogic extends LevelLogic {
 			long currentTime = System.currentTimeMillis();
 			if((currentTime - lastBigBulletTime) > 570){
 				lastBigBulletTime = currentTime;
-				for(int i=0; i<6; i++){
+				for(int i = 0; i < 6; i++){
 					getNewLevelState().moveMegaManUp();
 				}
 			}

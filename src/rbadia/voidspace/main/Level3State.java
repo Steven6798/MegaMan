@@ -1,17 +1,25 @@
 package rbadia.voidspace.main;
 
 import java.awt.Graphics2D;
+import java.util.ArrayList;
+import java.util.List;
 
 import rbadia.voidspace.graphics.NewGraphicsManager;
+import rbadia.voidspace.model.BigBullet;
+import rbadia.voidspace.model.Bullet;
+import rbadia.voidspace.model.MegaMan;
 import rbadia.voidspace.model.Platform;
 import rbadia.voidspace.sounds.NewSoundManager;
 
 /**
- * Level very similar to LevelState1.  
- * Platforms arranged in triangular form. 
+ * Level very similar to LevelState 1.  
+ * Platforms arranged in both sides and they move. 
  * Asteroids travel at 225 degree angle
  */
 public class Level3State extends NewLevel2State {
+	
+	protected List<Bullet> bulletsLeft;
+	protected List<BigBullet> bigBulletsLeft;
 
 	private static final long serialVersionUID = -2094575762243216079L;
 
@@ -21,19 +29,31 @@ public class Level3State extends NewLevel2State {
 			NewGraphicsManager newGraphicsMan, NewSoundManager soundMan) {
 		super(level, frame, status, newGameLogic, inputHandler, newGraphicsMan, soundMan);
 	}
-
+	
+	public List<Bullet> getBulletsLeft() 		{ return bulletsLeft; }
+	public List<BigBullet> getBigBulletsLeft() 	{ return bigBulletsLeft; }
+	
 	@Override
 	public void doStart() {	
 		super.doStart();
 		setStartState(GETTING_READY);
 		setCurrentState(getStartState());
+		
+		bulletsLeft = new ArrayList<Bullet>();
+		bigBulletsLeft = new ArrayList<BigBullet>();
+	}
+	
+	@Override
+	public void updateScreen() {
+		super.updateScreen();
+		drawBulletsL();
 	}
 
 	@Override
 	protected void drawAsteroid() {
 		Graphics2D g2d = getGraphics2D();
 		if((asteroid.getX() + asteroid.getPixelsWide() >  0)) {
-			asteroid.translate(-asteroid.getSpeed(), asteroid.getSpeed()/2);
+			asteroid.translate(-asteroid.getSpeed(), 0);
 			getNewGraphicsManager().drawAsteroid(asteroid, g2d, this);	
 		}
 		else {
@@ -48,6 +68,41 @@ public class Level3State extends NewLevel2State {
 				getNewGraphicsManager().drawAsteroidExplosion(asteroidExplosion, g2d, this);
 			}
 		}	
+	}
+	
+	@Override
+	protected void drawMegaMan() {
+		//draw one of six possible MegaMan poses according to situation
+		Graphics2D g2d = getGraphics2D();
+		GameStatus status = getGameStatus();
+		if(!status.isNewMegaMan()) {
+			if((Gravity() == true) || ((Gravity() == true) && (Fire() == true || Fire2() == true))) {
+				if(getInputHandler().isLeftPressed()) {
+					getNewGraphicsManager().drawMegaFallL(megaMan, g2d, this);
+				}
+				else {
+					getNewGraphicsManager().drawMegaFallR(megaMan, g2d, this);
+				}
+			}
+		}
+
+		if((Fire() == true || Fire2() == true) && (Gravity() == false)) {
+			if(getInputHandler().isLeftPressed()) {
+				getNewGraphicsManager().drawMegaFireL(megaMan, g2d, this);
+			}
+			else {
+				getNewGraphicsManager().drawMegaFireR(megaMan, g2d, this);
+			}
+		}
+
+		if((Gravity() == false) && (Fire() == false) && (Fire2() == false)) {
+			if(getInputHandler().isLeftPressed()) {
+				getNewGraphicsManager().drawMegaManL(megaMan, g2d, this);
+			}
+			else {
+				getNewGraphicsManager().drawMegaMan(megaMan, g2d, this);
+			}
+		}
 	}
 
 	@Override
@@ -103,5 +158,84 @@ public class Level3State extends NewLevel2State {
 				movePlatformLeft(platforms[i]);
 			}
 		}
+	}
+	
+	@Override
+	protected boolean Fire() {
+		if(getInputHandler().isLeftPressed()) {
+			MegaMan megaMan = this.getMegaMan();
+			List<Bullet> bullets = this.getBulletsLeft();
+			for(int i = 0; i < bullets.size(); i++){
+				Bullet bullet = bullets.get(i);
+				if((bullet.getX() < megaMan.getX()) && (bullet.getX() >= megaMan.getX() - 60)) {
+					return true;
+				}
+			}
+		}
+		if(super.Fire() == true) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	protected boolean Fire2() {
+		if(getInputHandler().isLeftPressed()) {
+			MegaMan megaMan = this.getMegaMan();
+			List<BigBullet> bigBullets = this.getBigBulletsLeft();
+			for(int i = 0; i < bigBullets.size(); i++){
+				BigBullet bigBullet = bigBullets.get(i);
+				if((bigBullet.getX() < megaMan.getX()) && (bigBullet.getX() >= megaMan.getX() - 60)) {
+					return true;
+				}
+			}
+		}
+		if(super.Fire2() == true) {
+			return true;
+		}
+		return false;
+	}
+	
+	protected void drawBulletsL() {
+		Graphics2D g2d = getGraphics2D();
+		for(int i = 0; i < bulletsLeft.size(); i++) {
+			Bullet bulletLeft = bulletsLeft.get(i);
+			getNewGraphicsManager().drawBullet(bulletLeft, g2d, this);
+			boolean remove = this.moveBulletLeft(bulletLeft);
+			if(remove){
+				bulletsLeft.remove(i);
+				i--;
+			}
+		}
+	}
+	
+	@Override
+	public void fireBullet() {
+		if(getInputHandler().isLeftPressed()) {
+			Bullet bullet;
+			bullet = new Bullet(megaMan.x - Bullet.WIDTH/2,
+								megaMan.y + megaMan.width/2 - Bullet.HEIGHT + 2);
+			bulletsLeft.add(bullet);
+			this.getNewSoundManager().playBulletSound();
+		}
+		else {
+			super.fireBullet();
+		}
+	}
+	
+	public boolean moveBulletLeft(Bullet bullet) {
+		if(bullet.getX() - bullet.getSpeed() > 0) {
+			bullet.translate(-bullet.getSpeed(), 0);
+			return false;
+		}
+		return true;
+	}
+	
+	public boolean moveBigBulletLeft(BigBullet bigBullet){
+		if(bigBullet.getX() - bigBullet.getSpeed() > 0) {
+			bigBullet.translate(-bigBullet.getSpeed(), 0);
+			return false;
+		}
+		return true;
 	}
 }
