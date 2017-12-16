@@ -46,7 +46,8 @@ public class Level3State extends NewLevel2State {
 	@Override
 	public void updateScreen() {
 		super.updateScreen();
-		drawBulletsL();
+		drawBulletsLeft();
+		drawBigBulletsLeft();
 	}
 
 	@Override
@@ -196,12 +197,25 @@ public class Level3State extends NewLevel2State {
 		return false;
 	}
 	
-	protected void drawBulletsL() {
+	protected void drawBulletsLeft() {
 		Graphics2D g2d = getGraphics2D();
 		for(int i = 0; i < bulletsLeft.size(); i++) {
 			Bullet bulletLeft = bulletsLeft.get(i);
 			getNewGraphicsManager().drawBullet(bulletLeft, g2d, this);
 			boolean remove = this.moveBulletLeft(bulletLeft);
+			if(remove){
+				bulletsLeft.remove(i);
+				i--;
+			}
+		}
+	}
+	
+	protected void drawBigBulletsLeft() {
+		Graphics2D g2d = getGraphics2D();
+		for(int i = 0; i < bigBulletsLeft.size(); i++) {
+			BigBullet bigBulletLeft = bigBulletsLeft.get(i);
+			getNewGraphicsManager().drawBigBullet(bigBulletLeft, g2d, this);
+			boolean remove = this.moveBigBulletLeft(bigBulletLeft);
 			if(remove){
 				bulletsLeft.remove(i);
 				i--;
@@ -220,6 +234,20 @@ public class Level3State extends NewLevel2State {
 		}
 		else {
 			super.fireBullet();
+		}
+	}
+	
+	@Override
+	public void fireBigBullet() {
+		if(getInputHandler().isLeftPressed()) {
+			BigBullet bigBullet;
+			bigBullet = new BigBullet(megaMan.x - Bullet.WIDTH/2,
+								megaMan.y + megaMan.width/2 - Bullet.HEIGHT + 2);
+			bigBulletsLeft.add(bigBullet);
+			this.getNewSoundManager().playBulletSound();
+		}
+		else {
+			super.fireBigBullet();
 		}
 	}
 	

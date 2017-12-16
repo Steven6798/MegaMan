@@ -1,7 +1,6 @@
 package rbadia.voidspace.main;
 
 import java.awt.Graphics2D;
-
 import rbadia.voidspace.graphics.NewGraphicsManager;
 import rbadia.voidspace.model.Platform;
 import rbadia.voidspace.sounds.NewSoundManager;
@@ -27,6 +26,14 @@ public class NewLevel2State extends NewLevel1State {
 		super.doStart();
 		setStartState(GETTING_READY);
 		setCurrentState(getStartState());
+	}
+	
+	@Override
+	public void doGettingReady() {
+		setCurrentState(GETTING_READY);
+		getGameLogic().drawGetReady();
+		repaint();
+		NewLevelLogic.delay(2000);
 	}
 
 	@Override
