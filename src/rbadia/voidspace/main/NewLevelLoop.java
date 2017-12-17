@@ -10,11 +10,11 @@ public class NewLevelLoop implements Runnable {
 
 	/**
 	 * Creates a new game loop.
-	 * @param levelState the game screen
-	 * @param gameLogic the game logic handler
+	 * @param newLevelState the game screen
+	 * @param newGameLogic the game logic handler
 	 * @param inputHandler the user input handler
 	 */
-	public NewLevelLoop(NewLevelState levelState){
+	public NewLevelLoop(NewLevelState levelState) {
 		this.newLlevelState = levelState;
 		this.newGameLogic = levelState.getGameLogic();
 		this.inputHandler = levelState.getInputHandler();
@@ -24,13 +24,10 @@ public class NewLevelLoop implements Runnable {
 	 * Implements the run interface method. Should be called by the running thread.
 	 */
 	public void run() {
-
 		newLlevelState.doStart();
 
 		while(!newLlevelState.getGameStatus().isGameOver() && !newLlevelState.isLevelWon()) {
-			
 			// update the game graphics and repaint screen
-
 			newGameLogic.stateTransition(inputHandler, newLlevelState);
 			newLlevelState.repaint();
 			

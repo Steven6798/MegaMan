@@ -27,7 +27,7 @@ public class NewLevelLogic extends LevelLogic {
 	 * Create a new game logic handler
 	 * @param gameScreen the game screen
 	 */
-	public NewLevelLogic(){
+	public NewLevelLogic() {
 	}
 
 	public NewLevelState getNewLevelState() {
@@ -39,14 +39,13 @@ public class NewLevelLogic extends LevelLogic {
 	}
 
 	@Override
-	public void gameOver(){
-		//getLevelState().getGameStatus().setGameStarted(false);
+	public void gameOver() {
 		getNewLevelState().getGameStatus().setGameOver(true);
 
 		newLevelState.doGameOverScreen();
 
 		// delay to display "Game Over" message for 3 seconds
-		Timer timer = new Timer(5000, new ActionListener(){
+		Timer timer = new Timer(5000, new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				getNewLevelState().getGameStatus().setGameOver(false);
 			}
@@ -72,9 +71,8 @@ public class NewLevelLogic extends LevelLogic {
 
 	}
 
-
 	@Override
-	public void gameWon(){
+	public void gameWon() {
 		//status.setGameStarted(false);  //SENDS TO MAIN SCREEN/ IF COMMENTED OUT LOOPS THE GAME
 		getNewLevelState().getGameStatus().setGameWon(true);
 		newLevelState.doLevelWon();
@@ -113,7 +111,7 @@ public class NewLevelLogic extends LevelLogic {
 		Graphics2D g2d = newLevelState.getGraphics2D();
 
 		// set original font - for later use
-		if(this.originalFont == null){
+		if(this.originalFont == null) {
 			this.originalFont = g2d.getFont();
 			this.bigFont = originalFont;
 		}
@@ -125,15 +123,15 @@ public class NewLevelLogic extends LevelLogic {
 		bigFont = currentFont.deriveFont(fontSize + 1).deriveFont(Font.BOLD);
 		FontMetrics fm = g2d.getFontMetrics(bigFont);
 		int strWidth = fm.stringWidth(gameOverStr);
-		if(strWidth > newLevelState.getWidth() - 10){
+		if(strWidth > newLevelState.getWidth() - 10) {
 			biggestFont = currentFont;
 			bigFont = biggestFont;
 			fm = g2d.getFontMetrics(bigFont);
 			strWidth = fm.stringWidth(gameOverStr);
 		}
 		int ascent = fm.getAscent();
-		int strX = (newLevelState.getWidth() - strWidth)/2;
-		int strY = (newLevelState.getHeight() + ascent)/2;
+		int strX = (newLevelState.getWidth() - strWidth) / 2;
+		int strY = (newLevelState.getHeight() + ascent) / 2;
 		g2d.setFont(bigFont);
 		g2d.setPaint(Color.RED);
 		g2d.drawString(gameOverStr, strX, strY);
@@ -146,7 +144,7 @@ public class NewLevelLogic extends LevelLogic {
 		Graphics2D g2d = newLevelState.getGraphics2D();
 
 		// set original font - for later use
-		if(this.originalFont == null){
+		if(this.originalFont == null) {
 			this.originalFont = g2d.getFont();
 			this.bigFont = originalFont;
 		}
@@ -159,19 +157,18 @@ public class NewLevelLogic extends LevelLogic {
 		bigFont = currentFont.deriveFont(fontSize + 5).deriveFont(Font.BOLD);
 		FontMetrics fm = g2d.getFontMetrics(bigFont);
 		int strWidth = fm.stringWidth(youWinStr);
-		if(strWidth > newLevelState.getWidth() - 10){
+		if(strWidth > newLevelState.getWidth() - 10) {
 			biggestFont = currentFont;
 			bigFont = biggestFont;
 			fm = g2d.getFontMetrics(bigFont);
 			strWidth = fm.stringWidth(youWinStr);
 		}
 		int ascent = fm.getAscent();
-		int strX = (newLevelState.getWidth() - strWidth)/2;
-		int strY = (newLevelState.getHeight() + ascent)/2;
+		int strX = (newLevelState.getWidth() - strWidth) / 2;
+		int strY = (newLevelState.getHeight() + ascent) / 2;
 		g2d.setFont(bigFont);
 		g2d.setPaint(Color.YELLOW);
 		g2d.drawString(youWinStr, strX, strY);
-
 	}
 
 	@Override
@@ -180,7 +177,7 @@ public class NewLevelLogic extends LevelLogic {
 		NewLevelState newLevelState = getNewLevelState();
 		Graphics2D g2d = newLevelState.getGraphics2D();
 
-		if(this.originalFont == null){
+		if(this.originalFont == null) {
 			this.originalFont = g2d.getFont();
 			this.bigFont = originalFont;
 		}
@@ -192,7 +189,7 @@ public class NewLevelLogic extends LevelLogic {
 		bigFont = currentFont.deriveFont(fontSize + 1).deriveFont(Font.BOLD).deriveFont(Font.ITALIC);
 		FontMetrics fm = g2d.getFontMetrics(bigFont);
 		int strWidth = fm.stringWidth(gameTitleStr);
-		if(strWidth > newLevelState.getWidth() - 10){
+		if(strWidth > newLevelState.getWidth() - 10) {
 			bigFont = currentFont;
 			biggestFont = currentFont;
 			fm = g2d.getFontMetrics(currentFont);
@@ -200,8 +197,8 @@ public class NewLevelLogic extends LevelLogic {
 		}
 		g2d.setFont(bigFont);
 		int ascent = fm.getAscent();
-		int strX = (newLevelState.getWidth() - strWidth)/2;
-		int strY = (newLevelState.getHeight() + ascent)/2 - ascent;
+		int strX = (newLevelState.getWidth() - strWidth) / 2;
+		int strY = (newLevelState.getHeight() + ascent) / 2 - ascent;
 		g2d.setPaint(Color.YELLOW);
 		g2d.drawString(gameTitleStr, strX, strY);
 
@@ -209,29 +206,29 @@ public class NewLevelLogic extends LevelLogic {
 		fm = g2d.getFontMetrics();
 		String newGameStr = "Press <Space> to Start the Level";
 		strWidth = fm.stringWidth(newGameStr);
-		strX = (newLevelState.getWidth() - strWidth)/2;
-		strY = (newLevelState.getHeight() + fm.getAscent())/2 + ascent + 16;
+		strX = (newLevelState.getWidth() - strWidth) / 2;
+		strY = (newLevelState.getHeight() + fm.getAscent()) / 2 + ascent + 16;
 		g2d.setPaint(Color.WHITE);
 		g2d.drawString(newGameStr, strX, strY);
 
 		fm = g2d.getFontMetrics();
 		String itemGameStr = "Press <I> for Item Menu.";
 		strWidth = fm.stringWidth(itemGameStr);
-		strX = (newLevelState.getWidth() - strWidth)/2;
+		strX = (newLevelState.getWidth() - strWidth) / 2;
 		strY = strY + 16;
 		g2d.drawString(itemGameStr, strX, strY);
 
 		fm = g2d.getFontMetrics();
 		String shopGameStr = "Press <S> for Shop Menu.";
 		strWidth = fm.stringWidth(shopGameStr);
-		strX = (newLevelState.getWidth() - strWidth)/2;
+		strX = (newLevelState.getWidth() - strWidth) / 2;
 		strY = strY + 16;
 		g2d.drawString(shopGameStr, strX, strY);
 
 		fm = g2d.getFontMetrics();
 		String exitGameStr = "Press <Esc> to Exit the Game.";
 		strWidth = fm.stringWidth(exitGameStr);
-		strX = (newLevelState.getWidth() - strWidth)/2;
+		strX = (newLevelState.getWidth() - strWidth) / 2;
 		strY = strY + 16;
 		g2d.drawString(exitGameStr, strX, strY);
 	}
@@ -241,7 +238,7 @@ public class NewLevelLogic extends LevelLogic {
 		NewLevelState NewlevelState = getNewLevelState();
 		Graphics2D g2d = NewlevelState.getGraphics2D();
 
-		if(this.originalFont == null){
+		if(this.originalFont == null) {
 			this.originalFont = g2d.getFont();
 			this.bigFont = originalFont;
 		}
@@ -251,13 +248,13 @@ public class NewLevelLogic extends LevelLogic {
 		FontMetrics fm = g2d.getFontMetrics();
 		int ascent = fm.getAscent();
 		int strWidth = fm.stringWidth(readyStr);
-		int strX = (NewlevelState.getWidth() - strWidth)/2;
-		int strY = (NewlevelState.getHeight() + ascent)/2;
+		int strX = (NewlevelState.getWidth() - strWidth) / 2;
+		int strY = (NewlevelState.getHeight() + ascent) / 2;
 		g2d.setPaint(Color.WHITE);
 		g2d.drawString(readyStr, strX, strY);
 	}
 
-	public void stateTransition(InputHandler ih, NewLevelState newLevelState){
+	public void stateTransition(InputHandler ih, NewLevelState newLevelState) {
 		GameStatus status = getNewLevelState().getGameStatus();
 		switch (newLevelState.getCurrentState()) {
 		case NewLevelState.START_STATE:
@@ -304,12 +301,10 @@ public class NewLevelLogic extends LevelLogic {
 		}
 	}
 
-
 	public void handleKeysDuringInitialScreen(InputHandler ih, NewLevelState newLevelState) {
 		if(ih.isSpacePressed()) {
 			ih.reset();
 			newLevelState.setCurrentState(NewLevelState.GETTING_READY);	
-			return;
 		}
 		if(ih.isSPressed()) {
 			JOptionPane.showMessageDialog( null, 
@@ -318,7 +313,6 @@ public class NewLevelLogic extends LevelLogic {
 							"Extra Life:      1500\r\n"+ 
 							"Power Shot:  1000\r\n"+
 					"\r\n");
-			return;
 		}
 		if(ih.isIPressed()) {
 			JOptionPane.showMessageDialog( null, 
@@ -328,8 +322,8 @@ public class NewLevelLogic extends LevelLogic {
 							"                           (Press E to buy, limit of one life per second.)\r\n" +
 							"Power Shot:  Activates the Power Shot which kills the asteroid in one hit\r\n"+
 					"                           (Press Q to buy, afterwards press Q to fire.)\r\n");
-			return;
 		}
+		ih.reset();
 	}
 
 	public void handleKeysDuringPlay(InputHandler ih, NewLevelState newLevelState) {
@@ -337,73 +331,73 @@ public class NewLevelLogic extends LevelLogic {
 		GameStatus status = getNewLevelState().getGameStatus();
 
 		// fire bullet if space is pressed
-		if(ih.isSpacePressed()){
+		if(ih.isSpacePressed()) {
 			// fire only up to 5 bullets per second
 			stack = 0;
 			long currentTime = System.currentTimeMillis();
-			if((currentTime - lastBulletTime) > 1000/5){
+			if((currentTime - lastBulletTime) > 1000/5) {
 				lastBulletTime = currentTime;
 				getNewLevelState().fireBullet();
 			}
 		}
-
-		if(ih.isEPressed()){
-			if(status.getAsteroidsDestroyed() >= 1500){
+		
+		if(ih.isEPressed()) {
+			if(status.getAsteroidsDestroyed() >= 1500) {
 				long currentTime = System.currentTimeMillis();
-				if((currentTime - lastExchangeTime > 1000)){
+				if((currentTime - lastExchangeTime > 1000)) {
 					lastExchangeTime = currentTime;
 					status.setAsteroidsDestroyed(status.getAsteroidsDestroyed() - 1500);
 					status.setLivesLeft(status.getLivesLeft() + 1);
 				}
 			}
 		}
-
-		if(ih.isQPressed()){
-			if(stack == 0 && status.getAsteroidsDestroyed() >= 1000){
+		
+		if(ih.isQPressed()) {
+			if(stack == 0 && status.getAsteroidsDestroyed() >= 1000) {
 				stack++;
 				status.setAsteroidsDestroyed(status.getAsteroidsDestroyed() - 1000);
 			}
-			else if(stack >= 1){
+			else if(stack >= 1) {
 				long currentTime = System.currentTimeMillis();
-				if((currentTime - lastBigBulletTime) > 1000){
+				if((currentTime - lastBigBulletTime) > 1000) {
 					lastBigBulletTime = currentTime;
 					getNewLevelState().fireBigBullet();
 				}
 
 			}
 		}
-
-//		if(ih.isShiftPressed()){
-//			getNewLevelState().speedUpMegaMan();
-//		}
 		
-		if(ih.isZPressed()){
+		if(ih.isZPressed()) {
 			getNewLevelState().slowDownMegaMan();
 		}
 		
-		if(ih.isXPressed()){
+		if(ih.isXPressed()) {
 			getNewLevelState().speedUpMegaMan();
 		}
+		
+		if(ih.isNPressed()) {
+			getNewLevelState().skipLevel();
+		}
 
-		if(ih.isUpPressed()){
+		if(ih.isUpPressed()) {
 			long currentTime = System.currentTimeMillis();
-			if((currentTime - lastBigBulletTime) > 570){
+			if((currentTime - lastBigBulletTime) > 570) {
 				lastBigBulletTime = currentTime;
-				for(int i = 0; i < 6; i++){
+				for(int i = 0; i < 6; i++) {
 					getNewLevelState().moveMegaManUp();
 				}
 			}
 		}
 
-		if(ih.isDownPressed()){
+		if(ih.isDownPressed()) {
 			getNewLevelState().moveMegaManDown();
 		}
 
-		if(ih.isLeftPressed()){
+		if(ih.isLeftPressed()) {
 			getNewLevelState().moveMegaManLeft();
 		}
 
-		if(ih.isRightPressed()){
+		if(ih.isRightPressed()) {
 			getNewLevelState().moveMegaManRight();
 		}
 	}

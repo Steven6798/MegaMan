@@ -14,12 +14,12 @@ public class InputHandler implements KeyListener {
 	private boolean spaceIsPressed = false;
 	private boolean zIsPressed; // slow megaman
 	private boolean xIsPressed; // boost megaman
-	private boolean eIsPressed; //extra live
-	private boolean qIsPressed; //power shot
+	private boolean eIsPressed; // extra live
+	private boolean qIsPressed; // power shot
 	private boolean mIsPressed; // pause music
 	private boolean nIsPressed; // level skip
-	private boolean sIsPressed; //shop
-	private boolean iIsPressed; //inventory
+	private boolean sIsPressed; // shop
+	private boolean iIsPressed; // inventory
 
 	private LevelState levelState;
 	private NewLevelState newLevelState;
@@ -118,7 +118,7 @@ public class InputHandler implements KeyListener {
 	 * Handle a key input event.
 	 */
 	public void keyPressed(KeyEvent e) {
-		switch(e.getKeyCode()){
+		switch(e.getKeyCode()) {
 		case KeyEvent.VK_UP:
 			this.upIsPressed = true;
 			break;
@@ -169,7 +169,7 @@ public class InputHandler implements KeyListener {
 	 * Handle a key release event.
 	 */
 	public void keyReleased(KeyEvent e) {
-		switch(e.getKeyCode()){
+		switch(e.getKeyCode()) {
 		case KeyEvent.VK_UP:
 			this.upIsPressed = false;
 			break;
@@ -187,11 +187,9 @@ public class InputHandler implements KeyListener {
 			break;
 		case KeyEvent.VK_Z:
 			this.zIsPressed = false;
-			this.getNewLevelState().slowDownMegaMan();
 			break;
 		case KeyEvent.VK_X:
 			this.xIsPressed = false;
-			this.getNewLevelState().speedUpMegaMan();
 			break;
 		case KeyEvent.VK_E:
 			this.eIsPressed = false;
@@ -205,7 +203,6 @@ public class InputHandler implements KeyListener {
 			break;
 		case KeyEvent.VK_N:
 			this.nIsPressed = false;
-			this.getNewLevelState().skipLevel();
 			break;
 		case KeyEvent.VK_S:
 			this.sIsPressed = false;
@@ -221,8 +218,8 @@ public class InputHandler implements KeyListener {
 		// not used
 	}
 
-	public boolean getSpace(){
-		return spaceIsPressed;
-	}
+//	public boolean getSpace() {
+//		return spaceIsPressed;
+//	}
 
 }

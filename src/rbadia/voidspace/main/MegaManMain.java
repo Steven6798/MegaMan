@@ -27,12 +27,7 @@ public class MegaManMain {
 	public static Clip audioClip;
 	public static File audioFile;	
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) throws InterruptedException, IOException  {
-
-
+	public static void main(String[] args) throws InterruptedException, IOException {
 		NewMainFrame frame = new NewMainFrame();              		// Main Game Window
 		NewLevelLogic gameLogic = new NewLevelLogic();        		// Coordinates among various levels
 		InputHandler inputHandler = new InputHandler(); 		// Keyboard listener
@@ -51,37 +46,34 @@ public class MegaManMain {
 
 		int playAgain = 2;
 		while(playAgain != 1) {
-
 			GameStatus gameStatus = new GameStatus();
 			gameStatus.setLivesLeft(3);
 			NewLevelState level1State = new NewLevel1State(1, frame, gameStatus, gameLogic, inputHandler, graphicsMan, soundMan);
 			NewLevelState level2State = new NewLevel2State(2, frame, gameStatus, gameLogic, inputHandler, graphicsMan, soundMan);
 			NewLevelState level3State = new Level3State(3, frame, gameStatus, gameLogic, inputHandler, graphicsMan, soundMan);
-			NewLevelState FinalBoss = new FinalBoss(4, frame, gameStatus, gameLogic, inputHandler, graphicsMan, soundMan);
-			NewLevelState levels[] = { level1State, level2State, level3State, FinalBoss };
+			NewLevelState level4State = new Level4State(4, frame, gameStatus, gameLogic, inputHandler, graphicsMan, soundMan);
+			NewLevelState FinalBoss = new FinalBoss(5, frame, gameStatus, gameLogic, inputHandler, graphicsMan, soundMan);
+			NewLevelState levels[] = { level1State, level2State, level3State, level4State, FinalBoss };
 
 			String outcome = "CONGRATS!! YOU WON!!";
 			for (NewLevelState nextLevel : levels) {
-
 				System.out.println("Next Level Started");
 				frame.setNewLevelState(nextLevel);
 				gameLogic.setNewLevelState(nextLevel);
 				inputHandler.setNewLevelState(nextLevel);
 				gameStatus.setLevel(nextLevel.getLevel());
 				
-				frame.setVisible(true);  // TODO verify whether this is necessary
+				frame.setVisible(true);
 				startInitialMusic();
 
 				// init main game loop
 				Thread nextLevelLoop = new Thread(new NewLevelLoop(nextLevel));
 				nextLevelLoop.start();
 				nextLevelLoop.join();
-
 				if (nextLevel.getGameStatus().isGameOver()) {
 					outcome = "SORRY YOU LOST";
 					break;
 				}
-
 			}
 			playAgain = JOptionPane.showConfirmDialog(null, outcome + " ... Play Again?", "", JOptionPane.YES_NO_OPTION);
 		}
@@ -89,9 +81,7 @@ public class MegaManMain {
 	}
 	
 	public static void startInitialMusic() throws InterruptedException, IOException {
-		// Music 
 		// allows music to be played while playing
-
 		AudioFormat format = audioStream.getFormat();
 		DataLine.Info info = new DataLine.Info(Clip.class, format);
 
@@ -101,7 +91,6 @@ public class MegaManMain {
 			audioClip.start();
 			audioClip.loop(Clip.LOOP_CONTINUOUSLY);
 		} catch (LineUnavailableException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
