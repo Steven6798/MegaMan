@@ -1,8 +1,16 @@
 package rbadia.voidspace.main;
 
 import java.awt.Graphics2D;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 import rbadia.voidspace.graphics.NewGraphicsManager;
 import rbadia.voidspace.model.BigBullet;
@@ -20,6 +28,10 @@ public class FinalBoss extends Level3State {
 	protected Meatball meatball;
 	protected Spaghetti spaghetti;
 	protected Boss boss;
+	
+	private static AudioInputStream bossStream;
+	private static File bossSound = new File("/rbadia/voidspace/sounds/Meatball!.wav");
+	private static Clip bossClip;
 
 	public FinalBoss(int level, NewMainFrame frame, GameStatus status, 
 			NewLevelLogic newGameLogic, InputHandler inputHandler,
@@ -31,27 +43,47 @@ public class FinalBoss extends Level3State {
 	public List<BigBullet> getBigBulletsLeft() 	{ return bigBulletsLeft; }
 	
 	@Override
-	public void doStart() {	
-		super.doStart();
-		setStartState(GETTING_READY);
-		setCurrentState(getStartState());
-		
-		bulletsLeft = new ArrayList<Bullet>();
-		bigBulletsLeft = new ArrayList<BigBullet>();
-	}
-	
-	@Override
-	public void updateScreen() {
-		super.updateScreen();
-		drawBulletsL();
-	}
+	public void doGettingReady() {
+		setCurrentState(GETTING_READY);
+		getGameLogic().drawGetReady();
+		repaint();
+		LevelLogic.delay(2000);
+		//Changes music from "menu music" to "ingame music"
+		MegaManMain.audioClip.close();
+		MegaManMain.audioFile = new File("audio/BossBattle.wav");
+		try {
+			MegaManMain.audioStream = AudioSystem.getAudioInputStream(MegaManMain.audioFile);
+			MegaManMain.audioClip.open(MegaManMain.audioStream);
+			MegaManMain.audioClip.start();
+			MegaManMain.audioClip.loop(Clip.LOOP_CONTINUOUSLY);
+		} catch (UnsupportedAudioFileException e1) {
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		} catch (LineUnavailableException e1) {
+			e1.printStackTrace();
+		}
+	};
 	
 	protected void drawMeatball() {
 		Graphics2D g2d = getGraphics2D();
 		meatball.translate(-meatball.getSpeed(), 0);
 		getNewGraphicsManager().drawMeatball(meatball, g2d, this);
+		
+		try {
+			bossStream = AudioSystem.getAudioInputStream(bossSound);
+			bossClip.open(bossStream);
+			bossClip.start();
+		}
+		catch (UnsupportedAudioFileException e1) {
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		} catch (LineUnavailableException e1) {
+			e1.printStackTrace();
+		}
 	}
-	//========================================================= Adjust for Boss
+
 	@Override
 	protected void drawAsteroid() {
 		Graphics2D g2d = getGraphics2D();
@@ -74,78 +106,22 @@ public class FinalBoss extends Level3State {
 	}
 	
 	@Override
-	protected void drawMegaMan() {
-		//draw one of six possible MegaMan poses according to situation
-		Graphics2D g2d = getGraphics2D();
-		GameStatus status = getGameStatus();
-		if(!status.isNewMegaMan()) {
-			if((Gravity() == true) || ((Gravity() == true) && (Fire() == true || Fire2() == true))) {
-				if(getInputHandler().isLeftPressed()) {
-					getNewGraphicsManager().drawMegaFallL(megaMan, g2d, this);
-				}
-				else {
-					getNewGraphicsManager().drawMegaFallR(megaMan, g2d, this);
-				}
-			}
-		}
-
-		if((Fire() == true || Fire2() == true) && (Gravity() == false)) {
-			if(getInputHandler().isLeftPressed()) {
-				getNewGraphicsManager().drawMegaFireL(megaMan, g2d, this);
-			}
-			else {
-				getNewGraphicsManager().drawMegaFireR(megaMan, g2d, this);
-			}
-		}
-
-		if((Gravity() == false) && (Fire() == false) && (Fire2() == false)) {
-			if(getInputHandler().isLeftPressed()) {
-				getNewGraphicsManager().drawMegaManL(megaMan, g2d, this);
-			}
-			else {
-				getNewGraphicsManager().drawMegaMan(megaMan, g2d, this);
-			}
-		}
-	}
-
-	@Override
 	public Platform[] newPlatforms(int n){
 		platforms = new Platform[n];
 		for(int i = 0; i < n; i++){
-			if(i % 2 == 0) {
 				this.platforms[i] = new Platform(0 , getHeight() / 2 + 140 - i * 40);
-			}
-			else {
-				this.platforms[i] = new Platform(getWidth() - 44, getHeight() / 2 + 140 - i * 40);
-			}
 		}
 		return platforms;
 	}
 	
-	/**
-	 * Move the platform to the right.
-	 * @param platform the platform to move
-	 */
+	@Override
 	public void movePlatformRight(Platform platform) {
-		if(platform.getMaxX() + 2 < getWidth()) {
-			platform.translate(2, 0);
-		}
-		else {
-			platform.translate(-getWidth() + 44, 0);
-		}
+			platform.translate(0, 0);
 	}
 	
-	/**
-	 * Move the platform to the left.
-	 * @param platform the platform to move
-	 */
+	@Override
 	public void movePlatformLeft(Platform platform) {
-		if(platform.getX() -2 > 0) {
-			platform.translate(-2, 0);
-		}
-		else {
-			platform.translate(getWidth() - 44, 0);
-		}
+			platform.translate(0, 0);
 	}
 	
 	@Override
@@ -162,84 +138,4 @@ public class FinalBoss extends Level3State {
 			}
 		}
 	}
-	
-	@Override
-	protected boolean Fire() {
-		if(getInputHandler().isLeftPressed()) {
-			MegaMan megaMan = this.getMegaMan();
-			List<Bullet> bullets = this.getBulletsLeft();
-			for(int i = 0; i < bullets.size(); i++){
-				Bullet bullet = bullets.get(i);
-				if((bullet.getX() < megaMan.getX()) && (bullet.getX() >= megaMan.getX() - 60)) {
-					return true;
-				}
-			}
-		}
-		if(super.Fire() == true) {
-			return true;
-		}
-		return false;
-	}
-
-	@Override
-	protected boolean Fire2() {
-		if(getInputHandler().isLeftPressed()) {
-			MegaMan megaMan = this.getMegaMan();
-			List<BigBullet> bigBullets = this.getBigBulletsLeft();
-			for(int i = 0; i < bigBullets.size(); i++){
-				BigBullet bigBullet = bigBullets.get(i);
-				if((bigBullet.getX() < megaMan.getX()) && (bigBullet.getX() >= megaMan.getX() - 60)) {
-					return true;
-				}
-			}
-		}
-		if(super.Fire2() == true) {
-			return true;
-		}
-		return false;
-	}
-	
-	protected void drawBulletsL() {
-		Graphics2D g2d = getGraphics2D();
-		for(int i = 0; i < bulletsLeft.size(); i++) {
-			Bullet bulletLeft = bulletsLeft.get(i);
-			getNewGraphicsManager().drawBullet(bulletLeft, g2d, this);
-			boolean remove = this.moveBulletLeft(bulletLeft);
-			if(remove){
-				bulletsLeft.remove(i);
-				i--;
-			}
-		}
-	}
-	
-	@Override
-	public void fireBullet() {
-		if(getInputHandler().isLeftPressed()) {
-			Bullet bullet;
-			bullet = new Bullet(megaMan.x - Bullet.WIDTH/2,
-								megaMan.y + megaMan.width/2 - Bullet.HEIGHT + 2);
-			bulletsLeft.add(bullet);
-			this.getNewSoundManager().playBulletSound();
-		}
-		else {
-			super.fireBullet();
-		}
-	}
-	
-	public boolean moveBulletLeft(Bullet bullet) {
-		if(bullet.getX() - bullet.getSpeed() > 0) {
-			bullet.translate(-bullet.getSpeed(), 0);
-			return false;
-		}
-		return true;
-	}
-	
-	public boolean moveBigBulletLeft(BigBullet bigBullet){
-		if(bigBullet.getX() - bigBullet.getSpeed() > 0) {
-			bigBullet.translate(-bigBullet.getSpeed(), 0);
-			return false;
-		}
-		return true;
-	}
-
 }
