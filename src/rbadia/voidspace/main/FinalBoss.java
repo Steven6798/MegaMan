@@ -3,8 +3,6 @@ package rbadia.voidspace.main;
 import java.awt.Graphics2D;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -13,11 +11,8 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 import rbadia.voidspace.graphics.NewGraphicsManager;
-import rbadia.voidspace.model.BigBullet;
 import rbadia.voidspace.model.Boss;
-import rbadia.voidspace.model.Bullet;
 import rbadia.voidspace.model.Meatball;
-import rbadia.voidspace.model.MegaMan;
 import rbadia.voidspace.model.Platform;
 import rbadia.voidspace.model.Spaghetti;
 import rbadia.voidspace.sounds.NewSoundManager;
@@ -38,9 +33,6 @@ public class FinalBoss extends Level3State {
 			NewGraphicsManager newGraphicsMan, NewSoundManager soundMan) {
 		super(level, frame, status, newGameLogic, inputHandler, newGraphicsMan, soundMan);
 	}
-	
-	public List<Bullet> getBulletsLeft() 		{ return bulletsLeft; }
-	public List<BigBullet> getBigBulletsLeft() 	{ return bigBulletsLeft; }
 	
 	@Override
 	public void doGettingReady() {

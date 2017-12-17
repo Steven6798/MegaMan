@@ -36,10 +36,6 @@ public class NewLevelLoop implements Runnable {
 			
 			NewLevelLogic.delay(1000/60);
 			
-			if(inputHandler.isNPressed()) {
-				break;
-			}
-			
 //			try{
 //				// sleep/wait for 1/60th of a second,
 //				// for a resulting refresh rate of 60 frames per second (fps) 
@@ -49,13 +45,8 @@ public class NewLevelLoop implements Runnable {
 //				e.printStackTrace();
 //			}
 		}
-		if (inputHandler.isNPressed()) {
-			newLlevelState.doLevelWon();
-		}
-		else {
-			if (newLlevelState.isLevelWon()) newLlevelState.doLevelWon();
-			else newLlevelState.doGameOverScreen();
-		}
+		if (newLlevelState.isLevelWon()) newLlevelState.doLevelWon();
+		else newLlevelState.doGameOverScreen();
 	}
 
 }

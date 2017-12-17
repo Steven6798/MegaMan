@@ -67,7 +67,10 @@ public abstract class NewLevelState extends JPanel {
 	public abstract void doLevelWon();
 
 	public abstract boolean isLevelWon();
-
+	
+	public abstract void pauseMusic();
+	public abstract void skipLevel();
+	
 	// Game Actions in response to user controls
 	public abstract void fireBullet();
 	public abstract void fireBigBullet();

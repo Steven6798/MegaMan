@@ -53,6 +53,8 @@ public class Level3State extends NewLevel2State {
 		bulletsLeft = new ArrayList<Bullet>();
 		bigBulletsLeft = new ArrayList<BigBullet>();
 		newBigPlatforms(getNumBigPlatforms());
+		
+		asteroidsToDestroy = 10;
 	}
 	
 	@Override

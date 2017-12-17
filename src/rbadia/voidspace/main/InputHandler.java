@@ -6,18 +6,17 @@ import java.awt.event.KeyListener;
 /**
  * Handles user input events.
  */
-public class InputHandler implements KeyListener{
+public class InputHandler implements KeyListener {
 	private boolean leftIsPressed;
 	private boolean rightIsPressed;
 	private boolean downIsPressed;
 	private boolean upIsPressed;
 	private boolean spaceIsPressed = false;
-	//private boolean shiftIsPressed; // slow megaman
 	private boolean zIsPressed; // slow megaman
 	private boolean xIsPressed; // boost megaman
 	private boolean eIsPressed; //extra live
 	private boolean qIsPressed; //power shot
-	private boolean mIsPressed; //
+	private boolean mIsPressed; // pause music
 	private boolean nIsPressed; // level skip
 	private boolean sIsPressed; //shop
 	private boolean iIsPressed; //inventory
@@ -39,12 +38,11 @@ public class InputHandler implements KeyListener{
 		this.newLevelState = newLevelState;
 	}
 	
-
 	/**
 	 * Create a new input handler
 	 * @param gameLogic the game logic handler
 	 */
-	public InputHandler(){
+	public InputHandler() {
 		reset();
 	}
 
@@ -54,7 +52,6 @@ public class InputHandler implements KeyListener{
 		downIsPressed = false;
 		upIsPressed = false;
 		spaceIsPressed = false;
-		//shiftIsPressed = false;
 		zIsPressed = false;
 		xIsPressed = false;
 		eIsPressed = false;
@@ -84,10 +81,6 @@ public class InputHandler implements KeyListener{
 	public boolean isSpacePressed() {
 		return spaceIsPressed;
 	}
-
-//	public boolean isShiftPressed() {
-//		return shiftIsPressed;
-//	}
 	
 	public boolean isZPressed() {
 		return zIsPressed;
@@ -141,9 +134,6 @@ public class InputHandler implements KeyListener{
 		case KeyEvent.VK_SPACE:
 			this.spaceIsPressed = true;
 			break;
-//		case KeyEvent.VK_SHIFT:
-//			this.shiftIsPressed = true;
-//			break;
 		case KeyEvent.VK_Z:
 			this.zIsPressed = true;
 			break;
@@ -195,10 +185,6 @@ public class InputHandler implements KeyListener{
 		case KeyEvent.VK_SPACE:
 			this.spaceIsPressed = false;
 			break;
-//		case KeyEvent.VK_SHIFT:
-//			this.shiftIsPressed = false;
-//			this.getNewLevelState().slowDownMegaMan();
-//			break;
 		case KeyEvent.VK_Z:
 			this.zIsPressed = false;
 			this.getNewLevelState().slowDownMegaMan();
@@ -215,9 +201,11 @@ public class InputHandler implements KeyListener{
 			break;
 		case KeyEvent.VK_M:
 			this.mIsPressed = false;
+			this.getNewLevelState().pauseMusic();
 			break;
 		case KeyEvent.VK_N:
 			this.nIsPressed = false;
+			this.getNewLevelState().skipLevel();
 			break;
 		case KeyEvent.VK_S:
 			this.sIsPressed = false;

@@ -59,6 +59,10 @@ public class NewLevel1State extends NewLevelState {
 	protected Font biggestFont;
 
 	protected int levelAsteroidsDestroyed = 0;
+	
+	boolean musicState = true;
+	
+	protected int asteroidsToDestroy;
 
 	// Constructors
 	public NewLevel1State(int level, NewMainFrame frame, GameStatus status, 
@@ -128,6 +132,7 @@ public class NewLevel1State extends NewLevelState {
 		getNewMainFrame().getDestroyedValueLabel().setText(Long.toString(status.getAsteroidsDestroyed()));
 		getNewMainFrame().getLevelValueLabel().setText(Long.toString(status.getLevel()));
 
+		asteroidsToDestroy = 3;
 	}
 
 	@Override
@@ -236,6 +241,23 @@ public class NewLevel1State extends NewLevelState {
 		getNewMainFrame().getLevelValueLabel().setText(Long.toString(status.getLevel()));
 	}
 
+	@Override
+	public void pauseMusic() {
+		if(musicState == true) {
+			MegaManMain.audioClip.stop();
+			musicState = false;
+		}
+		else {
+			MegaManMain.audioClip.start();
+			musicState = true;
+		}
+	}
+	
+	@Override
+	public void skipLevel() {
+		levelAsteroidsDestroyed = asteroidsToDestroy;
+	}
+	
 	protected void checkAsteroidFloorCollisions() {
 		for(int i=0; i<9; i++){
 			if(asteroid.intersects(floor[i])){
@@ -391,7 +413,7 @@ public class NewLevel1State extends NewLevelState {
 
 	@Override
 	public boolean isLevelWon() {
-		return levelAsteroidsDestroyed >= 3;
+		return levelAsteroidsDestroyed >= asteroidsToDestroy;
 	}
 
 	protected boolean Gravity(){
