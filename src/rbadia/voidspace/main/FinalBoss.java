@@ -113,29 +113,13 @@ public class FinalBoss extends Level3State {
 		}
 		return platforms;
 	}
-	
-	@Override
-	public void movePlatformRight(Platform platform) {
-			platform.translate(0, 0);
-	}
-	
-	@Override
-	public void movePlatformLeft(Platform platform) {
-			platform.translate(0, 0);
-	}
-	
+		
 	@Override
 	protected void drawPlatforms() {
 		//draw platforms
 		Graphics2D g2d = getGraphics2D();
 		for(int i = 0; i < getNumPlatforms(); i++) {
 			getNewGraphicsManager().drawPlatform(platforms[i], g2d, this, i);
-			if(i % 2 == 0) {
-				movePlatformRight(platforms[i]);
-			}
-			else {
-				movePlatformLeft(platforms[i]);
-			}
 		}
 	}
 }
