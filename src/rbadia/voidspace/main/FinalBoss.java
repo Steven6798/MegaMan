@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
@@ -17,19 +16,20 @@ import rbadia.voidspace.model.Boss;
 import rbadia.voidspace.model.Bullet;
 import rbadia.voidspace.model.Meatball;
 import rbadia.voidspace.model.Platform;
-import rbadia.voidspace.model.Spaghetti;
 import rbadia.voidspace.sounds.NewSoundManager;
 
 public class FinalBoss extends Level3State {
 	private static final long serialVersionUID = 1L;
 	
 	protected Meatball meatball;
-	protected Spaghetti spaghetti;
 	protected Boss boss;
 	
-	private static AudioInputStream bossStream;
-	private static File bossSound = new File("/rbadia/voidspace/sounds/Meatball!.wav");
-	private static Clip bossClip;
+//	private static AudioInputStream bossStream;
+//	private static File bossSound = new File("/rbadia/voidspace/sounds/Meatball.wav");
+//	private static Clip bossClip;
+	private boolean isMeatballActive = true;
+	
+	public Meatball getMeatball()	{ return meatball; }
 
 	public FinalBoss(int level, NewMainFrame frame, GameStatus status, 
 			NewLevelLogic newGameLogic, InputHandler inputHandler,
@@ -47,6 +47,7 @@ public class FinalBoss extends Level3State {
 		setAsteroidsToDestroy(10);
 		newPlatforms(getNumPlatforms());
 		newBigPlatforms(getNumBigPlatforms());
+		newMeatball(this);
 	}
 	
 	@Override
@@ -56,12 +57,9 @@ public class FinalBoss extends Level3State {
 		repaint();
 		LevelLogic.delay(2000);
 		//Changes music from "menu music" to "ingame music"
-		
+		MegaManMain.audioClip.close();
+		MegaManMain.audioFile = new File("audio/BossBattle.wav");
 		try {
-			//MegaManMain.audioClip.loop(0); //Not priority
-			MegaManMain.audioClip.close();
-			//MegaManMain.audioClip.stop();
-			MegaManMain.audioFile = new File("audio/BossBattle.wav");
 			MegaManMain.audioStream = AudioSystem.getAudioInputStream(MegaManMain.audioFile);
 			MegaManMain.audioClip.open(MegaManMain.audioStream);
 			MegaManMain.audioClip.start();
@@ -75,44 +73,40 @@ public class FinalBoss extends Level3State {
 		}
 	};
 	
+	@Override
+	public void updateScreen() {
+		super.updateScreen();
+		drawMeatball();
+	}
+	
 	protected void drawMeatball() {
 		Graphics2D g2d = getGraphics2D();
-		meatball.translate(-meatball.getSpeed(), 0);
-		getNewGraphicsManager().drawMeatball(meatball, g2d, this);
-		
-		try {
-			bossStream = AudioSystem.getAudioInputStream(bossSound);
-			bossClip.open(bossStream);
-			bossClip.start();
-		}
-		catch (UnsupportedAudioFileException e1) {
-			e1.printStackTrace();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		} catch (LineUnavailableException e1) {
-			e1.printStackTrace();
-		}
-	}
 
-	@Override
-	protected void drawAsteroid() {
-		Graphics2D g2d = getGraphics2D();
-		if((asteroid.getX() + asteroid.getPixelsWide() >  0)) {
-			asteroid.translate(-asteroid.getSpeed(), 0);
-			getNewGraphicsManager().drawAsteroid(asteroid, g2d, this);	
+		if((meatball.getX() + meatball.getWidth() >  0)) {
+			meatball.translate(-meatball.getSpeed(), 0);
+			getNewGraphicsManager().drawMeatball(meatball, g2d, this);
+			if(isMeatballActive) {
+			NewSoundManager.playMeatballSound();
+			this.isMeatballActive = false;
+			}
 		}
 		else {
-			long currentTime = System.currentTimeMillis();
-			if((currentTime - lastAsteroidTime) > NEW_ASTEROID_DELAY){
-
-				asteroid.setLocation(this.getWidth() - asteroid.getPixelsWide(),
-						rand.nextInt(this.getHeight() - asteroid.getPixelsTall() - 32));
-			}
-			else {
-				// draw explosion
-				getNewGraphicsManager().drawAsteroidExplosion(asteroidExplosion, g2d, this);
-			}
-		}	
+				meatball.setLocation((int) (this.getWidth() - meatball.getPixelsWide()),
+						(rand.nextInt((int) (this.getHeight() - meatball.getPixelsTall() - 32))));
+				this.isMeatballActive = true;
+		}
+	}
+	
+	public Meatball newMeatball(NewLevel1State screen) {
+		int xPos = (int) (screen.getWidth() - Meatball.WIDTH);
+		int yPos = rand.nextInt((int)(screen.getHeight() - Meatball.HEIGHT - 32));
+		meatball = new Meatball(xPos, yPos);
+		return meatball;
+	}
+	
+	@Override
+	protected void drawAsteroid() {
+		//No asteroids wanted;
 	}
 	
 	@Override
