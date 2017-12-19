@@ -8,7 +8,7 @@ import rbadia.voidspace.graphics.NewGraphicsManager;
 import rbadia.voidspace.model.BigBullet;
 import rbadia.voidspace.model.BigPlatform;
 import rbadia.voidspace.model.Bullet;
-import rbadia.voidspace.model.MegaMan;
+import rbadia.voidspace.model.NewMegaMan;
 import rbadia.voidspace.model.Platform;
 import rbadia.voidspace.sounds.NewSoundManager;
 
@@ -175,7 +175,7 @@ public class Level3State extends NewLevel2State {
 	@Override
 	protected boolean Fire() {
 		if(getInputHandler().isLeftPressed()) {
-			MegaMan megaMan = this.getMegaMan();
+			NewMegaMan megaMan = this.getMegaMan();
 			List<Bullet> bullets = this.getBulletsLeft();
 			for(int i = 0; i < bullets.size(); i++){
 				Bullet bullet = bullets.get(i);
@@ -193,7 +193,7 @@ public class Level3State extends NewLevel2State {
 	@Override
 	protected boolean Fire2() {
 		if(getInputHandler().isLeftPressed()) {
-			MegaMan megaMan = this.getMegaMan();
+			NewMegaMan megaMan = this.getMegaMan();
 			List<BigBullet> bigBullets = this.getBigBulletsLeft();
 			for(int i = 0; i < bigBullets.size(); i++){
 				BigBullet bigBullet = bigBullets.get(i);
@@ -280,7 +280,7 @@ public class Level3State extends NewLevel2State {
 	
 	@Override
 	public boolean Fall() {
-		MegaMan megaMan = this.getMegaMan(); 
+		NewMegaMan megaMan = this.getMegaMan(); 
 		BigPlatform[] bigPlatforms = this.getBigPlatforms();
 		Platform[] platforms = this.getPlatforms();
 		for(int i = 0; i < getNumBigPlatforms(); i++){

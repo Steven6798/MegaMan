@@ -23,7 +23,8 @@ import rbadia.voidspace.model.Asteroid;
 import rbadia.voidspace.model.BigBullet;
 import rbadia.voidspace.model.Bullet;
 import rbadia.voidspace.model.Floor;
-import rbadia.voidspace.model.MegaMan;
+//import rbadia.voidspace.model.MegaMan;
+import rbadia.voidspace.model.NewMegaMan;
 import rbadia.voidspace.model.Platform;
 import rbadia.voidspace.sounds.NewSoundManager;
 
@@ -34,7 +35,7 @@ public class NewLevel1State extends NewLevelState {
 
 	private static final long serialVersionUID = 1L;
 	protected BufferedImage backBuffer;
-	protected MegaMan megaMan;
+	protected NewMegaMan megaMan;
 	protected Asteroid asteroid;
 	protected List<Bullet> bullets;
 	protected List<BigBullet> bigBullets;
@@ -84,7 +85,7 @@ public class NewLevel1State extends NewLevelState {
 	}
 
 	// Getters
-	public MegaMan getMegaMan() 				{ return megaMan; }
+	public NewMegaMan getMegaMan() 				{ return megaMan; }
 	public Floor[] getFloor()					{ return floor; }
 	public int getNumPlatforms()				{ return numPlatforms; }
 	public Platform[] getPlatforms()			{ return platforms; }
@@ -228,7 +229,7 @@ public class NewLevel1State extends NewLevelState {
 		drawAsteroid();
 		drawBullets();
 		drawBigBullets();
-		checkBullletAsteroidCollisions();
+		checkBulletAsteroidCollisions();
 		checkBigBulletAsteroidCollisions();
 		checkMegaManAsteroidCollisions();
 		checkAsteroidFloorCollisions();
@@ -287,7 +288,7 @@ public class NewLevel1State extends NewLevelState {
 		}
 	}
 
-	protected void checkBullletAsteroidCollisions() {
+	protected void checkBulletAsteroidCollisions() {
 		GameStatus status = getGameStatus();
 		for(int i = 0; i < bullets.size(); i++) {
 			Bullet bullet = bullets.get(i);
@@ -413,7 +414,7 @@ public class NewLevel1State extends NewLevelState {
 	}
 
 	protected boolean Gravity() {
-		MegaMan megaMan = this.getMegaMan();
+		NewMegaMan megaMan = this.getMegaMan();
 		Floor[] floor = this.getFloor();
 		for(int i = 0; i < 9; i++) {
 			if((megaMan.getY() + megaMan.getHeight() -17 < this.getHeight() - floor[i].getHeight() / 2) 
@@ -427,7 +428,7 @@ public class NewLevel1State extends NewLevelState {
 
 	//Bullet fire pose
 	protected boolean Fire() {
-		MegaMan megaMan = this.getMegaMan();
+		NewMegaMan megaMan = this.getMegaMan();
 		List<Bullet> bullets = this.getBullets();
 		for(int i = 0; i < bullets.size(); i++) {
 			Bullet bullet = bullets.get(i);
@@ -441,7 +442,7 @@ public class NewLevel1State extends NewLevelState {
 
 	//BigBullet fire pose
 	protected boolean Fire2() {
-		MegaMan megaMan = this.getMegaMan();
+		NewMegaMan megaMan = this.getMegaMan();
 		List<BigBullet> bigBullets = this.getBigBullets();
 		for(int i = 0; i < bigBullets.size(); i++) {
 			BigBullet bigBullet = bigBullets.get(i);
@@ -455,7 +456,7 @@ public class NewLevel1State extends NewLevelState {
 
 	//Platform Gravity
 	public boolean Fall(){
-		MegaMan megaMan = this.getMegaMan(); 
+		NewMegaMan megaMan = this.getMegaMan(); 
 		Platform[] platforms = this.getPlatforms();
 		for(int i = 0; i < getNumPlatforms(); i++) {
 			if((((platforms[i].getX() < megaMan.getX()) && (megaMan.getX()< platforms[i].getX() + platforms[i].getWidth()))
@@ -532,8 +533,8 @@ public class NewLevel1State extends NewLevelState {
 	/**
 	 * Create a new MegaMan (and replace current one).
 	 */
-	public MegaMan newMegaMan() {
-		this.megaMan = new MegaMan((getWidth() - MegaMan.WIDTH) / 2, (getHeight() - MegaMan.HEIGHT - MegaMan.Y_OFFSET) / 2);
+	public NewMegaMan newMegaMan() {
+		this.megaMan = new NewMegaMan((getWidth() - NewMegaMan.WIDTH) / 2, (getHeight() - NewMegaMan.HEIGHT - NewMegaMan.Y_OFFSET) / 2);
 		return megaMan;
 	}
 

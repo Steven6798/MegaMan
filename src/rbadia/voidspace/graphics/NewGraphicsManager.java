@@ -11,6 +11,7 @@ import rbadia.voidspace.model.BigPlatform;
 import rbadia.voidspace.model.Boss;
 import rbadia.voidspace.model.Meatball;
 import rbadia.voidspace.model.MegaMan;
+import rbadia.voidspace.model.NewMegaMan;
 
 public class NewGraphicsManager extends GraphicsManager{
 	
@@ -22,6 +23,9 @@ public class NewGraphicsManager extends GraphicsManager{
 	private BufferedImage bossEnterImg;
 	private BufferedImage bossFightImg;
 	
+	private BufferedImage megaManImg;
+	private BufferedImage megaFallRImg;
+	private BufferedImage megaFireRImg;
 
 	/**
 	 * Creates a new graphics manager and loads the game images.
@@ -29,6 +33,10 @@ public class NewGraphicsManager extends GraphicsManager{
 	public NewGraphicsManager(){
 		// load images
 		try {
+			this.megaManImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/megaMan3.png"));
+			this.megaFallRImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/megaFallRight.png"));
+			this.megaFireRImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/megaFireRight.png"));
+			
 			this.megaManLImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/megaManL.png"));
 			this.megaFallLImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/megaFallL.png"));
 			this.megaFireLImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/megaFireL.png"));
@@ -51,15 +59,15 @@ public class NewGraphicsManager extends GraphicsManager{
 	 * @param observer object to be notified
 	 */
 
-	public void drawMegaManL (MegaMan megaMan, Graphics2D g2d, ImageObserver observer){
+	public void drawMegaManL (NewMegaMan megaMan, Graphics2D g2d, ImageObserver observer){
 		g2d.drawImage(megaManLImg, megaMan.x, megaMan.y, observer);	
 	}
 
-	public void drawMegaFallL (MegaMan megaMan, Graphics2D g2d, ImageObserver observer){
+	public void drawMegaFallL (NewMegaMan megaMan, Graphics2D g2d, ImageObserver observer){
 		g2d.drawImage(megaFallLImg, megaMan.x, megaMan.y, observer);	
 	}
 
-	public void drawMegaFireL (MegaMan megaMan, Graphics2D g2d, ImageObserver observer){
+	public void drawMegaFireL (NewMegaMan megaMan, Graphics2D g2d, ImageObserver observer){
 		g2d.drawImage(megaFireLImg, megaMan.x, megaMan.y, observer);	
 	}
 	
@@ -77,6 +85,17 @@ public class NewGraphicsManager extends GraphicsManager{
 	
 	public void drawBossFight (Boss boss, Graphics2D g2d, ImageObserver observer) {
 		g2d.drawImage(bossFightImg, boss.x, boss.y, observer);
+	}
+	
+	
+	public void drawMegaMan (NewMegaMan megaMan, Graphics2D g2d, ImageObserver observer){
+		g2d.drawImage(megaManImg, megaMan.x, megaMan.y, observer);	
+	}
+	public void drawMegaFallR (NewMegaMan megaMan, Graphics2D g2d, ImageObserver observer){
+		g2d.drawImage(megaFallRImg, megaMan.x, megaMan.y, observer);	
+	}
+	public void drawMegaFireR (NewMegaMan megaMan, Graphics2D g2d, ImageObserver observer){
+		g2d.drawImage(megaFireRImg, megaMan.x, megaMan.y, observer);
 	}
 	
 }
