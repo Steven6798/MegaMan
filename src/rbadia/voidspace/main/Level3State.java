@@ -44,6 +44,7 @@ public class Level3State extends NewLevel2State {
 	// setters
 	public void setNumPlatforms(int numPlatforms) { this.numPlatforms = numPlatforms; }
 	public void setNumBigPlatforms(int numBigPlatforms) { this.numBigPlatforms = numBigPlatforms; }
+	@SuppressWarnings("static-access") //===========================
 	public void setAsteroidsToDestroy(int asteroidsToDestroy) { this.asteroidsToDestroy = asteroidsToDestroy; }
 	
 	@Override

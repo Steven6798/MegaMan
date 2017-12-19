@@ -3,6 +3,7 @@ package rbadia.voidspace.main;
 import java.awt.Graphics2D;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -11,7 +12,9 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 import rbadia.voidspace.graphics.NewGraphicsManager;
+import rbadia.voidspace.model.BigBullet;
 import rbadia.voidspace.model.Boss;
+import rbadia.voidspace.model.Bullet;
 import rbadia.voidspace.model.Meatball;
 import rbadia.voidspace.model.Platform;
 import rbadia.voidspace.model.Spaghetti;
@@ -35,15 +38,30 @@ public class FinalBoss extends Level3State {
 	}
 	
 	@Override
+	public void doStart() {
+		super.doStart();
+		bulletsLeft = new ArrayList<Bullet>();
+		bigBulletsLeft = new ArrayList<BigBullet>();
+		setNumPlatforms(6);
+		setNumBigPlatforms(4);
+		setAsteroidsToDestroy(10);
+		newPlatforms(getNumPlatforms());
+		newBigPlatforms(getNumBigPlatforms());
+	}
+	
+	@Override
 	public void doGettingReady() {
 		setCurrentState(GETTING_READY);
 		getGameLogic().drawGetReady();
 		repaint();
 		LevelLogic.delay(2000);
 		//Changes music from "menu music" to "ingame music"
-		MegaManMain.audioClip.close();
-		MegaManMain.audioFile = new File("audio/BossBattle.wav");
+		
 		try {
+			//MegaManMain.audioClip.loop(0); //Not priority
+			MegaManMain.audioClip.close();
+			//MegaManMain.audioClip.stop();
+			MegaManMain.audioFile = new File("audio/BossBattle.wav");
 			MegaManMain.audioStream = AudioSystem.getAudioInputStream(MegaManMain.audioFile);
 			MegaManMain.audioClip.open(MegaManMain.audioStream);
 			MegaManMain.audioClip.start();
