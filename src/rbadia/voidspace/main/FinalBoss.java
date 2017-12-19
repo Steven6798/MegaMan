@@ -77,6 +77,7 @@ public class FinalBoss extends Level3State {
 	public void updateScreen() {
 		super.updateScreen();
 		drawMeatball();
+		checkMegaManMeatballCollisions();
 	}
 	
 	protected void drawMeatball() {
@@ -102,6 +103,13 @@ public class FinalBoss extends Level3State {
 		int yPos = rand.nextInt((int)(screen.getHeight() - Meatball.HEIGHT - 32));
 		meatball = new Meatball(xPos, yPos);
 		return meatball;
+	}
+	
+	protected void checkMegaManMeatballCollisions() {
+		GameStatus status = getGameStatus();
+		if(meatball.intersects(megaMan)) {
+			status.setLivesLeft(status.getLivesLeft() - 1);
+		}
 	}
 	
 	@Override

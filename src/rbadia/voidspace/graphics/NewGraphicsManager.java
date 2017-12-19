@@ -10,7 +10,6 @@ import javax.swing.JOptionPane;
 import rbadia.voidspace.model.BigPlatform;
 import rbadia.voidspace.model.Boss;
 import rbadia.voidspace.model.Meatball;
-import rbadia.voidspace.model.MegaMan;
 import rbadia.voidspace.model.NewMegaMan;
 
 public class NewGraphicsManager extends GraphicsManager{
