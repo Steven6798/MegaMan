@@ -4,7 +4,7 @@ package rbadia.voidspace.main;
  * Implements the main game loop, i.e. what actions should be taken on each frame update.
  */
 public class NewLevelLoop implements Runnable {
-	private NewLevelState newLlevelState;
+	private NewLevelState newLevelState;
 	private NewLevelLogic newGameLogic;
 	private InputHandler inputHandler;
 
@@ -15,7 +15,7 @@ public class NewLevelLoop implements Runnable {
 	 * @param inputHandler the user input handler
 	 */
 	public NewLevelLoop(NewLevelState levelState) {
-		this.newLlevelState = levelState;
+		this.newLevelState = levelState;
 		this.newGameLogic = levelState.getGameLogic();
 		this.inputHandler = levelState.getInputHandler();
 	}
@@ -24,12 +24,12 @@ public class NewLevelLoop implements Runnable {
 	 * Implements the run interface method. Should be called by the running thread.
 	 */
 	public void run() {
-		newLlevelState.doStart();
+		newLevelState.doStart();
 
-		while(!newLlevelState.getGameStatus().isGameOver() && !newLlevelState.isLevelWon()) {
+		while(!newLevelState.getGameStatus().isGameOver() && !newLevelState.isLevelWon()) {
 			// update the game graphics and repaint screen
-			newGameLogic.stateTransition(inputHandler, newLlevelState);
-			newLlevelState.repaint();
+			newGameLogic.stateTransition(inputHandler, newLevelState);
+			newLevelState.repaint();
 			
 			NewLevelLogic.delay(1000/60);
 			
@@ -42,8 +42,8 @@ public class NewLevelLoop implements Runnable {
 //				e.printStackTrace();
 //			}
 		}
-		if (newLlevelState.isLevelWon()) newLlevelState.doLevelWon();
-		else newLlevelState.doGameOverScreen();
+		if (newLevelState.isLevelWon()) newLevelState.doLevelWon();
+		else newLevelState.doGameOverScreen();
 	}
 
 }

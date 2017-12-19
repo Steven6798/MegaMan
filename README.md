@@ -7,7 +7,7 @@ programming knowledge and having some fun along the way.
 
 
 Glitches found
-MegaBoy's jump animation can destroy asteroids
-Asteroids don't explode before level finishes and MegaBoy can be rendered twice
-Level 3: Make platforms bounce like Car
 Music from previous levels doesn't stop
+
+Observations
+Program is very CPU heavy, takes more up as levels increase. Inefficient program?
