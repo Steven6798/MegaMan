@@ -243,7 +243,8 @@ public class NewLevelLogic extends LevelLogic {
 			this.bigFont = originalFont;
 		}
 
-		String readyStr = "Get Ready for Level " + NewlevelState.getLevel(); 
+		String readyStr = "Get Ready for Level " + NewlevelState.getLevel();
+		String AstDest = "Destroy " + NewLevel1State.getAsteroidsToDestroy() + " asteroids";
 		g2d.setFont(originalFont.deriveFont(originalFont.getSize2D() + 1));
 		FontMetrics fm = g2d.getFontMetrics();
 		int ascent = fm.getAscent();
@@ -252,6 +253,7 @@ public class NewLevelLogic extends LevelLogic {
 		int strY = (NewlevelState.getHeight() + ascent) / 2;
 		g2d.setPaint(Color.WHITE);
 		g2d.drawString(readyStr, strX, strY);
+		g2d.drawString(AstDest, strX, strY + 20);
 	}
 
 	public void stateTransition(InputHandler ih, NewLevelState newLevelState) {

@@ -61,7 +61,7 @@ public class NewLevel1State extends NewLevelState {
 	
 	boolean musicState = true;
 	
-	protected int asteroidsToDestroy;
+	protected static int asteroidsToDestroy; //======================
 
 	// Constructors
 	public NewLevel1State(int level, NewMainFrame frame, GameStatus status, 
@@ -91,7 +91,7 @@ public class NewLevel1State extends NewLevelState {
 	public Asteroid getAsteroid() 				{ return asteroid; }
 	public List<Bullet> getBullets() 			{ return bullets; }
 	public List<BigBullet> getBigBullets()		{ return bigBullets; }
-	public int getAsteroidsToDestroy() 			{ return asteroidsToDestroy; }
+	public static int getAsteroidsToDestroy() 	{ return asteroidsToDestroy; } //========================
 
 	// Level state methods
 	// The method associated with the current level state will be called 
