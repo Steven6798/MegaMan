@@ -82,8 +82,8 @@ public class NewGraphicsManager extends GraphicsManager{
 		g2d.drawImage(bossEnterImg, boss.x, boss.y, observer);
 	}
 	
-	public void drawBossFight (Boss boss, Graphics2D g2d, ImageObserver observer) {
-		g2d.drawImage(bossFightImg, boss.x, boss.y, observer);
+	public void drawBossFight (Boss bossF, Graphics2D g2d, ImageObserver observer) {
+		g2d.drawImage(bossFightImg, bossF.x, bossF.y, observer);
 	}
 	
 	

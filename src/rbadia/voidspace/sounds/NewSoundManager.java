@@ -11,12 +11,24 @@ public class NewSoundManager extends SoundManager{
 	
     private static AudioClip meatballSound = Applet.newAudioClip(Level1State.class.getResource(
     "/rbadia/voidspace/sounds/Meatball.wav"));
+    private static AudioClip toasterSound = Applet.newAudioClip(Level1State.class.getResource(
+    "/rbadia/voidspace/sounds/Toasters.wav"));
     
     public static void playMeatballSound() {
     	if(SOUND_ON) {
     		new Thread(new Runnable() {
     			public void run() {
     				meatballSound.play();
+    			}
+    		}).start();
+    	}
+    }
+    
+    public static void playToasterSound() {
+    	if(SOUND_ON) {
+    		new Thread(new Runnable() {
+    			public void run() {
+    				toasterSound.play();
     			}
     		}).start();
     	}

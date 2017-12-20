@@ -3,7 +3,7 @@ package rbadia.voidspace.model;
 public class NewMegaMan extends GameObject {
 	private static final long serialVersionUID = 1L;
 
-	public static final int WIDTH = 31;
+	public static final int WIDTH = 27; //31
 	public static final int HEIGHT = 38;
 	
 	public static final int DEFAULT_SPEED = 5;

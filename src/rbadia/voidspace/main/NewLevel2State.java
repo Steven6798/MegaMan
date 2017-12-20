@@ -26,6 +26,7 @@ public class NewLevel2State extends NewLevel1State {
 		super.doStart();
 		setStartState(GETTING_READY);
 		setCurrentState(getStartState());
+		setDestroyText("Destroy " + String.valueOf(asteroidsToDestroy) + " asteroids");
 	}
 	
 	@Override

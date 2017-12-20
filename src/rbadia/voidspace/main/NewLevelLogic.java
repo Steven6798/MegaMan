@@ -244,7 +244,7 @@ public class NewLevelLogic extends LevelLogic {
 		}
 
 		String readyStr = "Get Ready for Level " + NewlevelState.getLevel();
-		String AstDest = "Destroy " + NewLevel1State.getAsteroidsToDestroy() + " asteroids";
+		String AstDest = NewLevel1State.getDestroyText();
 		g2d.setFont(originalFont.deriveFont(originalFont.getSize2D() + 1));
 		FontMetrics fm = g2d.getFontMetrics();
 		int ascent = fm.getAscent();

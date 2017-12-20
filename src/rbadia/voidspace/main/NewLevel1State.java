@@ -62,7 +62,8 @@ public class NewLevel1State extends NewLevelState {
 	boolean musicState = true;
 	
 	protected static int asteroidsToDestroy; //======================
-
+	protected static String destroyText;
+	
 	// Constructors
 	public NewLevel1State(int level, NewMainFrame frame, GameStatus status, 
 			NewLevelLogic newGameLogic, InputHandler inputHandler,
@@ -92,7 +93,10 @@ public class NewLevel1State extends NewLevelState {
 	public List<Bullet> getBullets() 			{ return bullets; }
 	public List<BigBullet> getBigBullets()		{ return bigBullets; }
 	public static int getAsteroidsToDestroy() 	{ return asteroidsToDestroy; } //========================
-
+	public static String getDestroyText()		{ return destroyText; }
+	
+	
+	public void setDestroyText(String destroyText) { this.destroyText = destroyText; }
 	// Level state methods
 	// The method associated with the current level state will be called 
 	// repeatedly during each LevelLoop iteration until the next a state 
@@ -133,6 +137,7 @@ public class NewLevel1State extends NewLevelState {
 		getNewMainFrame().getLevelValueLabel().setText(Long.toString(status.getLevel()));
 
 		asteroidsToDestroy = 3;
+		setDestroyText("Destroy " + String.valueOf(asteroidsToDestroy) + " asteroids");
 	}
 
 	@Override
