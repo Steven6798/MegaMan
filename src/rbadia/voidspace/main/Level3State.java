@@ -8,6 +8,7 @@ import rbadia.voidspace.graphics.NewGraphicsManager;
 import rbadia.voidspace.model.BigBullet;
 import rbadia.voidspace.model.BigPlatform;
 import rbadia.voidspace.model.Bullet;
+import rbadia.voidspace.model.Floor;
 import rbadia.voidspace.model.NewMegaMan;
 import rbadia.voidspace.model.Platform;
 import rbadia.voidspace.sounds.NewSoundManager;
@@ -61,10 +62,42 @@ public class Level3State extends NewLevel2State {
 	
 	@Override
 	public void updateScreen() {
-		super.updateScreen();
+		Graphics2D g2d = getGraphics2D();
+		GameStatus status = this.getGameStatus();
+
+		// save original font - for later use
+		if(this.originalFont == null){
+			this.originalFont = g2d.getFont();
+			this.bigFont = originalFont;
+		}
+
+		clearScreen();
+		drawStars(50);
+		drawFloor();
+		drawPlatforms();
+		drawBigPlatforms();
+		drawMegaMan();
+		drawAsteroid();
+		drawBullets();
+		drawBigBullets();
 		drawBulletsLeft();
 		drawBigBulletsLeft();
-		drawBigPlatforms();
+		checkBulletAsteroidCollisions();
+		checkBigBulletAsteroidCollisions();
+		checkMegaManAsteroidCollisions();
+		checkAsteroidFloorCollisions();
+
+		// update asteroids destroyed (score) label  
+		getNewMainFrame().getDestroyedValueLabel().setText(Long.toString(status.getAsteroidsDestroyed()));
+		// update lives left label
+		getNewMainFrame().getLivesValueLabel().setText(Integer.toString(status.getLivesLeft()));
+		// update level label
+		getNewMainFrame().getLevelValueLabel().setText(Long.toString(status.getLevel()));
+		
+//		super.updateScreen();
+//		drawBulletsLeft();
+//		drawBigBulletsLeft();
+//		drawBigPlatforms();
 	}
 
 	@Override
@@ -88,40 +121,40 @@ public class Level3State extends NewLevel2State {
 		}	
 	}
 
-	@Override
-	protected void drawMegaMan() {
-		//draw one of six possible MegaMan poses according to situation
-		Graphics2D g2d = getGraphics2D();
-		GameStatus status = getGameStatus();
-		if(!status.isNewMegaMan()) {
-			if((Gravity() == true) || ((Gravity() == true) && (Fire() == true || Fire2() == true))) {
-				if(getInputHandler().isLeftPressed()) {
-					getNewGraphicsManager().drawMegaFallL(megaMan, g2d, this);
-				}
-				else {
-					getNewGraphicsManager().drawMegaFallR(megaMan, g2d, this);
-				}
-			}
-		}
-
-		if((Fire() == true || Fire2() == true) && (Gravity() == false)) {
-			if(getInputHandler().isLeftPressed()) {
-				getNewGraphicsManager().drawMegaFireL(megaMan, g2d, this);
-			}
-			else {
-				getNewGraphicsManager().drawMegaFireR(megaMan, g2d, this);
-			}
-		}
-
-		if((Gravity() == false) && (Fire() == false) && (Fire2() == false)) {
-			if(getInputHandler().isLeftPressed()) {
-				getNewGraphicsManager().drawMegaManL(megaMan, g2d, this);
-			}
-			else {
-				getNewGraphicsManager().drawMegaMan(megaMan, g2d, this);
-			}
-		}
-	}
+//	@Override
+//	protected void drawMegaMan() {
+//		//draw one of six possible MegaMan poses according to situation
+//		Graphics2D g2d = getGraphics2D();
+//		GameStatus status = getGameStatus();
+//		if(!status.isNewMegaMan()) {
+//			if((Gravity() == true) || ((Gravity() == true) && (Fire() == true || Fire2() == true))) {
+//				if(getInputHandler().isLeftPressed()) {
+//					getNewGraphicsManager().drawMegaFallL(megaMan, g2d, this);
+//				}
+//				else {
+//					getNewGraphicsManager().drawMegaFallR(megaMan, g2d, this);
+//				}
+//			}
+//		}
+//
+//		if((Fire() == true || Fire2() == true) && (Gravity() == false)) {
+//			if(getInputHandler().isLeftPressed()) {
+//				getNewGraphicsManager().drawMegaFireL(megaMan, g2d, this);
+//			}
+//			else {
+//				getNewGraphicsManager().drawMegaFireR(megaMan, g2d, this);
+//			}
+//		}
+//
+//		if((Gravity() == false) && (Fire() == false) && (Fire2() == false)) {
+//			if(getInputHandler().isLeftPressed()) {
+//				getNewGraphicsManager().drawMegaManL(megaMan, g2d, this);
+//			}
+//			else {
+//				getNewGraphicsManager().drawMegaMan(megaMan, g2d, this);
+//			}
+//		}
+//	}
 
 	public BigPlatform[] newBigPlatforms(int n){
 		bigPlatforms = new BigPlatform[n];
@@ -294,11 +327,67 @@ public class Level3State extends NewLevel2State {
 		for(int i = 0; i < getNumPlatforms(); i++){
 			if((((platforms[i].getX() < megaMan.getX()) && (megaMan.getX()< platforms[i].getX() + platforms[i].getWidth()))
 					|| ((platforms[i].getX() < megaMan.getX() + megaMan.getWidth()) 
-							&& (megaMan.getX() + megaMan.getWidth()< platforms[i].getX() + platforms[i].getWidth())))
+					&& (megaMan.getX() + megaMan.getWidth()< platforms[i].getX() + platforms[i].getWidth())))
 					&& megaMan.getY() + megaMan.getHeight() == platforms[i].getY()) {
 				return false;
 			}
 		}
 		return true;
 	}
+	
+	
+	
+	
+	
+	
+//	@Override
+//	protected boolean Gravity() {
+//		NewMegaMan megaMan = this.getMegaMan();
+//		Floor[] floor = this.getFloor();
+//		for(int i = 0; i < 9; i++) {
+//			if((megaMan.getY() + megaMan.getHeight() -17 < this.getHeight() - floor[i].getHeight()/2 - 18) //===
+//					&& FallPlatform() == true) {
+//				megaMan.translate(0, 2);
+//				return true;
+//			}
+//			else if((megaMan.getY() + megaMan.getHeight() -17 < this.getHeight() - floor[i].getHeight()/2 - 18) //===
+//					&& FallBigPlatform() == true) {
+//				megaMan.translate(0, 2);
+//				return true;
+//			}
+//		}
+//		return false;
+//	}
+//	
+//	protected boolean FallPlatform() {
+//		NewMegaMan megaMan = this.getMegaMan(); 
+//		Platform[] platforms = this.getPlatforms();
+//		for(int i = 0; i < getNumPlatforms(); i++){
+//			if((((platforms[i].getX() < megaMan.getX()) && (megaMan.getX()< platforms[i].getX() + platforms[i].getWidth()))
+//					|| ((platforms[i].getX() < megaMan.getX() + megaMan.getWidth()) 
+//					&& (megaMan.getX() + megaMan.getWidth()< platforms[i].getX() + platforms[i].getWidth())))
+//					&& megaMan.getY() + megaMan.getHeight() == platforms[i].getY()) {
+//				return false;
+//			}
+//		}
+//		return true;      
+//	}
+//	
+//	protected boolean FallBigPlatform() {
+//		NewMegaMan megaMan = this.getMegaMan(); 
+//		BigPlatform[] bigPlatforms = this.getBigPlatforms();
+//		for(int i = 0; i < getNumBigPlatforms(); i++){
+//			if((((bigPlatforms[i].getX() < megaMan.getX()) && (megaMan.getX()< bigPlatforms[i].getX() + bigPlatforms[i].getWidth()))
+//					|| ((bigPlatforms[i].getX() < megaMan.getX() + megaMan.getWidth()) 
+//							&& (megaMan.getX() + megaMan.getWidth()< bigPlatforms[i].getX() + bigPlatforms[i].getWidth())))
+//					&& megaMan.getY() + megaMan.getHeight() == bigPlatforms[i].getY()) {
+//				return false;
+//			}
+//		}
+//		return true;
+//	}
+	
+	
+	
+	
 }

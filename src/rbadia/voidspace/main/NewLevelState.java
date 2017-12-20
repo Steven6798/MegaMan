@@ -31,7 +31,6 @@ public abstract class NewLevelState extends JPanel {
 	private NewSoundManager newSoundManager;
 	private int level;
 	private Graphics2D g2d;
-	private NewGameStatus newStatus;
 
 	// Getters
 	public NewGraphicsManager getNewGraphicsManager() { return newGraphicsManager; }
@@ -44,7 +43,6 @@ public abstract class NewLevelState extends JPanel {
 	public Graphics2D getGraphics2D() { return g2d; }
 	public int getCurrentState() { return currentState; }
 	public int getStartState() { return startState; }
-	public NewGameStatus getNewGameStatus() { return newStatus; }
 
 	// Setters
 	protected void setNewGraphicsManager(NewGraphicsManager newGraphicsManager) { this.newGraphicsManager = newGraphicsManager; }
@@ -57,7 +55,6 @@ public abstract class NewLevelState extends JPanel {
 	public void setGraphics2D(Graphics2D g2d) { this.g2d = g2d; }
 	public void setCurrentState(int nextState) { this.currentState = nextState; }
 	public void setStartState(int startState) { this.startState = startState; }
-	public void setNewGameStatus(NewGameStatus newStatus) { this.newStatus = newStatus; }
 
 	// Level FSM state methods
 	public abstract void doStart();

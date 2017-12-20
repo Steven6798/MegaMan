@@ -5,8 +5,8 @@ public class Meatball extends GameObject {
 
 	public static final int DEFAULT_MEATBALL_SPEED = 8;
 	
-	public static final int WIDTH = 150;
-	public static final int HEIGHT = 150;
+	public static final int WIDTH = 100;
+	public static final int HEIGHT = 100;
 	
 	public Meatball(int xPos, int yPos) {
 		super(xPos, yPos, Meatball.WIDTH, Meatball.HEIGHT);

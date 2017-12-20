@@ -357,17 +357,49 @@ public class NewLevel1State extends NewLevelState {
 		//draw one of three possible MegaMan poses according to situation
 		Graphics2D g2d = getGraphics2D();
 		GameStatus status = getGameStatus();
+		
 		if(!status.isNewMegaMan()) {
 			if((Gravity() == true) || ((Gravity() == true) && (Fire() == true || Fire2() == true))) {
-				getNewGraphicsManager().drawMegaFallR(megaMan, g2d, this);
+				if(getInputHandler().isLeftPressed()) {
+					getNewGraphicsManager().drawMegaFallL(megaMan, g2d, this);
+				}
+				else {
+					getNewGraphicsManager().drawMegaFallR(megaMan, g2d, this);
+				}
 			}
 		}
+
 		if((Fire() == true || Fire2() == true) && (Gravity() == false)) {
-			getNewGraphicsManager().drawMegaFireR(megaMan, g2d, this);
+			if(getInputHandler().isLeftPressed()) {
+				getNewGraphicsManager().drawMegaFireL(megaMan, g2d, this);
+			}
+			else {
+				getNewGraphicsManager().drawMegaFireR(megaMan, g2d, this);
+			}
 		}
+
 		if((Gravity() == false) && (Fire() == false) && (Fire2() == false)) {
-			getNewGraphicsManager().drawMegaMan(megaMan, g2d, this);
+			if(getInputHandler().isLeftPressed()) {
+				getNewGraphicsManager().drawMegaManL(megaMan, g2d, this);
+			}
+			else {
+				getNewGraphicsManager().drawMegaMan(megaMan, g2d, this);
+			}
 		}
+		
+		
+		
+//		if(!status.isNewMegaMan()) {
+//			if((Gravity() == true) || ((Gravity() == true) && (Fire() == true || Fire2() == true))) {
+//				getNewGraphicsManager().drawMegaFallR(megaMan, g2d, this);
+//			}
+//		}
+//		if((Fire() == true || Fire2() == true) && (Gravity() == false)) {
+//			getNewGraphicsManager().drawMegaFireR(megaMan, g2d, this);
+//		}
+//		if((Gravity() == false) && (Fire() == false) && (Fire2() == false)) {
+//			getNewGraphicsManager().drawMegaMan(megaMan, g2d, this);
+//		}
 	}
 
 	protected void drawPlatforms() {
@@ -416,7 +448,7 @@ public class NewLevel1State extends NewLevelState {
 		NewMegaMan megaMan = this.getMegaMan();
 		Floor[] floor = this.getFloor();
 		for(int i = 0; i < 9; i++) {
-			if((megaMan.getY() + megaMan.getHeight() -17 < this.getHeight() - floor[i].getHeight() / 2) 
+			if((megaMan.getY() + megaMan.getHeight() -17 < this.getHeight() - floor[i].getHeight()/2 - 18) //===
 					&& Fall() == true) {
 				megaMan.translate(0, 2);
 				return true;

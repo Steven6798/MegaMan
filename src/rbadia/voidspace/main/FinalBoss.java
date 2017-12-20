@@ -23,13 +23,14 @@ public class FinalBoss extends Level3State {
 	
 	protected Meatball meatball;
 	protected Boss boss;
+	private boolean isBossActive = false;
 	
 //	private static AudioInputStream bossStream;
 //	private static File bossSound = new File("/rbadia/voidspace/sounds/Meatball.wav");
 //	private static Clip bossClip;
 	private boolean isMeatballActive = true;
 	
-	public Meatball getMeatball()	{ return meatball; }
+	public Meatball getMeatball()	{ return meatball; }//Necessary?
 
 	public FinalBoss(int level, NewMainFrame frame, GameStatus status, 
 			NewLevelLogic newGameLogic, InputHandler inputHandler,
@@ -48,6 +49,7 @@ public class FinalBoss extends Level3State {
 		newPlatforms(getNumPlatforms());
 		newBigPlatforms(getNumBigPlatforms());
 		newMeatball(this);
+		newBoss(this);
 	}
 	
 	@Override
@@ -76,9 +78,17 @@ public class FinalBoss extends Level3State {
 	@Override
 	public void updateScreen() {
 		super.updateScreen();
-		drawMeatball();
+		drawBossEnter();
+		//drawBossFight();
+		//drawMeatball();
 		checkMegaManMeatballCollisions();
+		checkMegaManBossCollisions();
+		checkBulletBossCollisions();
+		checkBigBulletBossCollisions();
 	}
+	
+	
+	
 	
 	protected void drawMeatball() {
 		Graphics2D g2d = getGraphics2D();
@@ -98,19 +108,40 @@ public class FinalBoss extends Level3State {
 		}
 	}
 	
+	@Override
+	protected void drawPlatforms() {
+		//draw platforms
+		Graphics2D g2d = getGraphics2D();
+		for(int i = 0; i < getNumPlatforms(); i++) {
+			getNewGraphicsManager().drawPlatform(platforms[i], g2d, this, i);
+		}
+	}
+	
+	protected void drawBossEnter() {
+		Graphics2D g2d = getGraphics2D();
+		getNewGraphicsManager().drawBossEnter(boss, g2d, this);
+	}
+	
+	
+	
+	
 	public Meatball newMeatball(NewLevel1State screen) {
-		int xPos = (int) (screen.getWidth() - Meatball.WIDTH);
+		int xPos = (int) (screen.getWidth() - Meatball.WIDTH - 50);
 		int yPos = rand.nextInt((int)(screen.getHeight() - Meatball.HEIGHT - 32));
 		meatball = new Meatball(xPos, yPos);
 		return meatball;
 	}
 	
-	protected void checkMegaManMeatballCollisions() {
-		GameStatus status = getGameStatus();
-		if(meatball.intersects(megaMan)) {
-			status.setLivesLeft(status.getLivesLeft() - 1);
-		}
+	public Boss newBoss(NewLevel1State screen) {
+		int xPos = (int) (screen.getWidth() - Boss.WIDTH);
+		int yPos = (int) (screen.getHeight() - Boss.HEIGHT - 32);
+		boss = new Boss(xPos, yPos);
+		return boss;
 	}
+	
+	
+	
+	
 	
 	@Override
 	protected void drawAsteroid() {
@@ -126,12 +157,58 @@ public class FinalBoss extends Level3State {
 		return platforms;
 	}
 		
-	@Override
-	protected void drawPlatforms() {
-		//draw platforms
-		Graphics2D g2d = getGraphics2D();
-		for(int i = 0; i < getNumPlatforms(); i++) {
-			getNewGraphicsManager().drawPlatform(platforms[i], g2d, this, i);
+	
+	
+	
+	
+	
+	
+	protected void checkBigBulletBossCollisions() {
+		while (isBossActive) {
+			GameStatus status = getGameStatus();
+			for(int i = 0; i < bigBullets.size(); i++) {
+				BigBullet bigBullet = bigBullets.get(i);
+				if(asteroid.intersects(bigBullet)) {
+					// increase asteroids destroyed count
+					status.setAsteroidsDestroyed(status.getAsteroidsDestroyed() + 100);
+					removeAsteroid(asteroid);
+					damage=0;
+				}
+			}
 		}
 	}
+
+	protected void checkBulletBossCollisions() {
+		while (isBossActive) {
+			GameStatus status = getGameStatus();
+			for(int i = 0; i < bullets.size(); i++) {
+				Bullet bullet = bullets.get(i);
+				if(asteroid.intersects(bullet)) {
+					// increase asteroids destroyed count
+					status.setAsteroidsDestroyed(status.getAsteroidsDestroyed() + 100);
+					removeAsteroid(asteroid);
+					levelAsteroidsDestroyed++;
+					damage=0;
+					// remove bullet
+					bullets.remove(i);
+					break;
+				}
+			}
+		}
+	}
+	
+	protected void checkMegaManMeatballCollisions() {
+		GameStatus status = getGameStatus();
+		if(meatball.intersects(megaMan)) {
+			status.setLivesLeft(status.getLivesLeft() - 1);
+		}
+	}
+	
+	protected void checkMegaManBossCollisions() {
+		GameStatus status = getGameStatus();
+		if(boss.intersects(megaMan)) {
+			status.setLivesLeft(status.getLivesLeft() - 1);
+		}
+	}
+	
 }

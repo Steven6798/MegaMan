@@ -182,7 +182,7 @@ public class NewLevelLogic extends LevelLogic {
 			this.bigFont = originalFont;
 		}
 
-		String gameTitleStr = "MegaMAN !!!";
+		String gameTitleStr = "MegaBOY !!!";
 
 		Font currentFont = biggestFont == null? bigFont : biggestFont;
 		float fontSize = currentFont.getSize2D();
