@@ -226,7 +226,8 @@ public class NewLevel1State extends NewLevelState {
 		}
 
 		clearScreen();
-		drawStars(50);
+		//drawStars(50);
+		drawBackground();
 		drawFloor();
 		drawPlatforms();
 		drawMegaMan();
@@ -421,6 +422,11 @@ public class NewLevel1State extends NewLevelState {
 		for(int i = 0; i < 9; i++) {
 			getNewGraphicsManager().drawFloor(floor[i], g2d, this, i);	
 		}
+	}
+	
+	protected void drawBackground() {
+		Graphics2D g2d = getGraphics2D();
+		getNewGraphicsManager().drawBackground(g2d, this);
 	}
 
 	protected void clearScreen() {
