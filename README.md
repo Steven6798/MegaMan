@@ -9,7 +9,7 @@ TODO
 Glitches found
 Music from previous levels doesn't stop
 Bullets now shoot a bit higher than gun, fix it's location
-Turning left doesn't work on Level1
+Fix staying turned left
 
 Observations
 Program is very CPU heavy, takes more up as levels increase. Inefficient program?

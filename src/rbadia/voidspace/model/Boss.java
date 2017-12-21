@@ -5,8 +5,8 @@ public class Boss extends GameObject {
 
 	public static final int DEFAULT_BOSS_SPEED = 1;
 	
-	public static final int WIDTH = 320;
-	public static final int HEIGHT = 239;
+	public static final int WIDTH = 218;
+	public static final int HEIGHT = 217;
 	
 	public Boss(int xPos, int yPos) {
 		super(xPos, yPos, Boss.WIDTH, Boss.HEIGHT);

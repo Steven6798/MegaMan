@@ -21,6 +21,7 @@ public class NewGraphicsManager extends GraphicsManager{
 	private BufferedImage meatballImg;
 	private BufferedImage bossEnterImg;
 	private BufferedImage bossFightImg;
+	private BufferedImage bossImg;
 	
 	private BufferedImage megaManImg;
 	private BufferedImage megaFallRImg;
@@ -45,6 +46,7 @@ public class NewGraphicsManager extends GraphicsManager{
 			this.bossEnterImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/BossEnterScaled.png"));
 			this.bossFightImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/BossFightScaled.png"));
 			this.backgroundImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/Background.png"));
+			this.bossImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/BossFightScaled.png"));
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "The graphic files are either corrupt or missing.",
 					"VoidSpace - Fatal Error", JOptionPane.ERROR_MESSAGE);
@@ -97,6 +99,10 @@ public class NewGraphicsManager extends GraphicsManager{
 	}
 	public void drawMegaFireR (NewMegaMan megaMan, Graphics2D g2d, ImageObserver observer){
 		g2d.drawImage(megaFireRImg, megaMan.x, megaMan.y, observer);
+	}
+	
+	public void drawBoss (Boss boss, Graphics2D g2d, ImageObserver observer) {
+		g2d.drawImage(bossImg, boss.x, boss.y, observer);
 	}
 	
 	public void drawBackground (Graphics2D g2d, ImageObserver observer) {

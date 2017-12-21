@@ -74,7 +74,6 @@ public class Level3State extends NewLevel2State {
 
 		clearScreen();
 		drawBackground();
-		//drawStars(50);
 		drawFloor();
 		drawPlatforms();
 		drawBigPlatforms();

@@ -96,6 +96,7 @@ public class NewLevel1State extends NewLevelState {
 	public static String getDestroyText()		{ return destroyText; }
 	
 	
+	@SuppressWarnings("static-access")
 	public void setDestroyText(String destroyText) { this.destroyText = destroyText; }
 	// Level state methods
 	// The method associated with the current level state will be called 
@@ -226,7 +227,6 @@ public class NewLevel1State extends NewLevelState {
 		}
 
 		clearScreen();
-		//drawStars(50);
 		drawBackground();
 		drawFloor();
 		drawPlatforms();
