@@ -313,7 +313,7 @@ public class NewLevelLogic extends LevelLogic {
 					"Item:                Price\r\n"+
 							"\r\n"+
 							"Extra Life:      1500\r\n"+ 
-							"Power Shot:  1000\r\n"+
+							"Power Shot:   500\r\n"+
 					"\r\n");
 		}
 		if(ih.isIPressed()) {
@@ -355,9 +355,9 @@ public class NewLevelLogic extends LevelLogic {
 		}
 		
 		if(ih.isQPressed()) {
-			if(stack == 0 && status.getAsteroidsDestroyed() >= 1000) {
+			if(stack == 0 && status.getAsteroidsDestroyed() >= 500) {
 				stack++;
-				status.setAsteroidsDestroyed(status.getAsteroidsDestroyed() - 1000);
+				status.setAsteroidsDestroyed(status.getAsteroidsDestroyed() - 500);
 			}
 			else if(stack >= 1) {
 				long currentTime = System.currentTimeMillis();

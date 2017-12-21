@@ -1,14 +1,9 @@
 package rbadia.voidspace.main;
 
 import java.awt.Graphics2D;
-import java.util.ArrayList;
-import java.util.List;
 
 import rbadia.voidspace.graphics.NewGraphicsManager;
-import rbadia.voidspace.model.BigBullet;
 import rbadia.voidspace.model.BigPlatform;
-import rbadia.voidspace.model.Bullet;
-import rbadia.voidspace.model.Floor;
 import rbadia.voidspace.model.NewMegaMan;
 import rbadia.voidspace.model.Platform;
 import rbadia.voidspace.sounds.NewSoundManager;
@@ -20,8 +15,6 @@ import rbadia.voidspace.sounds.NewSoundManager;
  */
 public class Level3State extends NewLevel2State {
 	
-	protected List<Bullet> bulletsLeft;
-	protected List<BigBullet> bigBulletsLeft;
 	protected BigPlatform[] bigPlatforms;
 	protected int numBigPlatforms = 4;
 	protected int platformDirection;
@@ -37,22 +30,17 @@ public class Level3State extends NewLevel2State {
 	}
 	
 	// getters
-	public List<Bullet> getBulletsLeft() 		{ return bulletsLeft; }
-	public List<BigBullet> getBigBulletsLeft() 	{ return bigBulletsLeft; }
 	public BigPlatform[] getBigPlatforms() 		{ return bigPlatforms; }
 	public int getNumBigPlatforms() 			{ return numBigPlatforms; }
 	
 	// setters
 	public void setNumPlatforms(int numPlatforms) { this.numPlatforms = numPlatforms; }
 	public void setNumBigPlatforms(int numBigPlatforms) { this.numBigPlatforms = numBigPlatforms; }
-	@SuppressWarnings("static-access") //===========================
-	public void setAsteroidsToDestroy(int asteroidsToDestroy) { this.asteroidsToDestroy = asteroidsToDestroy; }
+	public void setAsteroidsToDestroy(int asteroidsToDestroy) { NewLevel1State.asteroidsToDestroy = asteroidsToDestroy; }
 	
 	@Override
 	public void doStart() {
 		super.doStart();
-		bulletsLeft = new ArrayList<Bullet>();
-		bigBulletsLeft = new ArrayList<BigBullet>();
 		setNumPlatforms(4);
 		setNumBigPlatforms(4);
 		setAsteroidsToDestroy(10);
@@ -63,42 +51,8 @@ public class Level3State extends NewLevel2State {
 	
 	@Override
 	public void updateScreen() {
-		Graphics2D g2d = getGraphics2D();
-		GameStatus status = this.getGameStatus();
-
-		// save original font - for later use
-		if(this.originalFont == null){
-			this.originalFont = g2d.getFont();
-			this.bigFont = originalFont;
-		}
-
-		clearScreen();
-		drawBackground();
-		drawFloor();
-		drawPlatforms();
+		super.updateScreen();
 		drawBigPlatforms();
-		drawMegaMan();
-		drawAsteroid();
-		drawBullets();
-		drawBigBullets();
-		drawBulletsLeft();
-		drawBigBulletsLeft();
-		checkBulletAsteroidCollisions();
-		checkBigBulletAsteroidCollisions();
-		checkMegaManAsteroidCollisions();
-		checkAsteroidFloorCollisions();
-
-		// update asteroids destroyed (score) label  
-		getNewMainFrame().getDestroyedValueLabel().setText(Long.toString(status.getAsteroidsDestroyed()));
-		// update lives left label
-		getNewMainFrame().getLivesValueLabel().setText(Integer.toString(status.getLivesLeft()));
-		// update level label
-		getNewMainFrame().getLevelValueLabel().setText(Long.toString(status.getLevel()));
-		
-//		super.updateScreen();
-//		drawBulletsLeft();
-//		drawBigBulletsLeft();
-//		drawBigPlatforms();
 	}
 
 	@Override
@@ -121,41 +75,6 @@ public class Level3State extends NewLevel2State {
 			}
 		}	
 	}
-
-//	@Override
-//	protected void drawMegaMan() {
-//		//draw one of six possible MegaMan poses according to situation
-//		Graphics2D g2d = getGraphics2D();
-//		GameStatus status = getGameStatus();
-//		if(!status.isNewMegaMan()) {
-//			if((Gravity() == true) || ((Gravity() == true) && (Fire() == true || Fire2() == true))) {
-//				if(getInputHandler().isLeftPressed()) {
-//					getNewGraphicsManager().drawMegaFallL(megaMan, g2d, this);
-//				}
-//				else {
-//					getNewGraphicsManager().drawMegaFallR(megaMan, g2d, this);
-//				}
-//			}
-//		}
-//
-//		if((Fire() == true || Fire2() == true) && (Gravity() == false)) {
-//			if(getInputHandler().isLeftPressed()) {
-//				getNewGraphicsManager().drawMegaFireL(megaMan, g2d, this);
-//			}
-//			else {
-//				getNewGraphicsManager().drawMegaFireR(megaMan, g2d, this);
-//			}
-//		}
-//
-//		if((Gravity() == false) && (Fire() == false) && (Fire2() == false)) {
-//			if(getInputHandler().isLeftPressed()) {
-//				getNewGraphicsManager().drawMegaManL(megaMan, g2d, this);
-//			}
-//			else {
-//				getNewGraphicsManager().drawMegaMan(megaMan, g2d, this);
-//			}
-//		}
-//	}
 
 	public BigPlatform[] newBigPlatforms(int n){
 		bigPlatforms = new BigPlatform[n];
@@ -199,117 +118,11 @@ public class Level3State extends NewLevel2State {
 	
 	@Override
 	protected void drawPlatforms() {
-		//draw big platforms
+		//draw platforms
 		Graphics2D g2d = getGraphics2D();
 		for(int i = 0; i < getNumPlatforms(); i++) {
 			getNewGraphicsManager().drawPlatform(platforms[i], g2d, this, i);
 		}
-	}
-	
-	@Override
-	protected boolean Fire() {
-		if(getInputHandler().isLeftPressed()) {
-			NewMegaMan megaMan = this.getMegaMan();
-			List<Bullet> bullets = this.getBulletsLeft();
-			for(int i = 0; i < bullets.size(); i++){
-				Bullet bullet = bullets.get(i);
-				if((bullet.getX() < megaMan.getX()) && (bullet.getX() >= megaMan.getX() - 60)) {
-					return true;
-				}
-			}
-		}
-		if(super.Fire() == true) {
-			return true;
-		}
-		return false;
-	}
-
-	@Override
-	protected boolean Fire2() {
-		if(getInputHandler().isLeftPressed()) {
-			NewMegaMan megaMan = this.getMegaMan();
-			List<BigBullet> bigBullets = this.getBigBulletsLeft();
-			for(int i = 0; i < bigBullets.size(); i++){
-				BigBullet bigBullet = bigBullets.get(i);
-				if((bigBullet.getX() < megaMan.getX()) && (bigBullet.getX() >= megaMan.getX() - 60)) {
-					return true;
-				}
-			}
-		}
-		if(super.Fire2() == true) {
-			return true;
-		}
-		return false;
-	}
-	
-	protected void drawBulletsLeft() {
-		Graphics2D g2d = getGraphics2D();
-		for(int i = 0; i < bulletsLeft.size(); i++) {
-			Bullet bulletLeft = bulletsLeft.get(i);
-			getNewGraphicsManager().drawBullet(bulletLeft, g2d, this);
-			boolean remove = this.moveBulletLeft(bulletLeft);
-			if(remove){
-				bulletsLeft.remove(i);
-				i--;
-			}
-		}
-	}
-	
-	protected void drawBigBulletsLeft() {
-		Graphics2D g2d = getGraphics2D();
-		for(int i = 0; i < bigBulletsLeft.size(); i++) {
-			BigBullet bigBulletLeft = bigBulletsLeft.get(i);
-			getNewGraphicsManager().drawBigBullet(bigBulletLeft, g2d, this);
-			boolean remove = this.moveBigBulletLeft(bigBulletLeft);
-			if(remove){
-				bigBulletsLeft.remove(i);
-				i--;
-			}
-		}
-	}
-	
-	@Override
-	public void fireBullet() {
-		if(getInputHandler().isLeftPressed()) {
-			Bullet bullet;
-			bullet = new Bullet(megaMan.x - Bullet.WIDTH / 2,
-								megaMan.y + megaMan.width / 2 - Bullet.HEIGHT + 2);
-			bulletsLeft.add(bullet);
-			this.getNewSoundManager().playBulletSound();
-		}
-		else {
-			super.fireBullet();
-		}
-	}
-	
-	@Override
-	public void fireBigBullet() {
-		if(getInputHandler().isLeftPressed()) {
-			BigBullet bigBullet;
-			bigBullet = new BigBullet(megaMan.x - Bullet.WIDTH / 2,
-								megaMan.y + megaMan.width / 2 - Bullet.HEIGHT + 2);
-			bigBulletsLeft.add(bigBullet);
-			this.getNewSoundManager().playBulletSound();
-		}
-		else {
-			super.fireBigBullet();
-		}
-	}
-	
-	public boolean moveBulletLeft(Bullet bullet) {
-		if(bullet.getX() - bullet.getSpeed() > 0) {
-			bullet.translate(-bullet.getSpeed(), 0);
-			return false;
-		}
-		return true;
-	}
-	
-	public boolean moveBigBulletLeft(BigBullet bigBullet) {
-		if(bigBullet.getX() - bigBullet.getSpeed() > 0) {
-			bigBullet.translate(-bigBullet.getSpeed(), 0);
-			return false;
-		}
-		return true;
 	}
 	
 	@Override
@@ -335,11 +148,6 @@ public class Level3State extends NewLevel2State {
 		}
 		return true;
 	}
-	
-	
-	
-	
-	
 	
 //	@Override
 //	protected boolean Gravity() {
@@ -387,8 +195,4 @@ public class Level3State extends NewLevel2State {
 //		}
 //		return true;
 //	}
-	
-	
-	
-	
 }

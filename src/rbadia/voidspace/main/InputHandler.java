@@ -150,6 +150,9 @@ public class InputHandler implements KeyListener {
 			this.qIsPressed= true;
 			break;
 		case KeyEvent.VK_M:
+			if(!mIsPressed) {
+				this.getNewLevelState().pauseMusic();
+			}
 			this.mIsPressed= true;
 			break;
 		case KeyEvent.VK_N:
@@ -199,7 +202,6 @@ public class InputHandler implements KeyListener {
 			break;
 		case KeyEvent.VK_M:
 			this.mIsPressed = false;
-			this.getNewLevelState().pauseMusic();
 			break;
 		case KeyEvent.VK_N:
 			this.nIsPressed = false;
