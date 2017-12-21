@@ -3,7 +3,7 @@ package rbadia.voidspace.model;
 public class Meatball extends GameObject {
 	private static final long serialVersionUID = 1L;
 
-	public static final int DEFAULT_MEATBALL_SPEED = 5;
+	public static final int DEFAULT_MEATBALL_SPEED = 6;
 	
 	public static final int WIDTH = 83;
 	public static final int HEIGHT = 62;

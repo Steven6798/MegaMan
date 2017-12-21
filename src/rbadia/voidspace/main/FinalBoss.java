@@ -139,7 +139,7 @@ private static final long serialVersionUID = 1L;
 			}
 			else {
 				meatball.setLocation((int) (this.getWidth() - meatball.getPixelsWide() - 100), //==========
-						(rand.nextInt((int) (this.getHeight() - meatball.getPixelsTall()))));
+						rand.nextInt(Boss.HEIGHT) + (int)(this.getHeight() - Boss.HEIGHT - Meatball.HEIGHT));
 				this.isMeatballActive = true;
 				this.meatballDidDamage = false;
 			}
