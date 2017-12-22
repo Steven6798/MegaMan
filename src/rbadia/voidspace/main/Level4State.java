@@ -21,6 +21,7 @@ public class Level4State extends Level3State {
 	protected BigAsteroid bigAsteroid;
 	protected Rectangle bigAsteroidExplosion;
 	protected long lastBigAsteroidTime = NEW_ASTEROID_DELAY;
+	protected int bigAsteroidHealth = 5;
 
 	private static final long serialVersionUID = -2094575762243216079L;
 
@@ -157,12 +158,11 @@ public class Level4State extends Level3State {
 	}
 	
 	protected void checkBulletBigAsteroidCollisions() {
-		int bigAsteroidHealth = 5;
 		GameStatus status = getGameStatus();
 		for(int i = 0; i < bullets.size(); i++) {
 			Bullet bullet = bullets.get(i);
 			if(bigAsteroid.intersects(bullet)) {
-				if(bigAsteroidHealth > 0) {
+				if(bigAsteroidHealth > 1) {
 					bullets.remove(i);
 					bigAsteroidHealth--;
 					break;
