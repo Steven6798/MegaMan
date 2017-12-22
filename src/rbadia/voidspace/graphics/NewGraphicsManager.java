@@ -1,12 +1,14 @@
 package rbadia.voidspace.graphics;
 
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
+import rbadia.voidspace.model.BigAsteroid;
 import rbadia.voidspace.model.BigPlatform;
 import rbadia.voidspace.model.Boss;
 import rbadia.voidspace.model.Meatball;
@@ -22,8 +24,9 @@ public class NewGraphicsManager extends GraphicsManager{
 	private BufferedImage bigPlatformBlackImg;
 	private BufferedImage platformBlackImg;
 	private BufferedImage meatballImg;
-	private BufferedImage bossFightImg;
 	private BufferedImage bossImg;
+	private BufferedImage bigAsteroidImg;
+	private BufferedImage bigAsteroidExplosionImg;
 	
 	private BufferedImage megaManImg;
 	private BufferedImage megaFallRImg;
@@ -44,7 +47,6 @@ public class NewGraphicsManager extends GraphicsManager{
 			this.megaManImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/megaMan3.png"));
 			this.megaFallRImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/megaFallRight.png"));
 			this.megaFireRImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/megaFireRight.png"));
-			
 			this.megaManLImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/megaManL.png"));
 			this.megaFallLImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/megaFallL.png"));
 			this.megaFireLImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/megaFireL.png"));
@@ -52,7 +54,8 @@ public class NewGraphicsManager extends GraphicsManager{
 			this.platformBlackImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/platform3Black.png"));
 			this.bigPlatformImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/BigPlatform.png"));
 			this.bigPlatformBlackImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/BigPlatformBlack.png"));
-			this.bossFightImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/BossFightScaled.png"));
+			this.bigAsteroidImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/BigAsteroidScaled.png"));
+			this.bigAsteroidExplosionImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/bigAsteroidExplosionScaled.png"));
 			this.background1Img = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/Background1.png"));
 			this.background2Img = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/Background2.png"));
 			this.background3Img = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/Background3.png"));
@@ -87,6 +90,14 @@ public class NewGraphicsManager extends GraphicsManager{
 		g2d.drawImage(megaFireLImg, megaMan.x, megaMan.y, observer);	
 	}
 	
+	public void drawBigAsteroid(BigAsteroid bigAsteroid, Graphics2D g2d, ImageObserver observer) {
+		g2d.drawImage(bigAsteroidImg, bigAsteroid.x, bigAsteroid.y, observer);
+	}
+	
+	public void drawBigAsteroidExplosion(Rectangle bigAsteroidExplosion, Graphics2D g2d, ImageObserver observer) {
+		g2d.drawImage(bigAsteroidExplosionImg, bigAsteroidExplosion.x, bigAsteroidExplosion.y, observer);
+	}
+	
 	public void drawBigPlatform (BigPlatform bigPlatform, Graphics2D g2d, ImageObserver observer, int i){
 		g2d.drawImage(bigPlatformImg, bigPlatform.x, bigPlatform.y, observer);	
 	}
@@ -101,10 +112,6 @@ public class NewGraphicsManager extends GraphicsManager{
 	
 	public void drawMeatball (Meatball meatball, Graphics2D g2d, ImageObserver observer) {
 		g2d.drawImage(meatballImg, meatball.x, meatball.y, observer);
-	}
-	
-	public void drawBossFight (Boss bossF, Graphics2D g2d, ImageObserver observer) {
-		g2d.drawImage(bossFightImg, bossF.x, bossF.y, observer);
 	}
 	
 	public void drawMegaMan (NewMegaMan megaMan, Graphics2D g2d, ImageObserver observer){

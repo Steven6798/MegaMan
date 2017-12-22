@@ -444,20 +444,6 @@ public class NewLevel1State extends NewLevelState {
 		g2d.fillRect(0, 0, getSize().width, getSize().height);
 	}
 
-	/**
-	 * Draws the specified number of stars randomly on the game screen.
-	 * @param numberOfStars the number of stars to draw
-	 */
-	protected void drawStars(int numberOfStars) {
-		Graphics2D g2d = getGraphics2D();
-		g2d.setColor(Color.WHITE);
-		for(int i = 0; i < numberOfStars; i++) {
-			int x = (int)(Math.random() * this.getWidth());
-			int y = (int)(Math.random() * this.getHeight());
-			g2d.drawLine(x, y, x, y);
-		}
-	}
-
 	@Override
 	public boolean isLevelWon() {
 		return levelAsteroidsDestroyed >= asteroidsToDestroy;

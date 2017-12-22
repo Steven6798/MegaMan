@@ -23,7 +23,7 @@ public class Level5State extends Level4State {
 		super.doStart();
 		setNumPlatforms(0);
 		setNumBigPlatforms(8);
-		setAsteroidsToDestroy(10);
+		setAsteroidsToDestroy(15);
 		newPlatforms(getNumPlatforms());
 		newBigPlatforms(getNumBigPlatforms());
 		setDestroyText("Destroy " + String.valueOf(asteroidsToDestroy) + " asteroids");
