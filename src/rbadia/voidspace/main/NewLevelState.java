@@ -34,7 +34,7 @@ public abstract class NewLevelState extends JPanel {
 
 	// Getters
 	public NewGraphicsManager getNewGraphicsManager() { return newGraphicsManager; }
-	public NewLevelLogic getGameLogic() { return newGameLogic; }
+	public NewLevelLogic getNewGameLogic() { return newGameLogic; }
 	public InputHandler getInputHandler() { return inputHandler; }
 	public NewMainFrame getNewMainFrame() { return newMainFrame; }
 	public GameStatus getGameStatus() { return status; }

@@ -68,6 +68,8 @@ public class NewLevel1State extends NewLevelState {
 	
 	protected int megaManDirection = 1;
 	
+	protected File levelMusic = new File("audio/Bag Raiders - Shooting Stars.wav");
+	
 	// Constructors
 	public NewLevel1State(int level, NewMainFrame frame, GameStatus status, 
 			NewLevelLogic newGameLogic, InputHandler inputHandler,
@@ -103,6 +105,7 @@ public class NewLevel1State extends NewLevelState {
 	
 	
 	public void setDestroyText(String destroyText) { NewLevel1State.destroyText = destroyText; }
+	public void setLevelMusic(File levelMusic) { this.levelMusic = levelMusic; }
 	// Level state methods
 	// The method associated with the current level state will be called 
 	// repeatedly during each LevelLoop iteration until the next a state 
@@ -152,18 +155,18 @@ public class NewLevel1State extends NewLevelState {
 	public void doInitialScreen() {
 		setCurrentState(INITIAL_SCREEN);
 		clearScreen();
-		getGameLogic().drawInitialMessage();
+		getNewGameLogic().drawInitialMessage();
 	}
 
 	@Override
 	public void doGettingReady() {
 		setCurrentState(GETTING_READY);
-		getGameLogic().drawGetReady();
+		getNewGameLogic().drawGetReady();
 		repaint();
 		NewLevelLogic.delay(2000);
 		//Changes music from "menu music" to "ingame music"
 		MegaManMain.audioClip.close();
-		MegaManMain.audioFile = new File("audio/Bag Raiders - Shooting Stars.wav");
+		MegaManMain.audioFile =  levelMusic;
 		try {
 			MegaManMain.audioStream = AudioSystem.getAudioInputStream(MegaManMain.audioFile);
 			MegaManMain.audioClip.open(MegaManMain.audioStream);
@@ -177,7 +180,7 @@ public class NewLevel1State extends NewLevelState {
 			e1.printStackTrace();
 		}
 	}
-
+	
 	@Override
 	public void doPlaying() {
 		setCurrentState(PLAYING);
@@ -192,18 +195,20 @@ public class NewLevel1State extends NewLevelState {
 	@Override
 	public void doLevelWon() {
 		setCurrentState(LEVEL_WON);
-		getGameLogic().drawYouWin();
+		getNewGameLogic().drawYouWin();
 		repaint();
 		NewLevelLogic.delay(5000);
+		MegaManMain.audioClip.close();
 	}
 
 	@Override
 	public void doGameOverScreen() {
 		setCurrentState(GAME_OVER_SCREEN);
-		getGameLogic().drawGameOver();
+		getNewGameLogic().drawGameOver();
 		getNewMainFrame().getDestroyedValueLabel().setForeground(new Color(128, 0, 0));
 		repaint();
 		NewLevelLogic.delay(1500);
+		MegaManMain.audioClip.close();
 	}
 
 	@Override

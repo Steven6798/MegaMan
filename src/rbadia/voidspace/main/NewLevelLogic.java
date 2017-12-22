@@ -4,17 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
 
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JOptionPane;
-import javax.swing.Timer;
 
 /**
  * Handles general level logic and status.
@@ -40,68 +31,66 @@ public class NewLevelLogic extends LevelLogic {
 
 	@Override
 	public void gameOver() {
-		getNewLevelState().getGameStatus().setGameOver(true);
-
-		newLevelState.doGameOverScreen();
-
-		// delay to display "Game Over" message for 3 seconds
-		Timer timer = new Timer(5000, new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				getNewLevelState().getGameStatus().setGameOver(false);
-			}
-		});
-		timer.setRepeats(false);
-		timer.start();
-
-		//Change music back to menu screen music
-		MegaManMain.audioClip.close();
-		MegaManMain.audioFile = new File("audio/menuScreen.wav");
-		try {
-			MegaManMain.audioStream = AudioSystem.getAudioInputStream(MegaManMain.audioFile);
-			MegaManMain.audioClip.open(MegaManMain.audioStream);
-			MegaManMain.audioClip.start();
-			MegaManMain.audioClip.loop(Clip.LOOP_CONTINUOUSLY);
-		} catch (UnsupportedAudioFileException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (LineUnavailableException e) {
-			e.printStackTrace();
-		}
-
+//		getNewLevelState().getGameStatus().setGameOver(true);
+//
+//		newLevelState.doGameOverScreen();
+//
+//		// delay to display "Game Over" message for 3 seconds
+//		Timer timer = new Timer(5000, new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				getNewLevelState().getGameStatus().setGameOver(false);
+//			}
+//		});
+//		timer.setRepeats(false);
+//		timer.start();
+//
+//		//Change music back to menu screen music
+//		MegaManMain.audioClip.close();
+//		MegaManMain.audioFile = new File("audio/menuScreen.wav");
+//		try {
+//			MegaManMain.audioStream = AudioSystem.getAudioInputStream(MegaManMain.audioFile);
+//			MegaManMain.audioClip.open(MegaManMain.audioStream);
+//			MegaManMain.audioClip.start();
+//			MegaManMain.audioClip.loop(Clip.LOOP_CONTINUOUSLY);
+//		} catch (UnsupportedAudioFileException e) {
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		} catch (LineUnavailableException e) {
+//			e.printStackTrace();
+//		}
 	}
 
 	@Override
 	public void gameWon() {
-		//status.setGameStarted(false);  //SENDS TO MAIN SCREEN/ IF COMMENTED OUT LOOPS THE GAME
-		getNewLevelState().getGameStatus().setGameWon(true);
-		newLevelState.doLevelWon();
-
-		// delay to display "Game Won" message for 3 seconds
-		Timer timer = new Timer(3000, new ActionListener(){
-			public void actionPerformed(ActionEvent e) {
-				getNewLevelState().getGameStatus().setGameWon(false);
-			}
-		});
-		timer.setRepeats(false);
-		timer.start();
-
-		//Change music back to menu screen music
-		MegaManMain.audioClip.close();
-		MegaManMain.audioFile = new File("audio/menuScreen.wav");
-		try {
-			MegaManMain.audioStream = AudioSystem.getAudioInputStream(MegaManMain.audioFile);
-			MegaManMain.audioClip.open(MegaManMain.audioStream);
-			MegaManMain.audioClip.start();
-			MegaManMain.audioClip.loop(Clip.LOOP_CONTINUOUSLY);
-		} catch (UnsupportedAudioFileException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (LineUnavailableException e) {
-			e.printStackTrace();
-		}
-
+//		status.setGameStarted(false);  //SENDS TO MAIN SCREEN/ IF COMMENTED OUT LOOPS THE GAME
+//		getNewLevelState().getGameStatus().setGameWon(true);
+//		newLevelState.doLevelWon();
+//
+//		// delay to display "Game Won" message for 3 seconds
+//		Timer timer = new Timer(3000, new ActionListener(){
+//			public void actionPerformed(ActionEvent e) {
+//				getNewLevelState().getGameStatus().setGameWon(false);
+//			}
+//		});
+//		timer.setRepeats(false);
+//		timer.start();
+//
+//		//Change music back to menu screen music
+//		MegaManMain.audioClip.close();
+//		MegaManMain.audioFile = new File("audio/menuScreen.wav");
+//		try {
+//			MegaManMain.audioStream = AudioSystem.getAudioInputStream(MegaManMain.audioFile);
+//			MegaManMain.audioClip.open(MegaManMain.audioStream);
+//			MegaManMain.audioClip.start();
+//			MegaManMain.audioClip.loop(Clip.LOOP_CONTINUOUSLY);
+//		} catch (UnsupportedAudioFileException e) {
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		} catch (LineUnavailableException e) {
+//			e.printStackTrace();
+//		}
 	}
 
 	@Override

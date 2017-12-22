@@ -1,6 +1,7 @@
 package rbadia.voidspace.main;
 
 import java.awt.Graphics2D;
+import java.io.File;
 
 import rbadia.voidspace.graphics.NewGraphicsManager;
 import rbadia.voidspace.model.Asteroid;
@@ -26,11 +27,7 @@ public class Level5State extends Level4State {
 		newPlatforms(getNumPlatforms());
 		newBigPlatforms(getNumBigPlatforms());
 		setDestroyText("Destroy " + String.valueOf(asteroidsToDestroy) + " asteroids");
-	}
-
-	@Override
-	public void updateScreen() {
-		super.updateScreen();
+		setLevelMusic(new File("audio/Arcade Music.wav"));
 	}
 	
 	@Override

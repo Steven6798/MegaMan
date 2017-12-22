@@ -47,30 +47,8 @@ public class FinalBoss extends Level3State{
 		newBoss(this);
 		newDeathExplosion(this);
 		NewSoundManager.playToasterSound();
-	}
-
-	@Override
-	public void doGettingReady() {
 		setDestroyText("This is it, Luigi...");
-		setCurrentState(GETTING_READY);
-		getGameLogic().drawGetReady();
-		repaint();
-		LevelLogic.delay(5000);
-		//Changes music from "game music" to "boss music"
-		MegaManMain.audioClip.close();
-		MegaManMain.audioFile = new File("audio/BossBattle.wav");
-		try {
-			MegaManMain.audioStream = AudioSystem.getAudioInputStream(MegaManMain.audioFile);
-			MegaManMain.audioClip.open(MegaManMain.audioStream);
-			MegaManMain.audioClip.start();
-			MegaManMain.audioClip.loop(Clip.LOOP_CONTINUOUSLY);
-		} catch (UnsupportedAudioFileException e1) {
-			e1.printStackTrace();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		} catch (LineUnavailableException e1) {
-			e1.printStackTrace();
-		}
+		setLevelMusic(new File("audio/BossBattle.wav"));
 	}
 
 	@Override

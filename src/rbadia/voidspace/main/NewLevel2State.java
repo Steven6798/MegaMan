@@ -1,6 +1,8 @@
 package rbadia.voidspace.main;
 
 import java.awt.Graphics2D;
+import java.io.File;
+
 import rbadia.voidspace.graphics.NewGraphicsManager;
 import rbadia.voidspace.model.Platform;
 import rbadia.voidspace.sounds.NewSoundManager;
@@ -27,14 +29,7 @@ public class NewLevel2State extends NewLevel1State {
 		setStartState(GETTING_READY);
 		setCurrentState(getStartState());
 		setDestroyText("Destroy " + String.valueOf(asteroidsToDestroy) + " asteroids");
-	}
-	
-	@Override
-	public void doGettingReady() {
-		setCurrentState(GETTING_READY);
-		getGameLogic().drawGetReady();
-		repaint();
-		NewLevelLogic.delay(2000);
+		setLevelMusic(new File("audio/Arcade Music.wav"));
 	}
 
 	@Override

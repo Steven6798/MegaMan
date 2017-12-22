@@ -25,7 +25,7 @@ public class MegaManMain {
 
 	public static AudioInputStream audioStream;
 	public static Clip audioClip;
-	public static File audioFile;	
+	public static File audioFile;
 
 	public static void main(String[] args) throws InterruptedException, IOException {
 		NewMainFrame frame = new NewMainFrame();              		// Main Game Window
@@ -33,19 +33,18 @@ public class MegaManMain {
 		InputHandler inputHandler = new InputHandler(); 		// Keyboard listener
 		NewGraphicsManager graphicsMan = new NewGraphicsManager(); // Draws all graphics for game objects
 		NewSoundManager soundMan = new NewSoundManager();			// Loads and plays all sounds during the game
-
-		audioFile = new File("audio/menuScreen.wav");
-		try {
-			audioStream = AudioSystem.getAudioInputStream(audioFile);
-		} catch (UnsupportedAudioFileException e) {
-			e.printStackTrace();
-		}
 		
 		frame.addKeyListener(inputHandler);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		int playAgain = 2;
 		while(playAgain != 1) {
+			audioFile = new File("audio/menuScreen.wav");
+			try {
+				audioStream = AudioSystem.getAudioInputStream(audioFile);
+			} catch (UnsupportedAudioFileException e) {
+				e.printStackTrace();
+			}
 			GameStatus gameStatus = new GameStatus();
 			gameStatus.setLivesLeft(3);
 			NewLevelState level1State = new NewLevel1State(1, frame, gameStatus, gameLogic, inputHandler, graphicsMan, soundMan);
@@ -55,7 +54,7 @@ public class MegaManMain {
 			NewLevelState level5State = new Level5State(5, frame, gameStatus, gameLogic, inputHandler, graphicsMan, soundMan);
 			NewLevelState FinalBoss = new FinalBoss(6, frame, gameStatus, gameLogic, inputHandler, graphicsMan, soundMan);
 			NewLevelState levels[] = { level1State, level2State, level3State, level4State, level5State, FinalBoss };
-			
+
 			String outcome = "CONGRATS!! YOU WON!!";
 			for (NewLevelState nextLevel : levels) {
 				System.out.println("Next Level Started");

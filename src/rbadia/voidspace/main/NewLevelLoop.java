@@ -16,7 +16,7 @@ public class NewLevelLoop implements Runnable {
 	 */
 	public NewLevelLoop(NewLevelState levelState) {
 		this.newLevelState = levelState;
-		this.newGameLogic = levelState.getGameLogic();
+		this.newGameLogic = levelState.getNewGameLogic();
 		this.inputHandler = levelState.getInputHandler();
 	}
 
