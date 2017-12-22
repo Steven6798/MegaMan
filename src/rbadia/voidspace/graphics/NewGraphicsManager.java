@@ -116,7 +116,7 @@ public class NewGraphicsManager extends GraphicsManager{
 	}
 	
 	public void drawBackground1 (Graphics2D g2d, ImageObserver observer) {
-		g2d.drawImage(background1Img, 0, 0, observer);
+		g2d.drawImage(background1Img, 0, -20, observer);
 	}
 	
 	public void drawBackground2 (Graphics2D g2d, ImageObserver observer) {
@@ -124,11 +124,11 @@ public class NewGraphicsManager extends GraphicsManager{
 	}
 	
 	public void drawBackground3 (Graphics2D g2d, ImageObserver observer) {
-		g2d.drawImage(background3Img, 0, 0, observer);
+		g2d.drawImage(background3Img, 0, -40, observer);
 	}
 	
 	public void drawBackground4 (Graphics2D g2d, ImageObserver observer) {
-		g2d.drawImage(background4Img, 0, 0, observer);
+		g2d.drawImage(background4Img, 0, -20, observer);
 	}
 	
 	public void drawBackground5 (Graphics2D g2d, ImageObserver observer) {
