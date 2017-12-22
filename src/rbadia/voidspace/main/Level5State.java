@@ -132,4 +132,10 @@ public class Level5State extends Level4State {
 		}
 		bigPlatform.translate(translation, 0);
 	}
+	
+	@Override
+	public void drawBackground() {
+		Graphics2D g2d = getGraphics2D();
+		getNewGraphicsManager().drawBackground5(g2d, this);
+	}
 }

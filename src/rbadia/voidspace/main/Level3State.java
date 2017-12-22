@@ -150,4 +150,10 @@ public class Level3State extends NewLevel2State {
 		}
 		return true;
 	}
+	
+	@Override
+	public void drawBackground() {
+		Graphics2D g2d = getGraphics2D();
+		getNewGraphicsManager().drawBackground3(g2d, this);
+	}
 }

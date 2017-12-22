@@ -434,7 +434,7 @@ public class NewLevel1State extends NewLevelState {
 	
 	protected void drawBackground() {
 		Graphics2D g2d = getGraphics2D();
-		getNewGraphicsManager().drawBackground(g2d, this);
+		getNewGraphicsManager().drawBackground1(g2d, this);
 	}
 
 	protected void clearScreen() {

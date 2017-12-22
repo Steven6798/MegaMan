@@ -27,7 +27,12 @@ public class NewGraphicsManager extends GraphicsManager{
 	private BufferedImage megaFallRImg;
 	private BufferedImage megaFireRImg;
 
-	private BufferedImage backgroundImg;
+	private BufferedImage background1Img;
+	private BufferedImage background2Img;
+	private BufferedImage background3Img;
+	private BufferedImage background4Img;
+	private BufferedImage background5Img;
+	private BufferedImage backgroundFBImg;
 	/**
 	 * Creates a new graphics manager and loads the game images.
 	 */
@@ -45,7 +50,12 @@ public class NewGraphicsManager extends GraphicsManager{
 			this.bigPlatformImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/BigPlatform.png"));
 			this.bossEnterImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/BossEnterScaled.png"));
 			this.bossFightImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/BossFightScaled.png"));
-			this.backgroundImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/Background.png"));
+			this.background1Img = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/Background1.png"));
+			this.background2Img = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/Background2.png"));
+			this.background3Img = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/Background3.png"));
+			this.background4Img = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/Background4.png"));
+			this.background5Img = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/Background5.png"));
+			this.backgroundFBImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/BackgroundFB.png"));
 			this.bossImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/BossFightScaled.png"));
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "The graphic files are either corrupt or missing.",
@@ -105,8 +115,28 @@ public class NewGraphicsManager extends GraphicsManager{
 		g2d.drawImage(bossImg, boss.x, boss.y, observer);
 	}
 	
-	public void drawBackground (Graphics2D g2d, ImageObserver observer) {
-		g2d.drawImage(backgroundImg, 0, 0, observer);
+	public void drawBackground1 (Graphics2D g2d, ImageObserver observer) {
+		g2d.drawImage(background1Img, 0, 0, observer);
+	}
+	
+	public void drawBackground2 (Graphics2D g2d, ImageObserver observer) {
+		g2d.drawImage(background2Img, 0, 0, observer);
+	}
+	
+	public void drawBackground3 (Graphics2D g2d, ImageObserver observer) {
+		g2d.drawImage(background3Img, 0, 0, observer);
+	}
+	
+	public void drawBackground4 (Graphics2D g2d, ImageObserver observer) {
+		g2d.drawImage(background4Img, 0, 0, observer);
+	}
+	
+	public void drawBackground5 (Graphics2D g2d, ImageObserver observer) {
+		g2d.drawImage(background5Img, 0, 0, observer);
+	}
+	
+	public void drawBackgroundFB (Graphics2D g2d, ImageObserver observer) {
+		g2d.drawImage(backgroundFBImg, 0, 0, observer);
 	}
 	
 }

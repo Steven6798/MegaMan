@@ -87,4 +87,10 @@ public class Level4State extends Level3State {
 		}
 	}
 	
+	@Override
+	public void drawBackground() {
+		Graphics2D g2d = getGraphics2D();
+		getNewGraphicsManager().drawBackground4(g2d, this);
+	}
+	
 }

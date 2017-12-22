@@ -268,4 +268,10 @@ public class FinalBoss extends Level3State{
 		// play asteroid explosion sound
 		//this.getNewSoundManager().playAsteroidExplosionSound();
 	}
+	
+	@Override
+	public void drawBackground() {
+		Graphics2D g2d = getGraphics2D();
+		getNewGraphicsManager().drawBackgroundFB(g2d, this);
+	}
 }
