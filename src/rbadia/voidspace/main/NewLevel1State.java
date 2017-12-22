@@ -63,7 +63,7 @@ public class NewLevel1State extends NewLevelState {
 	
 	boolean musicState = true;
 	
-	protected static int asteroidsToDestroy; //======================
+	protected int asteroidsToDestroy;
 	protected static String destroyText;
 	
 	protected int megaManDirection = 1;
@@ -249,7 +249,9 @@ public class NewLevel1State extends NewLevelState {
 		drawBigBullets();
 		drawBigBulletsLeft();
 		checkBulletAsteroidCollisions();
+		checkBulletLeftAsteroidCollisions();
 		checkBigBulletAsteroidCollisions();
+		checkBigBulletLeftAsteroidCollisions();
 		checkMegaManAsteroidCollisions();
 		checkAsteroidFloorCollisions();
 
@@ -309,6 +311,22 @@ public class NewLevel1State extends NewLevelState {
 			}
 		}
 	}
+	
+	protected void checkBigBulletLeftAsteroidCollisions() {
+		GameStatus status = getGameStatus();
+		for(int i = 0; i < bigBulletsLeft.size(); i++) {
+			BigBullet bigBulletLeft = bigBulletsLeft.get(i);
+			if(asteroid.intersects(bigBulletLeft)) {
+				// increase asteroids destroyed count
+				status.setAsteroidsDestroyed(status.getAsteroidsDestroyed() + 100);
+				removeAsteroid(asteroid);
+				levelAsteroidsDestroyed++;
+				// remove big bullet
+				bigBulletsLeft.remove(i);
+				break;
+			}
+		}
+	}
 
 	protected void checkBulletAsteroidCollisions() {
 		GameStatus status = getGameStatus();
@@ -321,6 +339,22 @@ public class NewLevel1State extends NewLevelState {
 				levelAsteroidsDestroyed++;
 				// remove bullet
 				bullets.remove(i);
+				break;
+			}
+		}
+	}
+	
+	protected void checkBulletLeftAsteroidCollisions() {
+		GameStatus status = getGameStatus();
+		for(int i = 0; i < bulletsLeft.size(); i++) {
+			Bullet bulletLeft = bulletsLeft.get(i);
+			if(asteroid.intersects(bulletLeft)) {
+				// increase asteroids destroyed count
+				status.setAsteroidsDestroyed(status.getAsteroidsDestroyed() + 100);
+				removeAsteroid(asteroid);
+				levelAsteroidsDestroyed++;
+				// remove bullet
+				bulletsLeft.remove(i);
 				break;
 			}
 		}

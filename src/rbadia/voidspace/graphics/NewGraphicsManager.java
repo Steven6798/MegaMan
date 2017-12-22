@@ -17,6 +17,9 @@ import rbadia.voidspace.model.Platform;
 
 public class NewGraphicsManager extends GraphicsManager{
 	
+	private BufferedImage megaManImg;
+	private BufferedImage megaFallRImg;
+	private BufferedImage megaFireRImg;
 	private BufferedImage megaManLImg;
 	private BufferedImage megaFallLImg;
 	private BufferedImage megaFireLImg;
@@ -27,17 +30,13 @@ public class NewGraphicsManager extends GraphicsManager{
 	private BufferedImage bossImg;
 	private BufferedImage bigAsteroidImg;
 	private BufferedImage bigAsteroidExplosionImg;
-	
-	private BufferedImage megaManImg;
-	private BufferedImage megaFallRImg;
-	private BufferedImage megaFireRImg;
-
 	private BufferedImage background1Img;
 	private BufferedImage background2Img;
 	private BufferedImage background3Img;
 	private BufferedImage background4Img;
 	private BufferedImage background5Img;
 	private BufferedImage backgroundFBImg;
+	
 	/**
 	 * Creates a new graphics manager and loads the game images.
 	 */
@@ -54,8 +53,8 @@ public class NewGraphicsManager extends GraphicsManager{
 			this.platformBlackImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/platform3Black.png"));
 			this.bigPlatformImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/BigPlatform.png"));
 			this.bigPlatformBlackImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/BigPlatformBlack.png"));
-			this.bigAsteroidImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/BigAsteroidScaled.png"));
-			this.bigAsteroidExplosionImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/bigAsteroidExplosionScaled.png"));
+			this.bigAsteroidImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/BigAsteroid.png"));
+			this.bigAsteroidExplosionImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/bigAsteroidExplosion.png"));
 			this.background1Img = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/Background1.png"));
 			this.background2Img = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/Background2.png"));
 			this.background3Img = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/Background3.png"));
@@ -78,16 +77,28 @@ public class NewGraphicsManager extends GraphicsManager{
 	 * @param observer object to be notified
 	 */
 
-	public void drawMegaManL (NewMegaMan megaMan, Graphics2D g2d, ImageObserver observer){
+	public void drawMegaManL(NewMegaMan megaMan, Graphics2D g2d, ImageObserver observer) {
 		g2d.drawImage(megaManLImg, megaMan.x, megaMan.y, observer);	
 	}
 
-	public void drawMegaFallL (NewMegaMan megaMan, Graphics2D g2d, ImageObserver observer){
+	public void drawMegaFallL(NewMegaMan megaMan, Graphics2D g2d, ImageObserver observer) {
 		g2d.drawImage(megaFallLImg, megaMan.x, megaMan.y, observer);	
 	}
 
-	public void drawMegaFireL (NewMegaMan megaMan, Graphics2D g2d, ImageObserver observer){
+	public void drawMegaFireL(NewMegaMan megaMan, Graphics2D g2d, ImageObserver observer) {
 		g2d.drawImage(megaFireLImg, megaMan.x, megaMan.y, observer);	
+	}
+	
+	public void drawMegaMan(NewMegaMan megaMan, Graphics2D g2d, ImageObserver observer) {
+		g2d.drawImage(megaManImg, megaMan.x, megaMan.y, observer);	
+	}
+	
+	public void drawMegaFallR(NewMegaMan megaMan, Graphics2D g2d, ImageObserver observer) {
+		g2d.drawImage(megaFallRImg, megaMan.x, megaMan.y, observer);	
+	}
+	
+	public void drawMegaFireR(NewMegaMan megaMan, Graphics2D g2d, ImageObserver observer) {
+		g2d.drawImage(megaFireRImg, megaMan.x, megaMan.y, observer);
 	}
 	
 	public void drawBigAsteroid(BigAsteroid bigAsteroid, Graphics2D g2d, ImageObserver observer) {
@@ -98,7 +109,7 @@ public class NewGraphicsManager extends GraphicsManager{
 		g2d.drawImage(bigAsteroidExplosionImg, bigAsteroidExplosion.x, bigAsteroidExplosion.y, observer);
 	}
 	
-	public void drawBigPlatform (BigPlatform bigPlatform, Graphics2D g2d, ImageObserver observer, int i){
+	public void drawBigPlatform(BigPlatform bigPlatform, Graphics2D g2d, ImageObserver observer, int i) {
 		g2d.drawImage(bigPlatformImg, bigPlatform.x, bigPlatform.y, observer);	
 	}
 	
@@ -106,50 +117,39 @@ public class NewGraphicsManager extends GraphicsManager{
 		g2d.drawImage(bigPlatformBlackImg, bigPlatform.x, bigPlatform.y, observer);
 	}
 	
-	public void drawPlatformBlack(Platform platform, Graphics2D g2d, ImageObserver observer, int i){
+	public void drawPlatformBlack(Platform platform, Graphics2D g2d, ImageObserver observer, int i) {
 			g2d.drawImage(platformBlackImg, platform.x , platform.y, observer);
 	}
 	
-	public void drawMeatball (Meatball meatball, Graphics2D g2d, ImageObserver observer) {
+	public void drawMeatball(Meatball meatball, Graphics2D g2d, ImageObserver observer) {
 		g2d.drawImage(meatballImg, meatball.x, meatball.y, observer);
 	}
 	
-	public void drawMegaMan (NewMegaMan megaMan, Graphics2D g2d, ImageObserver observer){
-		g2d.drawImage(megaManImg, megaMan.x, megaMan.y, observer);	
-	}
-	public void drawMegaFallR (NewMegaMan megaMan, Graphics2D g2d, ImageObserver observer){
-		g2d.drawImage(megaFallRImg, megaMan.x, megaMan.y, observer);	
-	}
-	public void drawMegaFireR (NewMegaMan megaMan, Graphics2D g2d, ImageObserver observer){
-		g2d.drawImage(megaFireRImg, megaMan.x, megaMan.y, observer);
-	}
-	
-	public void drawBoss (Boss boss, Graphics2D g2d, ImageObserver observer) {
+	public void drawBoss(Boss boss, Graphics2D g2d, ImageObserver observer) {
 		g2d.drawImage(bossImg, boss.x, boss.y, observer);
 	}
 	
-	public void drawBackground1 (Graphics2D g2d, ImageObserver observer) {
+	public void drawBackground1(Graphics2D g2d, ImageObserver observer) {
 		g2d.drawImage(background1Img, 0, -20, observer);
 	}
 	
-	public void drawBackground2 (Graphics2D g2d, ImageObserver observer) {
+	public void drawBackground2(Graphics2D g2d, ImageObserver observer) {
 		g2d.drawImage(background2Img, 0, 0, observer);
 	}
 	
-	public void drawBackground3 (Graphics2D g2d, ImageObserver observer) {
+	public void drawBackground3(Graphics2D g2d, ImageObserver observer) {
 		g2d.drawImage(background3Img, 0, -40, observer);
 	}
 	
-	public void drawBackground4 (Graphics2D g2d, ImageObserver observer) {
+	public void drawBackground4(Graphics2D g2d, ImageObserver observer) {
 		g2d.drawImage(background4Img, 0, -20, observer);
 	}
 	
-	public void drawBackground5 (Graphics2D g2d, ImageObserver observer) {
+	public void drawBackground5(Graphics2D g2d, ImageObserver observer) {
 		g2d.drawImage(background5Img, 0, -40, observer);
 	}
 	
-	public void drawBackgroundFB (Graphics2D g2d, ImageObserver observer) {
+	public void drawBackgroundFB(Graphics2D g2d, ImageObserver observer) {
 		g2d.drawImage(backgroundFBImg, 0, 0, observer);
 	}
-	
 }

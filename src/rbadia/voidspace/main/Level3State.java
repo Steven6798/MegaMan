@@ -37,7 +37,7 @@ public class Level3State extends NewLevel2State {
 	// setters
 	public void setNumPlatforms(int numPlatforms) { this.numPlatforms = numPlatforms; }
 	public void setNumBigPlatforms(int numBigPlatforms) { this.numBigPlatforms = numBigPlatforms; }
-	public void setAsteroidsToDestroy(int asteroidsToDestroy) { NewLevel1State.asteroidsToDestroy = asteroidsToDestroy; }
+	public void setAsteroidsToDestroy(int asteroidsToDestroy) { this.asteroidsToDestroy = asteroidsToDestroy; }
 	
 	@Override
 	public void doStart() {

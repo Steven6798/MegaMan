@@ -2,12 +2,6 @@ package rbadia.voidspace.main;
 
 import java.awt.Graphics2D;
 import java.io.File;
-import java.io.IOException;
-
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 
 import rbadia.voidspace.graphics.NewGraphicsManager;
 import rbadia.voidspace.model.Asteroid;
@@ -25,7 +19,6 @@ public class FinalBoss extends Level3State{
 	protected Meatball meatball;
 	protected Boss boss;
 	protected Asteroid deathExplosion;
-	private boolean isBossActive = false;
 	private int meatBallLife = 3;
 	private int bossLife = 50;
 
@@ -54,16 +47,24 @@ public class FinalBoss extends Level3State{
 	@Override
 	public void updateScreen() {
 		super.updateScreen();
+		isBossDefeated();
 		drawBoss();
 		drawMeatball();
 		drawDeath();
 		checkMegaManMeatballCollisions();
 		checkBulletMeatBallCollisions();
+		checkBulletLeftMeatBallCollisions();
 		checkBigBulletMeatBallCollisions();
+		checkBigBulletLeftMeatBallCollisions();
 		checkMegaManBossCollisions();
-		isBossDefeated();
 		checkBulletBossCollisions();
 		checkBigBulletBossCollisions();
+	}
+	
+	@Override
+	public void doLevelWon() {
+		NewSoundManager.playDeathSound();
+		super.doLevelWon();
 	}
 
 	@Override
@@ -115,7 +116,6 @@ public class FinalBoss extends Level3State{
 			getNewGraphicsManager().drawBoss(boss, g2d, this);
 		}
 		else {
-			isBossActive = true;
 			if (!isBossDefeated() && boss.y < this.getWidth()) {
 				getNewGraphicsManager().drawBoss(boss,  g2d,  this);
 			}
@@ -192,6 +192,41 @@ public class FinalBoss extends Level3State{
 		}
 	}
 	
+	protected void checkBulletMeatBallCollisions() {
+		GameStatus status = getGameStatus();
+		for(int i = 0; i < bullets.size(); i++) {
+			Bullet bullet = bullets.get(i);
+			if(meatball.intersects(bullet)) {
+				meatBallLife--;
+				// remove bullet
+				bullets.remove(i);
+				if(meatBallLife <= 0) {
+					status.setAsteroidsDestroyed(status.getAsteroidsDestroyed() + 200);
+					removeMeatBall(meatball);
+					meatBallLife = 3;
+					break;
+				}
+			}
+		}
+	}
+	protected void checkBulletLeftMeatBallCollisions() {
+		GameStatus status = getGameStatus();
+		for(int i = 0; i < bulletsLeft.size(); i++) {
+			Bullet bulletLeft = bulletsLeft.get(i);
+			if(meatball.intersects(bulletLeft)) {
+				meatBallLife--;
+				// remove bullet
+				bulletsLeft.remove(i);
+				if(meatBallLife <= 0) {
+					status.setAsteroidsDestroyed(status.getAsteroidsDestroyed() + 200);
+					removeMeatBall(meatball);
+					meatBallLife = 3;
+					break;
+				}
+			}
+		}
+	}
+	
 	protected void checkBigBulletMeatBallCollisions() {
 		GameStatus status = getGameStatus();
 		for(int i = 0; i < bigBullets.size(); i++) {
@@ -209,17 +244,17 @@ public class FinalBoss extends Level3State{
 			}
 		}
 	}
-
-	protected void checkBulletMeatBallCollisions() {
+	
+	protected void checkBigBulletLeftMeatBallCollisions() {
 		GameStatus status = getGameStatus();
-		for(int i = 0; i < bullets.size(); i++) {
-			Bullet bullet = bullets.get(i);
-			if(meatball.intersects(bullet)) {
-				meatBallLife--;
-				// remove bullet
-				bullets.remove(i);
+		for(int i = 0; i < bigBulletsLeft.size(); i++) {
+			BigBullet bigBulletLeft = bigBulletsLeft.get(i);
+			if(meatball.intersects(bigBulletLeft)) {
+				meatBallLife -= 5;
+				// remove big bullet
+				bigBulletsLeft.remove(i);
 				if(meatBallLife <= 0) {
-					status.setAsteroidsDestroyed(status.getAsteroidsDestroyed() + 200);
+					status.setAsteroidsDestroyed(status.getAsteroidsDestroyed() + 100);
 					removeMeatBall(meatball);
 					meatBallLife = 3;
 					break;
@@ -240,6 +275,7 @@ public class FinalBoss extends Level3State{
 		for(int i = 0; i < bullets.size(); i++) {
 			Bullet bullet = bullets.get(i);
 			if(boss.intersects(bullet)) {
+				NewSoundManager.playGotHitSound();
 				// increase boss hits count
 				bullets.remove(i);
 				bossLife--;
@@ -256,6 +292,7 @@ public class FinalBoss extends Level3State{
 		for(int i = 0; i < bigBullets.size(); i++) {
 			BigBullet bigBullet = bigBullets.get(i);
 			if(boss.intersects(bigBullet)) {
+				NewSoundManager.playGotHitSound();
 				// increase boss hits count
 				bigBullets.remove(i);
 				bossLife -= 5;

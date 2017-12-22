@@ -5,7 +5,6 @@ import java.awt.Rectangle;
 import java.io.File;
 
 import rbadia.voidspace.graphics.NewGraphicsManager;
-import rbadia.voidspace.model.Asteroid;
 import rbadia.voidspace.model.BigAsteroid;
 import rbadia.voidspace.model.BigBullet;
 import rbadia.voidspace.model.BigPlatform;
@@ -18,6 +17,7 @@ import rbadia.voidspace.sounds.NewSoundManager;
  * Asteroids travel at 225 degree angle
  */
 public class Level4State extends Level3State {
+	
 	protected BigAsteroid bigAsteroid;
 	protected Rectangle bigAsteroidExplosion;
 	protected long lastBigAsteroidTime = NEW_ASTEROID_DELAY;
@@ -50,8 +50,10 @@ public class Level4State extends Level3State {
 		super.updateScreen();
 		drawBigAsteroid();
 		checkBigAsteroidFloorCollisions();
-		checkBigBulletBigAsteroidCollisions();
 		checkBulletBigAsteroidCollisions();
+		checkBulletLeftBigAsteroidCollisions();
+		checkBigBulletBigAsteroidCollisions();
+		checkBigBulletLeftBigAsteroidCollisions();
 		checkMegaManBigAsteroidCollisions();
 	}
 
@@ -162,18 +164,30 @@ public class Level4State extends Level3State {
 		for(int i = 0; i < bullets.size(); i++) {
 			Bullet bullet = bullets.get(i);
 			if(bigAsteroid.intersects(bullet)) {
-				if(bigAsteroidHealth > 1) {
-					bullets.remove(i);
-					bigAsteroidHealth--;
-					break;
-				}
-				else {
-					// increase asteroids destroyed count
+				bigAsteroidHealth--;
+				// remove big bullet
+				bullets.remove(i);
+				if(bigAsteroidHealth <= 0) {
 					status.setAsteroidsDestroyed(status.getAsteroidsDestroyed() + 500);
 					removeBigAsteroid(bigAsteroid);
-					levelAsteroidsDestroyed+=5;
-					// remove bullet
-					bullets.remove(i);
+					bigAsteroidHealth = 5;
+					break;
+				}
+			}
+		}
+	}
+	
+	protected void checkBulletLeftBigAsteroidCollisions() {
+		GameStatus status = getGameStatus();
+		for(int i = 0; i < bulletsLeft.size(); i++) {
+			Bullet bulletLeft = bulletsLeft.get(i);
+			if(bigAsteroid.intersects(bulletLeft)) {
+				bigAsteroidHealth--;
+				// remove big bullet
+				bulletsLeft.remove(i);
+				if(bigAsteroidHealth <= 0) {
+					status.setAsteroidsDestroyed(status.getAsteroidsDestroyed() + 500);
+					removeBigAsteroid(bigAsteroid);
 					bigAsteroidHealth = 5;
 					break;
 				}
@@ -186,13 +200,33 @@ public class Level4State extends Level3State {
 		for(int i = 0; i < bigBullets.size(); i++) {
 			BigBullet bigBullet = bigBullets.get(i);
 			if(bigAsteroid.intersects(bigBullet)) {
-				// increase asteroids destroyed count
-				status.setAsteroidsDestroyed(status.getAsteroidsDestroyed() + 500);
-				removeBigAsteroid(bigAsteroid);
-				levelAsteroidsDestroyed += 5;
+				bigAsteroidHealth -= 5;
 				// remove big bullet
 				bigBullets.remove(i);
-				break;
+				if(bigAsteroidHealth <= 0) {
+					status.setAsteroidsDestroyed(status.getAsteroidsDestroyed() + 500);
+					removeBigAsteroid(bigAsteroid);
+					bigAsteroidHealth = 5;
+					break;
+				}
+			}
+		}
+	}
+	
+	protected void checkBigBulletLeftBigAsteroidCollisions() {
+		GameStatus status = getGameStatus();
+		for(int i = 0; i < bigBulletsLeft.size(); i++) {
+			BigBullet bigBulletLeft = bigBulletsLeft.get(i);
+			if(bigAsteroid.intersects(bigBulletLeft)) {
+				bigAsteroidHealth -= 5;
+				// remove big bullet
+				bigBulletsLeft.remove(i);
+				if(bigAsteroidHealth <= 0) {
+					status.setAsteroidsDestroyed(status.getAsteroidsDestroyed() + 500);
+					removeBigAsteroid(bigAsteroid);
+					bigAsteroidHealth = 5;
+					break;
+				}
 			}
 		}
 	}
