@@ -92,8 +92,13 @@ public class FinalBoss extends Level3State{
 		//draw platforms
 		Graphics2D g2d = getGraphics2D();
 		for(int i = 0; i < getNumPlatforms(); i++) {
-			getNewGraphicsManager().drawPlatform(platforms[i], g2d, this, i);
+			getNewGraphicsManager().drawPlatformBlack(platforms[i], g2d, this, i);
 		}
+	}
+	
+	@Override
+	public void drawBigPlatforms() {
+		
 	}
 
 	public Boss newBoss(NewLevel1State screen) {

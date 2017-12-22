@@ -420,7 +420,7 @@ public class NewLevel1State extends NewLevelState {
 		//draw platforms
 		Graphics2D g2d = getGraphics2D();
 		for(int i = 0; i < getNumPlatforms(); i++) {
-			getNewGraphicsManager().drawPlatform(platforms[i], g2d, this, i);
+			getNewGraphicsManager().drawPlatformBlack(platforms[i], g2d, this, i);
 		}
 	}
 

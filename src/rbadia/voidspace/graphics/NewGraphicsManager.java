@@ -11,6 +11,7 @@ import rbadia.voidspace.model.BigPlatform;
 import rbadia.voidspace.model.Boss;
 import rbadia.voidspace.model.Meatball;
 import rbadia.voidspace.model.NewMegaMan;
+import rbadia.voidspace.model.Platform;
 
 public class NewGraphicsManager extends GraphicsManager{
 	
@@ -18,8 +19,9 @@ public class NewGraphicsManager extends GraphicsManager{
 	private BufferedImage megaFallLImg;
 	private BufferedImage megaFireLImg;
 	private BufferedImage bigPlatformImg;
+	private BufferedImage bigPlatformBlackImg;
+	private BufferedImage platformBlackImg;
 	private BufferedImage meatballImg;
-	private BufferedImage bossEnterImg;
 	private BufferedImage bossFightImg;
 	private BufferedImage bossImg;
 	
@@ -47,8 +49,9 @@ public class NewGraphicsManager extends GraphicsManager{
 			this.megaFallLImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/megaFallL.png"));
 			this.megaFireLImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/megaFireL.png"));
 			this.meatballImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/MeatBall.png"));
+			this.platformBlackImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/platform3Black.png"));
 			this.bigPlatformImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/BigPlatform.png"));
-			this.bossEnterImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/BossEnterScaled.png"));
+			this.bigPlatformBlackImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/BigPlatformBlack.png"));
 			this.bossFightImg = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/BossFightScaled.png"));
 			this.background1Img = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/Background1.png"));
 			this.background2Img = ImageIO.read(getClass().getResource("/rbadia/voidspace/graphics/Background2.png"));
@@ -88,18 +91,21 @@ public class NewGraphicsManager extends GraphicsManager{
 		g2d.drawImage(bigPlatformImg, bigPlatform.x, bigPlatform.y, observer);	
 	}
 	
-	public void drawMeatball (Meatball meatball, Graphics2D g2d, ImageObserver observer) {
-		g2d.drawImage(meatballImg, meatball.x, meatball.y, observer);
+	public void drawBigPlatformBlack(BigPlatform bigPlatform, Graphics2D g2d, ImageObserver observer, int i) {
+		g2d.drawImage(bigPlatformBlackImg, bigPlatform.x, bigPlatform.y, observer);
 	}
 	
-	public void drawBossEnter (Boss boss, Graphics2D g2d, ImageObserver observer) {
-		g2d.drawImage(bossEnterImg, boss.x, boss.y, observer);
+	public void drawPlatformBlack(Platform platform, Graphics2D g2d, ImageObserver observer, int i){
+			g2d.drawImage(platformBlackImg, platform.x , platform.y, observer);
+	}
+	
+	public void drawMeatball (Meatball meatball, Graphics2D g2d, ImageObserver observer) {
+		g2d.drawImage(meatballImg, meatball.x, meatball.y, observer);
 	}
 	
 	public void drawBossFight (Boss bossF, Graphics2D g2d, ImageObserver observer) {
 		g2d.drawImage(bossFightImg, bossF.x, bossF.y, observer);
 	}
-	
 	
 	public void drawMegaMan (NewMegaMan megaMan, Graphics2D g2d, ImageObserver observer){
 		g2d.drawImage(megaManImg, megaMan.x, megaMan.y, observer);	
@@ -132,7 +138,7 @@ public class NewGraphicsManager extends GraphicsManager{
 	}
 	
 	public void drawBackground5 (Graphics2D g2d, ImageObserver observer) {
-		g2d.drawImage(background5Img, 0, 0, observer);
+		g2d.drawImage(background5Img, 0, -40, observer);
 	}
 	
 	public void drawBackgroundFB (Graphics2D g2d, ImageObserver observer) {

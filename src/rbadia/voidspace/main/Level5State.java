@@ -111,7 +111,7 @@ public class Level5State extends Level4State {
 		//draw platforms
 		Graphics2D g2d = getGraphics2D();
 		for(int i = 0; i < getNumBigPlatforms(); i++) {
-			getNewGraphicsManager().drawBigPlatform(bigPlatforms[i], g2d, this, i);
+			getNewGraphicsManager().drawBigPlatformBlack(bigPlatforms[i], g2d, this, i);
 			if(i % 4 == 2) {
 				moveBigPlatform(bigPlatforms[i]);
 				translation *= -1;
