@@ -43,7 +43,7 @@ public class Level3State extends NewLevel2State {
 		super.doStart();
 		setNumPlatforms(4);
 		setNumBigPlatforms(4);
-		setAsteroidsToDestroy(10);
+		setAsteroidsToDestroy(5);
 		newPlatforms(getNumPlatforms());
 		newBigPlatforms(getNumBigPlatforms());
 		setDestroyText("Destroy " + String.valueOf(asteroidsToDestroy) + " asteroids");
@@ -148,51 +148,4 @@ public class Level3State extends NewLevel2State {
 		}
 		return true;
 	}
-	
-//	@Override
-//	protected boolean Gravity() {
-//		NewMegaMan megaMan = this.getMegaMan();
-//		Floor[] floor = this.getFloor();
-//		for(int i = 0; i < 9; i++) {
-//			if((megaMan.getY() + megaMan.getHeight() -17 < this.getHeight() - floor[i].getHeight()/2 - 18) //===
-//					&& FallPlatform() == true) {
-//				megaMan.translate(0, 2);
-//				return true;
-//			}
-//			else if((megaMan.getY() + megaMan.getHeight() -17 < this.getHeight() - floor[i].getHeight()/2 - 18) //===
-//					&& FallBigPlatform() == true) {
-//				megaMan.translate(0, 2);
-//				return true;
-//			}
-//		}
-//		return false;
-//	}
-//	
-//	protected boolean FallPlatform() {
-//		NewMegaMan megaMan = this.getMegaMan(); 
-//		Platform[] platforms = this.getPlatforms();
-//		for(int i = 0; i < getNumPlatforms(); i++){
-//			if((((platforms[i].getX() < megaMan.getX()) && (megaMan.getX()< platforms[i].getX() + platforms[i].getWidth()))
-//					|| ((platforms[i].getX() < megaMan.getX() + megaMan.getWidth()) 
-//					&& (megaMan.getX() + megaMan.getWidth()< platforms[i].getX() + platforms[i].getWidth())))
-//					&& megaMan.getY() + megaMan.getHeight() == platforms[i].getY()) {
-//				return false;
-//			}
-//		}
-//		return true;      
-//	}
-//	
-//	protected boolean FallBigPlatform() {
-//		NewMegaMan megaMan = this.getMegaMan(); 
-//		BigPlatform[] bigPlatforms = this.getBigPlatforms();
-//		for(int i = 0; i < getNumBigPlatforms(); i++){
-//			if((((bigPlatforms[i].getX() < megaMan.getX()) && (megaMan.getX()< bigPlatforms[i].getX() + bigPlatforms[i].getWidth()))
-//					|| ((bigPlatforms[i].getX() < megaMan.getX() + megaMan.getWidth()) 
-//							&& (megaMan.getX() + megaMan.getWidth()< bigPlatforms[i].getX() + bigPlatforms[i].getWidth())))
-//					&& megaMan.getY() + megaMan.getHeight() == bigPlatforms[i].getY()) {
-//				return false;
-//			}
-//		}
-//		return true;
-//	}
 }

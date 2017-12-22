@@ -27,7 +27,7 @@ public class Level4State extends Level3State {
 		super.doStart();
 		setNumPlatforms(0);
 		setNumBigPlatforms(8);
-		setAsteroidsToDestroy(15);
+		setAsteroidsToDestroy(7);
 		newPlatforms(getNumPlatforms());
 		newBigPlatforms(getNumBigPlatforms());
 		setDestroyText("Destroy " + String.valueOf(asteroidsToDestroy) + " asteroids");

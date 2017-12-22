@@ -52,9 +52,10 @@ public class MegaManMain {
 			NewLevelState level2State = new NewLevel2State(2, frame, gameStatus, gameLogic, inputHandler, graphicsMan, soundMan);
 			NewLevelState level3State = new Level3State(3, frame, gameStatus, gameLogic, inputHandler, graphicsMan, soundMan);
 			NewLevelState level4State = new Level4State(4, frame, gameStatus, gameLogic, inputHandler, graphicsMan, soundMan);
-			NewLevelState FinalBoss = new FinalBoss(5, frame, gameStatus, gameLogic, inputHandler, graphicsMan, soundMan);
-			NewLevelState levels[] = { level1State, level2State, level3State, level4State, FinalBoss };
-
+			NewLevelState level5State = new Level5State(5, frame, gameStatus, gameLogic, inputHandler, graphicsMan, soundMan);
+			NewLevelState FinalBoss = new FinalBoss(6, frame, gameStatus, gameLogic, inputHandler, graphicsMan, soundMan);
+			NewLevelState levels[] = { level1State, level2State, level3State, level4State, level5State, FinalBoss };
+			
 			String outcome = "CONGRATS!! YOU WON!!";
 			for (NewLevelState nextLevel : levels) {
 				System.out.println("Next Level Started");
