@@ -1,45 +1,46 @@
 # Project 1 - Definitely Not Megaman
 	Small project description	
 
-	Estimated Time spent: Spent total in hours
+	Estimated Time spent: 50 Hours.
 
-
-
-## Team Name: 
+## Team Name: DefinitelyNotMegaBoy
 
 ## Team Members: 
 
-	1. <Full Name> (<GitHubUsername>) - <UPRMEmail>
+	1. <Steven A. Ramírez Rosa> (Steven6798) - <Steven.ramirez3@upr.edu>
 	2. <Full Name> (<GitHubUsername>) - <UPRMEmail>
 
 ## The following **required** functionality is implemented:
 
 - [x] This is a functionality is implemented.
-
-- [ ] This is a functionality is not implemented.
-
-
+	  Skip the level with the N key.
+	  Multiples asteroids appear on the screen.
+	  Asteroids appear from random locations.
+	  Asteroids move with random speed and trajectory.
+	  Platforms are place in different locations.
+	  Every level have his own background.
+	  There is a boss that fires to MegaMan.
+	  MegaMan moves and fire to the left and right.
+	  Stop the music with the M key.
 
 ## The following **optional** features are implemented:
 
 
-
-- [x] An implemented feauture.
+- [x] An implemented feature.
+	  Every level have his own music
+	  MegaMan can speed up and down.
 
 - [ ] A planned unimplemented feature.
 
 ## Notes
 
-
-	What was your project's biggest challenge?
+	What was your project's biggest challenge? Our project biggest challenge was to decide the best algorithms for the logic problems.
 	
-    What was your favorite part of the project
-
-
+    What was your favorite part of the project? Our favorite part of the project was learning how to work on multiples classes at the same time and to control
+    													  an object with keys.
 
 ## License
 
-    
 	Copyright [2016] [Alberto J. De Jesus]
 
     
