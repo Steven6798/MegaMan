@@ -21,11 +21,11 @@ import javax.swing.Timer;
  */
 public class LevelLogic {
 
-	private long lastBulletTime;
-	private long lastExchangeTime;
-	private long lastBigBulletTime;
-	private int stack= 0;
-	private int mute = 0;
+	protected long lastBulletTime;
+	protected long lastExchangeTime;
+	protected long lastBigBulletTime;
+	protected int stack= 0;
+	protected int mute = 0;
 
 	private LevelState levelState;
 
@@ -410,9 +410,9 @@ public class LevelLogic {
 			}
 		}
 
-		if(ih.isShiftPressed()){
-			getLevelState().speedUpMegaMan();
-		}
+//		if(ih.isShiftPressed()){
+//			getLevelState().speedUpMegaMan();
+//		}
 
 		if(ih.isUpPressed()){
 			long currentTime = System.currentTimeMillis();
