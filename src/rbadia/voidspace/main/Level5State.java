@@ -5,11 +5,13 @@ import java.io.File;
 
 import rbadia.voidspace.graphics.NewGraphicsManager;
 import rbadia.voidspace.model.Asteroid;
+import rbadia.voidspace.model.BigAsteroid;
 import rbadia.voidspace.model.BigPlatform;
 import rbadia.voidspace.sounds.NewSoundManager;
 
 public class Level5State extends Level4State {
 	protected int translation = 1;
+	protected int bigAsteroidDirection = 1;
 	private static final long serialVersionUID = 1L;
 
 	public Level5State(int level, NewMainFrame frame, GameStatus status, 
@@ -85,6 +87,49 @@ public class Level5State extends Level4State {
 					// draw explosion
 					getNewGraphicsManager().drawAsteroidExplosion(asteroidExplosion, g2d, this);
 					asteroidDirection *= -1;
+				}
+			}
+		}
+	}
+	
+	@Override
+	public void drawBigAsteroid() {
+		Graphics2D g2d = getGraphics2D();
+		if (bigAsteroidDirection == 1) {
+			if((bigAsteroid.getX() + bigAsteroid.getPixelsWide() > 0)) {
+				bigAsteroid.translate(-bigAsteroid.getSpeed(), bigAsteroid.getSpeed() / 2);
+				getNewGraphicsManager().drawBigAsteroid(bigAsteroid, g2d, this);
+			}
+			else {
+				long currentTime = System.currentTimeMillis();
+				if((currentTime - lastBigAsteroidTime) > NEW_ASTEROID_DELAY) {
+					bigAsteroid.setLocation(-BigAsteroid.WIDTH,
+							rand.nextInt(this.getHeight() - bigAsteroid.getPixelsTall() - 32));
+					bigAsteroidDirection *= -1;
+				}
+				else {
+					// draw explosion
+					getNewGraphicsManager().drawBigAsteroidExplosion(bigAsteroidExplosion, g2d, this);
+					bigAsteroidDirection *= -1;
+				}
+			}
+		}
+		else {
+			if((bigAsteroid.getX() <  this.getWidth())) {
+				bigAsteroid.translate(bigAsteroid.getSpeed(), bigAsteroid.getSpeed() / 2);
+				getNewGraphicsManager().drawBigAsteroid(bigAsteroid, g2d, this);
+			}
+			else {
+				long currentTime = System.currentTimeMillis();
+				if((currentTime - lastBigAsteroidTime) > NEW_ASTEROID_DELAY) {
+					bigAsteroid.setLocation(this.getWidth(),
+							rand.nextInt(this.getHeight() - bigAsteroid.getPixelsTall() - 32));
+					bigAsteroidDirection *= -1;
+				}
+				else {
+					// draw explosion
+					getNewGraphicsManager().drawBigAsteroidExplosion(bigAsteroidExplosion, g2d, this);
+					bigAsteroidDirection *= -1;
 				}
 			}
 		}

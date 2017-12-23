@@ -51,10 +51,41 @@ public class Level3State extends NewLevel2State {
 		setLevelMusic(new File("audio/Galactic chase.wav"));
 	}
 	
-	@Override
+	@Override //Original method copy-pasted to fix layering issues
 	public void updateScreen() {
-		super.updateScreen();
-		drawBigPlatforms();
+		Graphics2D g2d = getGraphics2D();
+		GameStatus status = this.getGameStatus();
+
+		// save original font - for later use
+		if(this.originalFont == null){
+			this.originalFont = g2d.getFont();
+			this.bigFont = originalFont;
+		}
+
+		clearScreen();			//every draw goes above the previous one
+		drawBackground();
+		drawFloor();
+		drawPlatforms();
+		drawBigPlatforms();		//BigPlatforms placed under MegaMan
+		drawMegaMan();
+		drawAsteroid();
+		drawBullets();
+		drawBulletsLeft();
+		drawBigBullets();
+		drawBigBulletsLeft();
+		checkBulletAsteroidCollisions();
+		checkBulletLeftAsteroidCollisions();
+		checkBigBulletAsteroidCollisions();
+		checkBigBulletLeftAsteroidCollisions();
+		checkMegaManAsteroidCollisions();
+		checkAsteroidFloorCollisions();
+
+		// update asteroids destroyed (score) label  
+		getNewMainFrame().getDestroyedValueLabel().setText(Long.toString(status.getAsteroidsDestroyed()));
+		// update lives left label
+		getNewMainFrame().getLivesValueLabel().setText(Integer.toString(status.getLivesLeft()));
+		// update level label
+		getNewMainFrame().getLevelValueLabel().setText(Long.toString(status.getLevel()));
 	}
 
 	@Override
