@@ -75,8 +75,7 @@ public class Level4State extends Level3State {
 			if((currentTime - lastBigAsteroidTime) > NEW_ASTEROID_DELAY){
 
 				bigAsteroid.setLocation(this.getWidth() - bigAsteroid.getPixelsWide(),
-						300);
-						//rand.nextInt(this.getHeight() - bigAsteroid.getPixelsTall() - 32));
+						rand.nextInt((int)(this.getHeight() - BigAsteroid.HEIGHT - 32)));
 			}
 			else {
 				// draw explosion
