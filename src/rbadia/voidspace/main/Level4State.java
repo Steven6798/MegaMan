@@ -170,6 +170,7 @@ public class Level4State extends Level3State {
 				if(bigAsteroidHealth <= 0) {
 					status.setAsteroidsDestroyed(status.getAsteroidsDestroyed() + 500);
 					removeBigAsteroid(bigAsteroid);
+					levelAsteroidsDestroyed++;
 					bigAsteroidHealth = 5;
 					break;
 				}
@@ -188,6 +189,7 @@ public class Level4State extends Level3State {
 				if(bigAsteroidHealth <= 0) {
 					status.setAsteroidsDestroyed(status.getAsteroidsDestroyed() + 500);
 					removeBigAsteroid(bigAsteroid);
+					levelAsteroidsDestroyed++;
 					bigAsteroidHealth = 5;
 					break;
 				}
@@ -206,6 +208,7 @@ public class Level4State extends Level3State {
 				if(bigAsteroidHealth <= 0) {
 					status.setAsteroidsDestroyed(status.getAsteroidsDestroyed() + 500);
 					removeBigAsteroid(bigAsteroid);
+					levelAsteroidsDestroyed++;
 					bigAsteroidHealth = 5;
 					break;
 				}
@@ -224,6 +227,7 @@ public class Level4State extends Level3State {
 				if(bigAsteroidHealth <= 0) {
 					status.setAsteroidsDestroyed(status.getAsteroidsDestroyed() + 500);
 					removeBigAsteroid(bigAsteroid);
+					levelAsteroidsDestroyed++;
 					bigAsteroidHealth = 5;
 					break;
 				}

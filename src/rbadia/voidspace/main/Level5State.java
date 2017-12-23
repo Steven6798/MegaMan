@@ -27,7 +27,7 @@ public class Level5State extends Level4State {
 		newPlatforms(getNumPlatforms());
 		newBigPlatforms(getNumBigPlatforms());
 		setDestroyText("Destroy " + String.valueOf(asteroidsToDestroy) + " asteroids");
-		setLevelMusic(new File("audio/Mech world.wav"));
+		setLevelMusic(new File("audio/Mecha world.wav"));
 	}
 	
 	@Override
