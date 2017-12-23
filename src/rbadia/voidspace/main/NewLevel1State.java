@@ -100,12 +100,12 @@ public class NewLevel1State extends NewLevelState {
 	public List<Bullet> getBulletsLeft() 		{ return bulletsLeft; }
 	public List<BigBullet> getBigBullets()		{ return bigBullets; }
 	public List<BigBullet> getBigBulletsLeft() 	{ return bigBulletsLeft; }
-	//public static int getAsteroidsToDestroy() 	{ return asteroidsToDestroy; }
 	public static String getDestroyText()		{ return destroyText; }
 	
 	
 	public void setDestroyText(String destroyText) { NewLevel1State.destroyText = destroyText; }
 	public void setLevelMusic(File levelMusic) { this.levelMusic = levelMusic; }
+	
 	// Level state methods
 	// The method associated with the current level state will be called 
 	// repeatedly during each LevelLoop iteration until the next a state 
@@ -120,7 +120,6 @@ public class NewLevel1State extends NewLevelState {
 		// init game variables
 		bullets = new ArrayList<Bullet>();
 		bigBullets = new ArrayList<BigBullet>();
-		//numPlatforms = new Platform[5];
 		bulletsLeft = new ArrayList<Bullet>();
 		bigBulletsLeft = new ArrayList<BigBullet>();
 		
