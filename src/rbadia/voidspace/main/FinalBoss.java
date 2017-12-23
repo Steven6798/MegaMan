@@ -32,7 +32,7 @@ public class FinalBoss extends Level3State{
 	public void doStart() {
 		super.doStart();
 		setNumPlatforms(4);
-		setNumBigPlatforms(3);
+		setNumBigPlatforms(0);
 		setAsteroidsToDestroy(1);
 		newPlatforms(getNumPlatforms());
 		newBigPlatforms(getNumBigPlatforms());
@@ -60,16 +60,10 @@ public class FinalBoss extends Level3State{
 		checkBulletBossCollisions();
 		checkBigBulletBossCollisions();
 	}
-	
-	@Override
-	public void doLevelWon() {
-		NewSoundManager.playDeathSound();
-		super.doLevelWon();
-	}
 
 	@Override
 	public boolean isLevelWon() {
-		if(levelAsteroidsDestroyed >= asteroidsToDestroy || bossLife <= 0) {
+		if(levelAsteroidsDestroyed >= asteroidsToDestroy) {
 			return true;
 		}
 		return false;
@@ -77,14 +71,16 @@ public class FinalBoss extends Level3State{
 
 	protected void drawMeatball() {
 		Graphics2D g2d = getGraphics2D();
-		if((meatball.getX() + meatball.getWidth() >  0)) {
-			meatball.translate(-meatball.getSpeed(), 0);
-			getNewGraphicsManager().drawMeatball(meatball, g2d, this);
-		}
-		else {
-			meatball.setLocation((int) (this.getWidth() - meatball.getPixelsWide() - 100),
-					rand.nextInt(Boss.HEIGHT) + (int)(this.getHeight() - Boss.HEIGHT - Meatball.HEIGHT));
-			NewSoundManager.playMeatballSound();
+		if(!isBossDefeated()) {
+			if((meatball.getX() + meatball.getWidth() >  0)) {
+				meatball.translate(-meatball.getSpeed(), 0);
+				getNewGraphicsManager().drawMeatball(meatball, g2d, this);
+			}
+			else {
+				meatball.setLocation((int) (this.getWidth() - meatball.getPixelsWide() - 100),
+						rand.nextInt(Boss.HEIGHT) + (int)(this.getHeight() - Boss.HEIGHT - Meatball.HEIGHT));
+				NewSoundManager.playMeatballSound();
+			}
 		}
 	}
 
@@ -130,6 +126,10 @@ public class FinalBoss extends Level3State{
 		if (isBossDefeated()) {
 			Graphics2D g2d = getGraphics2D();
 			getNewGraphicsManager().drawAsteroidExplosion(deathExplosion, g2d, this);
+			if(boss.y > getHeight()) {
+				levelAsteroidsDestroyed++;
+				NewSoundManager.playDeathSound();
+			}
 			if(rand.nextInt(Boss.WIDTH) + boss.x < this.getWidth() &&
 					rand.nextInt(Boss.HEIGHT) + boss.y < 480)
 				deathExplosion.setLocation(rand.nextInt(Boss.WIDTH) + ((int) (this.getWidth() - Boss.WIDTH)),
@@ -153,7 +153,6 @@ public class FinalBoss extends Level3State{
 		deathExplosion = new Asteroid(xPos, yPos);
 		return deathExplosion;
 	}
-
 
 	@Override
 	public NewMegaMan newMegaMan() {
@@ -236,7 +235,7 @@ public class FinalBoss extends Level3State{
 				// remove big bullet
 				bigBullets.remove(i);
 				if(meatBallLife <= 0) {
-					status.setAsteroidsDestroyed(status.getAsteroidsDestroyed() + 100);
+					status.setAsteroidsDestroyed(status.getAsteroidsDestroyed() + 200);
 					removeMeatBall(meatball);
 					meatBallLife = 3;
 					break;
@@ -254,7 +253,7 @@ public class FinalBoss extends Level3State{
 				// remove big bullet
 				bigBulletsLeft.remove(i);
 				if(meatBallLife <= 0) {
-					status.setAsteroidsDestroyed(status.getAsteroidsDestroyed() + 100);
+					status.setAsteroidsDestroyed(status.getAsteroidsDestroyed() + 200);
 					removeMeatBall(meatball);
 					meatBallLife = 3;
 					break;
@@ -267,39 +266,44 @@ public class FinalBoss extends Level3State{
 		GameStatus status = getGameStatus();
 		if(boss.intersects(megaMan)) {
 			status.setLivesLeft(status.getLivesLeft() - 1);
+			newMegaMan();
 		}
 	}
 
 	protected void checkBulletBossCollisions() {
 		GameStatus status = getGameStatus();
-		for(int i = 0; i < bullets.size(); i++) {
-			Bullet bullet = bullets.get(i);
-			if(boss.intersects(bullet)) {
-				NewSoundManager.playGotHitSound();
-				// increase boss hits count
-				bullets.remove(i);
-				bossLife--;
-				if(bossLife <= 0) {
-					status.setAsteroidsDestroyed(status.getAsteroidsDestroyed() + 5000);
+		if(!isBossDefeated()) {
+			for(int i = 0; i < bullets.size(); i++) {
+				Bullet bullet = bullets.get(i);
+				if(boss.intersects(bullet)) {
+					NewSoundManager.playGotHitSound();
+					// increase boss hits count
+					bullets.remove(i);
+					bossLife--;
+					if(bossLife <= 0) {
+						status.setAsteroidsDestroyed(status.getAsteroidsDestroyed() + 5000);
+					}
+					break;
 				}
-				break;
 			}
 		}
 	}
 
 	protected void checkBigBulletBossCollisions() {
 		GameStatus status = getGameStatus();
-		for(int i = 0; i < bigBullets.size(); i++) {
-			BigBullet bigBullet = bigBullets.get(i);
-			if(boss.intersects(bigBullet)) {
-				NewSoundManager.playGotHitSound();
-				// increase boss hits count
-				bigBullets.remove(i);
-				bossLife -= 5;
-				if(bossLife <= 0) {
-					status.setAsteroidsDestroyed(status.getAsteroidsDestroyed() + 5000);
+		if(!isBossDefeated()) {
+			for(int i = 0; i < bigBullets.size(); i++) {
+				BigBullet bigBullet = bigBullets.get(i);
+				if(boss.intersects(bigBullet)) {
+					NewSoundManager.playGotHitSound();
+					// increase boss hits count
+					bigBullets.remove(i);
+					bossLife -= 5;
+					if(bossLife <= 0) {
+						status.setAsteroidsDestroyed(status.getAsteroidsDestroyed() + 5000);
+					}
+					break;
 				}
-				break;
 			}
 		}
 	}
@@ -307,8 +311,6 @@ public class FinalBoss extends Level3State{
 	public void removeMeatBall(Meatball meatball) {
 		// "remove" meatball
 		meatball.setLocation(-meatball.getPixelsWide(), -meatball.getPixelsTall());
-		// play asteroid explosion sound
-		//this.getNewSoundManager().playAsteroidExplosionSound();
 	}
 	
 	@Override

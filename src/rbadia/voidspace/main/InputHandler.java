@@ -219,9 +219,4 @@ public class InputHandler implements KeyListener {
 	public void keyTyped(KeyEvent e) {
 		// not used
 	}
-
-//	public boolean getSpace() {
-//		return spaceIsPressed;
-//	}
-
 }

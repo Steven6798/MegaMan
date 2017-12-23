@@ -273,10 +273,6 @@ public class NewLevelLogic extends LevelLogic {
 			}
 			break;
 
-		case NewLevelState.NEW_MEGAMAN:
-			// TODO Verify that this state is activated when MegaMan dies
-			break;
-
 		case NewLevelState.GAME_OVER_SCREEN:
 			newLevelState.doGameOverScreen();
 			newLevelState.setCurrentState(NewLevelState.GAME_OVER);
@@ -309,10 +305,12 @@ public class NewLevelLogic extends LevelLogic {
 			JOptionPane.showMessageDialog( null, 
 					"Power Up:     Explanation\r\n"+
 							"\r\n"+
-							"Extra Life:      Gives an extra life (One Extra Life per second)\r\n"+ 
-							"                           (Press E to buy, limit of one life per second.)\r\n" +
-							"Power Shot:  Activates the Power Shot which kills the asteroid in one hit\r\n"+
-					"                           (Press Q to buy, afterwards press Q to fire.)\r\n");
+							"Extra Life: Gives an extra life (One Extra Life per second)\r\n"+ 
+							"                    (Press E to buy, limit of one life per second.)\r\n" +
+							"Power Shot: Activates the Power Shot which kills the asteroid in one hit\r\n"+
+					        "                    (Press Q to buy, afterwards press Q to fire.)\r\n"+
+							"Megaman Boost: Activates the Megaman boost to move faster.\r\n"+
+							"                    (Press x to activate, afterwards press z to deactivate.)\r\n");
 		}
 		ih.reset();
 	}

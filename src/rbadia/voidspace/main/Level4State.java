@@ -42,7 +42,7 @@ public class Level4State extends Level3State {
 		newBigPlatforms(getNumBigPlatforms());
 		newBigAsteroid(this);
 		setDestroyText("Destroy " + String.valueOf(asteroidsToDestroy) + " asteroids");
-		setLevelMusic(new File("audio/Arcade Music.wav"));
+		setLevelMusic(new File("audio/Brave worm.wav"));
 	}
 	
 	@Override
