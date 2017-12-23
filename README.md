@@ -1,6 +1,8 @@
 # Project 1 - Definitely Not Megaman
 	Small project description	
-
+	
+		This program is the branching development of a prototype project given to us to work 		on. The game takes a light-hearted tone and is made to be a fun experience, but can be 		difficult to some people in later levels. It is not so much a monotone experience as 		it is a blend of the creativity of the two programmers. See if you can discern who did 		what.
+	
 	Estimated Time spent: 50 Hours.
 
 ## Team Name: DefinitelyNotMegaBoy
@@ -8,18 +10,18 @@
 ## Team Members: 
 
 	1. <Steven A. Ramírez Rosa> (Steven6798) - <Steven.ramirez3@upr.edu>
-	2. <Full Name> (<GitHubUsername>) - <UPRMEmail>
+	2. <Jaime G. Torrens Lugo> (Chief1964) - <jaime.torrens@hotmail.com>
 
 ## The following **required** functionality is implemented:
 
-- [x] This is a functionality is implemented.
+- [x] This is a functionality that is implemented.
 	  Skip the level with the N key.
 	  Multiples asteroids appear on the screen.
 	  Asteroids appear from random locations.
 	  Asteroids move with random speed and trajectory.
-	  Platforms are place in different locations.
-	  Every level have his own background.
-	  There is a boss that fires to MegaMan.
+	  Platforms are placed in different locations.
+	  Every level has its own background.
+	  There is a boss that fires at MegaMan.
 	  MegaMan moves and fire to the left and right.
 	  Stop the music with the M key.
 
@@ -27,17 +29,18 @@
 
 
 - [x] An implemented feature.
-	  Every level have his own music
-	  MegaMan can speed up and down.
+	  Every level have its own music.
+	  MegaMan can speed up and slow down.
 
 - [ ] A planned unimplemented feature.
 
 ## Notes
 
-	What was your project's biggest challenge? Our project biggest challenge was to decide the best algorithms for the logic problems.
+	What was your project's biggest challenge? 
+		Our project's biggest challenge was to decide the best algorithms for the logic 		problems. It was also difficult to learn how the methods and classes intertwined so we 		could create new things from them.
 	
-    What was your favorite part of the project? Our favorite part of the project was learning how to work on multiples classes at the same time and to control
-    													  an object with keys.
+    What was your favorite part of the project?
+    	Our favorite part of the project was learning how to work on multiples classes at the 		same time and to control an object with keys. It was also fun to create some of the 		more comical elements in the levels and seeing it work.
 
 ## License
 
