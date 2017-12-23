@@ -15,8 +15,6 @@ public class NewSoundManager extends SoundManager{
     "/rbadia/voidspace/sounds/Toasters.wav"));
     private static AudioClip deathExplosionSound = Applet.newAudioClip(Level1State.class.getResource(
     	    "/rbadia/voidspace/sounds/shipExplosion.wav"));
-    private static AudioClip noSound = Applet.newAudioClip(Level1State.class.getResource(
-    		"/rbadia/voidspace/sounds/NO.wav"));
     private static AudioClip deathSound = Applet.newAudioClip(Level1State.class.getResource(
     		"/rbadia/voidspace/sounds/DeathYelp.wav"));
     private static AudioClip gotHitSound = Applet.newAudioClip(Level1State.class.getResource(
@@ -50,16 +48,6 @@ public class NewSoundManager extends SoundManager{
     				deathExplosionSound.play();
     			}
     		}).start();	
-    	}
-    }
-    
-    public static void playNoSound() {
-    	if(SOUND_ON) {
-    		new Thread (new Runnable() {
-    			public void run() {
-    				noSound.play();
-    			}
-    		}).start();
     	}
     }
     
