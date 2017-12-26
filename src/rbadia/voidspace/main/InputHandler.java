@@ -16,6 +16,7 @@ public class InputHandler implements KeyListener {
 	private boolean xIsPressed; // boost megaman
 	private boolean eIsPressed; // extra live
 	private boolean qIsPressed; // power shot
+	private boolean wIsPressed; // heat-seeking missile
 	private boolean mIsPressed; // pause music
 	private boolean nIsPressed; // level skip
 	private boolean sIsPressed; // shop
@@ -23,7 +24,6 @@ public class InputHandler implements KeyListener {
 
 	private LevelState levelState;
 	private NewLevelState newLevelState;
-	//private GameScreen gScreen;
 
 	public LevelState getLevelState() {
 		return levelState;
@@ -56,6 +56,7 @@ public class InputHandler implements KeyListener {
 		xIsPressed = false;
 		eIsPressed = false;
 		qIsPressed = false;
+		wIsPressed = false;
 		mIsPressed = false;
 		nIsPressed = false;
 		sIsPressed = false;
@@ -96,6 +97,10 @@ public class InputHandler implements KeyListener {
 
 	public boolean isQPressed() {
 		return qIsPressed;
+	}
+	
+	public boolean isWPressed() {
+		return wIsPressed;
 	}
 
 	public boolean isMPressed() {
@@ -149,6 +154,9 @@ public class InputHandler implements KeyListener {
 		case KeyEvent.VK_Q:
 			this.qIsPressed= true;
 			break;
+		case KeyEvent.VK_W:
+			this.wIsPressed= true;
+			break;
 		case KeyEvent.VK_M:
 			if(!mIsPressed) {
 				this.getNewLevelState().pauseMusic();
@@ -199,6 +207,9 @@ public class InputHandler implements KeyListener {
 			break;
 		case KeyEvent.VK_Q:
 			this.qIsPressed = false;
+			break;
+		case KeyEvent.VK_W:
+			this.wIsPressed = false;
 			break;
 		case KeyEvent.VK_M:
 			this.mIsPressed = false;

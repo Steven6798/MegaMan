@@ -76,7 +76,6 @@ public class NewLevelLogic extends LevelLogic {
 
 		String youWinStr = "Level " + newLevelState.getLevel() + " Completed";
 
-		//Font currentFont = biggestFont == null? bigFont : biggestFont;
 		Font currentFont = originalFont;
 		float fontSize = currentFont.getSize2D();
 		bigFont = currentFont.deriveFont(fontSize + 5).deriveFont(Font.BOLD);

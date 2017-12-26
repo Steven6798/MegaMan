@@ -51,43 +51,12 @@ public class Level3State extends NewLevel2State {
 		setLevelMusic(new File("audio/Galactic chase.wav"));
 	}
 	
-	@Override //Original method copy-pasted to fix layering issues
+	@Override
 	public void updateScreen() {
-		Graphics2D g2d = getGraphics2D();
-		GameStatus status = this.getGameStatus();
-
-		// save original font - for later use
-		if(this.originalFont == null){
-			this.originalFont = g2d.getFont();
-			this.bigFont = originalFont;
-		}
-
-		clearScreen();			//every draw goes above the previous one
-		drawBackground();
-		drawFloor();
-		drawPlatforms();
-		drawBigPlatforms();		//BigPlatforms placed under MegaMan
-		drawMegaMan();
-		drawAsteroid();
-		drawBullets();
-		drawBulletsLeft();
-		drawBigBullets();
-		drawBigBulletsLeft();
-		checkBulletAsteroidCollisions();
-		checkBulletLeftAsteroidCollisions();
-		checkBigBulletAsteroidCollisions();
-		checkBigBulletLeftAsteroidCollisions();
-		checkMegaManAsteroidCollisions();
-		checkAsteroidFloorCollisions();
-
-		// update asteroids destroyed (score) label  
-		getNewMainFrame().getDestroyedValueLabel().setText(Long.toString(status.getAsteroidsDestroyed()));
-		// update lives left label
-		getNewMainFrame().getLivesValueLabel().setText(Integer.toString(status.getLivesLeft()));
-		// update level label
-		getNewMainFrame().getLevelValueLabel().setText(Long.toString(status.getLevel()));
+		super.updateScreen();
+		drawBigPlatforms();
 	}
-
+	
 	@Override
 	protected void drawAsteroid() {
 		Graphics2D g2d = getGraphics2D();
@@ -131,10 +100,10 @@ public class Level3State extends NewLevel2State {
 	 * @param bigPlatform the big platform to move.
 	 */
 	public void moveBigPlatform(BigPlatform bigPlatform) {
-		if(bigPlatform.getX() == 0) {
+		if(bigPlatform.getX() <= 0) {
 			platformDirection = 1;
 		}
-		if(bigPlatform.getMaxX() == getWidth()) {
+		if(bigPlatform.getMaxX() >= getWidth()) {
 			platformDirection = -1;
 		}
 		bigPlatform.translate(platformDirection, 0);
@@ -146,15 +115,6 @@ public class Level3State extends NewLevel2State {
 		for(int i = 0; i < getNumBigPlatforms(); i++) {
 			getNewGraphicsManager().drawBigPlatform(bigPlatforms[i], g2d, this, i);
 			moveBigPlatform(bigPlatforms[i]);
-		}
-	}
-	
-	@Override
-	protected void drawPlatforms() {
-		//draw platforms
-		Graphics2D g2d = getGraphics2D();
-		for(int i = 0; i < getNumPlatforms(); i++) {
-			getNewGraphicsManager().drawPlatform(platforms[i], g2d, this, i);
 		}
 	}
 	
@@ -180,11 +140,5 @@ public class Level3State extends NewLevel2State {
 			}
 		}
 		return true;
-	}
-	
-	@Override
-	public void drawBackground() {
-		Graphics2D g2d = getGraphics2D();
-		getNewGraphicsManager().drawBackground3(g2d, this);
 	}
 }

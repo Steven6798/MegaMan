@@ -68,10 +68,4 @@ public class NewLevel2State extends NewLevel1State {
 		}
 		return platforms;
 	}
-	
-	@Override
-	public void drawBackground() {
-		Graphics2D g2d = getGraphics2D();
-		getNewGraphicsManager().drawBackground2(g2d, this);
-	}
 }

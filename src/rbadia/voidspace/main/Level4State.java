@@ -47,46 +47,14 @@ public class Level4State extends Level3State {
 	
 	@Override
 	public void updateScreen() {
-		Graphics2D g2d = getGraphics2D();
-		GameStatus status = this.getGameStatus();
-
-		// save original font - for later use
-		if(this.originalFont == null){
-			this.originalFont = g2d.getFont();
-			this.bigFont = originalFont;
-		}
-
-		clearScreen();			//every draw goes above the previous one
-		drawBackground();
-		drawFloor();
-		drawPlatforms();
-		drawBigPlatforms();
-		drawMegaMan();
-		drawAsteroid();
-		drawBigAsteroid();		//BigAsteroid placed over platforms, megaman, asteroid, under bullets
-		drawBullets();
-		drawBulletsLeft();
-		drawBigBullets();
-		drawBigBulletsLeft();
-		checkBulletAsteroidCollisions();
-		checkBulletLeftAsteroidCollisions();
-		checkBigBulletAsteroidCollisions();
-		checkBigBulletLeftAsteroidCollisions();
-		checkMegaManAsteroidCollisions();
-		checkAsteroidFloorCollisions();
-		checkBigAsteroidFloorCollisions();
+		super.updateScreen();
+		drawBigAsteroid();
 		checkBulletBigAsteroidCollisions();
 		checkBulletLeftBigAsteroidCollisions();
 		checkBigBulletBigAsteroidCollisions();
 		checkBigBulletLeftBigAsteroidCollisions();
 		checkMegaManBigAsteroidCollisions();
-
-		// update asteroids destroyed (score) label  
-		getNewMainFrame().getDestroyedValueLabel().setText(Long.toString(status.getAsteroidsDestroyed()));
-		// update lives left label
-		getNewMainFrame().getLivesValueLabel().setText(Integer.toString(status.getLivesLeft()));
-		// update level label
-		getNewMainFrame().getLevelValueLabel().setText(Long.toString(status.getLevel()));
+		checkBigAsteroidFloorCollisions();
 	}
 
 	public BigAsteroid newBigAsteroid(NewLevel1State screen) {
@@ -166,12 +134,6 @@ public class Level4State extends Level3State {
 				platformDirection *= -1;
 			}
 		}
-	}
-	
-	@Override
-	public void drawBackground() {
-		Graphics2D g2d = getGraphics2D();
-		getNewGraphicsManager().drawBackground4(g2d, this);
 	}
 	
 	protected void checkBigAsteroidFloorCollisions() {
@@ -279,5 +241,4 @@ public class Level4State extends Level3State {
 		// play asteroid explosion sound
 		this.getNewSoundManager().playAsteroidExplosionSound();
 	}
-	
 }

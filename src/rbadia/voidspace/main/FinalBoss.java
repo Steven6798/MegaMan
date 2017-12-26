@@ -14,6 +14,7 @@ import rbadia.voidspace.model.Platform;
 import rbadia.voidspace.sounds.NewSoundManager;
 
 public class FinalBoss extends Level3State{
+	
 	private static final long serialVersionUID = 1L;
 
 	protected Meatball meatball;
@@ -89,7 +90,7 @@ public class FinalBoss extends Level3State{
 		//draw platforms
 		Graphics2D g2d = getGraphics2D();
 		for(int i = 0; i < getNumPlatforms(); i++) {
-			getNewGraphicsManager().drawPlatformBlack(platforms[i], g2d, this, i);
+			getNewGraphicsManager().drawPlatform(platforms[i], g2d, this, i);
 		}
 	}
 	
@@ -311,11 +312,5 @@ public class FinalBoss extends Level3State{
 	public void removeMeatBall(Meatball meatball) {
 		// "remove" meatball
 		meatball.setLocation(-meatball.getPixelsWide(), -meatball.getPixelsTall());
-	}
-	
-	@Override
-	public void drawBackground() {
-		Graphics2D g2d = getGraphics2D();
-		getNewGraphicsManager().drawBackgroundFB(g2d, this);
 	}
 }

@@ -10,7 +10,7 @@ import rbadia.voidspace.model.BigPlatform;
 import rbadia.voidspace.sounds.NewSoundManager;
 
 public class Level5State extends Level4State {
-	protected int translation = 1;
+	
 	protected int bigAsteroidDirection = 1;
 	private static final long serialVersionUID = 1L;
 
@@ -30,6 +30,7 @@ public class Level5State extends Level4State {
 		newBigPlatforms(getNumBigPlatforms());
 		setDestroyText("Destroy " + String.valueOf(asteroidsToDestroy) + " asteroids");
 		setLevelMusic(new File("audio/Mecha world.wav"));
+		platformDirection = 1;
 	}
 	
 	@Override
@@ -156,31 +157,14 @@ public class Level5State extends Level4State {
 		//draw platforms
 		Graphics2D g2d = getGraphics2D();
 		for(int i = 0; i < getNumBigPlatforms(); i++) {
-			getNewGraphicsManager().drawBigPlatformBlack(bigPlatforms[i], g2d, this, i);
+			getNewGraphicsManager().drawBigPlatform(bigPlatforms[i], g2d, this, i);
 			if(i % 4 == 2) {
 				moveBigPlatform(bigPlatforms[i]);
-				translation *= -1;
+				platformDirection *= -1;
 			}
 			else if (i % 4 == 0) {
 				moveBigPlatform(bigPlatforms[i]);
 			}
 		}
-	}
-
-	@Override
-	public void moveBigPlatform(BigPlatform bigPlatform) {
-		if(bigPlatform.getX() <= 0) {
-			translation = 1;
-		}
-		if(bigPlatform.getMaxX() >= getWidth()) {
-			translation = -1;
-		}
-		bigPlatform.translate(translation, 0);
-	}
-	
-	@Override
-	public void drawBackground() {
-		Graphics2D g2d = getGraphics2D();
-		getNewGraphicsManager().drawBackground5(g2d, this);
 	}
 }

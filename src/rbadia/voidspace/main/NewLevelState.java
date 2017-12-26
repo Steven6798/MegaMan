@@ -65,11 +65,7 @@ public abstract class NewLevelState extends JPanel {
 	public abstract void doGameOverScreen();
 	public abstract void doGameOver();
 	public abstract void doLevelWon();
-
 	public abstract boolean isLevelWon();
-	
-	public abstract void pauseMusic();
-	public abstract void skipLevel();
 	
 	// Game Actions in response to user controls
 	public abstract void fireBullet();
@@ -80,5 +76,6 @@ public abstract class NewLevelState extends JPanel {
 	public abstract void moveMegaManRight();
 	public abstract void speedUpMegaMan();
 	public abstract void slowDownMegaMan();
-
+	public abstract void pauseMusic();
+	public abstract void skipLevel();
 }

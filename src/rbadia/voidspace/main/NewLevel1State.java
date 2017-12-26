@@ -44,7 +44,6 @@ public class NewLevel1State extends NewLevelState {
 	protected int numPlatforms = 8;
 	protected Platform[] platforms;
 
-	protected int damage = 0;
 	protected static final int NEW_MEGAMAN_DELAY = 500;
 	protected static final int NEW_ASTEROID_DELAY = 500;
 
@@ -238,7 +237,7 @@ public class NewLevel1State extends NewLevelState {
 		}
 
 		clearScreen();
-		drawBackground();
+		drawStars(50);
 		drawFloor();
 		drawPlatforms();
 		drawMegaMan();
@@ -444,7 +443,7 @@ public class NewLevel1State extends NewLevelState {
 				getNewGraphicsManager().drawMegaManL(megaMan, g2d, this);
 			}
 			else {
-				getNewGraphicsManager().drawMegaMan(megaMan, g2d, this);
+				getNewGraphicsManager().drawMegaManR(megaMan, g2d, this);
 			}
 		}
 	}
@@ -453,7 +452,7 @@ public class NewLevel1State extends NewLevelState {
 		//draw platforms
 		Graphics2D g2d = getGraphics2D();
 		for(int i = 0; i < getNumPlatforms(); i++) {
-			getNewGraphicsManager().drawPlatformBlack(platforms[i], g2d, this, i);
+			getNewGraphicsManager().drawPlatform(platforms[i], g2d, this, i);
 		}
 	}
 
@@ -464,11 +463,6 @@ public class NewLevel1State extends NewLevelState {
 			getNewGraphicsManager().drawFloor(floor[i], g2d, this, i);	
 		}
 	}
-	
-	protected void drawBackground() {
-		Graphics2D g2d = getGraphics2D();
-		getNewGraphicsManager().drawBackground1(g2d, this);
-	}
 
 	protected void clearScreen() {
 		// clear screen
@@ -477,6 +471,20 @@ public class NewLevel1State extends NewLevelState {
 		g2d.fillRect(0, 0, getSize().width, getSize().height);
 	}
 
+	/**
+	 * Draws the specified number of stars randomly on the game screen.
+	 * @param numberOfStars the number of stars to draw
+	 */
+	protected void drawStars(int numberOfStars) {
+		Graphics2D g2d = getGraphics2D();
+		g2d.setColor(Color.WHITE);
+		for(int i=0; i<numberOfStars; i++){
+			int x = (int)(Math.random() * this.getWidth());
+			int y = (int)(Math.random() * this.getHeight());
+			g2d.drawLine(x, y, x, y);
+		}
+	}
+	
 	@Override
 	public boolean isLevelWon() {
 		return levelAsteroidsDestroyed >= asteroidsToDestroy;
